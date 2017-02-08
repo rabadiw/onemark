@@ -1,0 +1,35 @@
+{
+  "name": "onemark",
+  "version": "1.0.0",
+  "description": "Onemark all your internet bookmarks to track and manage outside of the browser",
+  "main": "app/main.js",
+  "author": {
+    "name": "Wael Rabadi",
+    "url": "https://github.com/rabadiw/onemark"
+  },
+  "license": "Apache-2.0",
+  "private": true,
+  "homepage": "https://github.com/rabadiw/onemark#readme",
+  "build": {
+    "appId": "com.rabadiw.${name}",
+    "category": "public.app-category.productivity",
+    "win": {
+      "iconUrl": "https://github.com/rabadiw/master/resources/windows/icon.ico"
+    }
+  },
+  "devDependencies": {
+    "electron": "1.4.15",
+    "electron-builder": "13.0.0",
+    "electron-packager": "8.5.1"
+  },
+  "dependencies": {},
+  "devEngines": {
+    "node": ">=6.x",
+    "npm": ">=3.x"
+  },
+  "scripts": {
+    "start": "electron ./app",
+    "pack": "build --dir --win --x64",
+    "dist": "build"
+  }
+}

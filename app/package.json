@@ -1,0 +1,10 @@
+{
+  "name": "onemark",
+  "version": "1.0.0",
+  "license": "Apache-2.0",
+  "description": "Onemark all your internet bookmarks to track and manage outside of the browser",
+  "author": "Wael Rabadi <wael@mwrabadi.com>",
+  "private": true,
+  "main": "./main.js",
+  "dependencies": {}
+}
