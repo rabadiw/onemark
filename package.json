@@ -1,6 +1,6 @@
 {
   "name": "onemark",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Onemark all your internet bookmarks to track and manage outside of the browser",
   "main": "app/main.js",
   "author": {
@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "electron": "1.4.15",
-    "electron-builder": "13.0.0",
+    "electron-builder": "13.9.0",
     "electron-packager": "8.5.1"
   },
   "dependencies": {},
