@@ -1,8 +1,13 @@
 const path = require("path");
 
+const resolveRoot = (...relativePath) => {
+    return path.resolve(__dirname, "..", ...relativePath);
+}
+
 const app = {
     isProduction: true,
-    rootIndex: `file://${path.resolve("app","www","index.html")}` //`file://${__dirname}/www/index.html`
+    iconPath: `${resolveRoot("www", "assets", "favicon.ico")}`,
+    rootIndex: `file://${resolveRoot("www", "index.html")}` 
 }
 
 exports.app = app

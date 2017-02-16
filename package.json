@@ -14,7 +14,7 @@
     "appId": "com.rabadiw.${name}",
     "category": "public.app-category.productivity",
     "win": {
-      "iconUrl": "https://github.com/rabadiw/master/resources/windows/icon.ico"
+      "iconUrl": "https://raw.githubusercontent.com/rabadiw/onemark/develop/resources/icon.ico"
     }
   },
   "devDependencies": {

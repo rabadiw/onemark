@@ -43,7 +43,7 @@ const handleStartupEvent = function () {
 
 function createWindow() {
     // Create the browser window.
-    mainWindow = new BrowserWindow({ width: 800, height: 600 });
+    mainWindow = new BrowserWindow({ width: 800, height: 600, icon: config.app.iconPath });
     // and load the index.html of the app.
     // if (process.env.NODE_ENV === "production") {
     mainWindow.loadURL(config.app.rootIndex);
