@@ -1,6 +1,6 @@
 "use strict";
-const electron = require("electron");
-const config = require("./config/settings.js")
+const {app, shell, dialog, Menu, nativeImage} = require("electron");
+const config = require("./config/settings.js");
 const template = [
     {
         label: 'View',
@@ -49,11 +49,30 @@ const template = [
         submenu: [
             {
                 label: 'Learn More',
-                click() { require('electron').shell.openExternal('https://github.com/rabadiw/onemark#readme'); }
+                click: () => { shell.openExternal('https://github.com/rabadiw/onemark#readme'); }
             },
             {
                 label: 'Electron',
-                click() { require('electron').shell.openExternal('http://electron.atom.io'); }
+                click: () => { shell.openExternal('http://electron.atom.io'); }
+            },
+            {
+                type: 'separator'
+            },
+            {
+                label: 'About',
+                click: () => {
+                    dialog.showMessageBox({
+                        type: "info",
+                        title: app.getName(),
+                        message:
+                        `${app.getName()} 
+
+Version: ${app.getVersion()}
+Chrome: ${process.versions.chrome}
+Node: ${process.versions.node}
+Shell: ${process.versions.electron}`
+                    })
+                }
             }
         ]
     },
@@ -118,6 +137,5 @@ if (process.platform === 'darwin') {
         }
     ];
 }
-const Menu = electron.Menu;
 const appMenu = Menu.buildFromTemplate(template);
 Menu.setApplicationMenu(appMenu);

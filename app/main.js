@@ -1,10 +1,11 @@
+// Copyright (c) Wael Rabadi
+// See LICENSE for details.
+
 "use strict";
-const electron = require("electron");
+const {app, BrowserWindow} = require("electron");
 const config = require('./config/settings')
-// Module to control application life.
-const app = electron.app;
-// Module to create native browser window.
-const BrowserWindow = electron.BrowserWindow;
+const log = require('electron-log');
+const {autoUpdater} = require("electron-updater");
 
 // Keep a global reference of the window object, if you don"t, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -44,13 +45,8 @@ const handleStartupEvent = function () {
 function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({ width: 800, height: 600, icon: config.app.iconPath });
-    // and load the index.html of the app.
-    // if (process.env.NODE_ENV === "production") {
     mainWindow.loadURL(config.app.rootIndex);
-    // } else {
-    //  mainWindow.loadURL(`http://localhost:3000`)
-    // }
-    // Open the DevTools.
+    // Open the DevTools
     if (!config.app.isProduction) {
         mainWindow.webContents.openDevTools();
     }
@@ -98,3 +94,45 @@ app.on("activate", onActivate);
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 const menu = require('./app-menu');
+
+
+
+
+function sendStatus(text) {
+    log.info(text);
+    mainWindow.webContents.send('message', text);
+}
+
+//-------------------------------------------------------------------
+// Auto updates
+//
+// For details about these events, see the Wiki:
+// https://github.com/electron-userland/electron-builder/wiki/Auto-Update#events
+//-------------------------------------------------------------------
+autoUpdater.on('checking-for-update', () => {
+    sendStatus('Checking for update...');
+})
+autoUpdater.on('update-available', (ev, info) => {
+    sendStatus('Update available.');
+})
+autoUpdater.on('update-not-available', (ev, info) => {
+    sendStatus('Update not available.');
+})
+autoUpdater.on('error', (ev, err) => {
+    sendStatus('Error in auto-updater.');
+})
+autoUpdater.on('download-progress', (ev, progressObj) => {
+    sendStatus('Download progress...');
+    log.info('progressObj', progressObj);
+})
+autoUpdater.on('update-downloaded', (ev, info) => {
+    sendStatus('Update downloaded.  Will quit and install in 5 seconds.');
+    // Wait 5 seconds, then quit and install
+    setTimeout(function () {
+        autoUpdater.quitAndInstall();
+    }, 5000)
+})
+// Wait a second for the window to exist before checking for updates.
+setTimeout(function () {
+    autoUpdater.checkForUpdates()
+}, 1000);
