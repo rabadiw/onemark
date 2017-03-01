@@ -2,33 +2,31 @@
 // See LICENSE for details.
 
 "use strict";
-const {uncaughtExceptionHandler, OnemarkApp} = require("./appController");
-const {startup} = require("./startup");
+const {uncaughtExceptionHandler, OnemarkApp} = require("./appController")
+const {startup} = require("./startup")
 
 const useApi = (args, next) => {
-    console.log("OnemarkApi");
-    const startupApi = (args) => { return args.indexOf("--run-api") !== -1 };
+    const startupApi = (args) => { return args.indexOf("--run-api") !== -1 }
     if (startupApi(args)) {
-        require("./api/index");
+        require("./api/index")
     } else {
-        next();
+        next()
     }
-};
-
-const useApp = (args, next) => {
-    console.log("OnemarkApp");
-    const app = new OnemarkApp();
-};
-
-const useDefault = (args, next) => {
-    console.log("No app to start.");
 }
 
-// app init logic, i.e. uncaughtException
-uncaughtExceptionHandler();
+const useApp = (args, next) => {
+    const app = new OnemarkApp()
+}
 
+// handle uncaught exceptions
+uncaughtExceptionHandler()
+
+// build startup 
+// different startup options
+//   -- api
+//   -- app
+//   -- squirell (maybe)
 startup()
     .use(useApi)
     .use(useApp)
-    .use(useDefault)
-    .start(process.argv);
+    .start(process.argv)

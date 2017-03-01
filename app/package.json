@@ -1,11 +1,13 @@
 {
-  "name": "Onemark",
-  "version": "1.0.1-alpha",
-  "license": "Apache-2.0",
-  "description": "Onemark all your internet bookmarks to track and manage outside of the browser",
   "author": "Wael Rabadi <wael@mwrabadi.com>",
-  "private": true,
+  "description": "Onemark all your internet bookmarks to track and manage outside of the browser",
+  "homepage": "https://github.com/rabadiw/onemark",
+  "license": "Apache-2.0",
   "main": "./main.js",
+  "name": "onemark",
+  "private": true,
+  "productName": "Onemark",
+  "version": "1.0.1-alpha",
   "dependencies": {
     "body-parser": "1.16.1",
     "electron-log": "1.3.0",
