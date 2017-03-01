@@ -1,13 +1,20 @@
 const path = require("path");
+const url = require('url')
 
 const resolveRoot = (...relativePath) => {
     return path.resolve(__dirname, "..", ...relativePath);
 }
 
-const app = {
-    isProduction: true,
+const isDevMode = () => { return (process.argv || []).indexOf('--dev') !== -1; }
+
+const settings = {
+    isProduction: !isDevMode(),
     iconPath: `${resolveRoot("www", "assets", "favicon.ico")}`,
-    rootIndex: `file://${resolveRoot("www", "index.html")}` 
+    rootIndexUrl: url.format({
+        pathname: resolveRoot("www", "index.html"),
+        protocol: 'file:',
+        slashes: true
+    })
 }
 
-exports.app = app
+exports.appSettings = settings

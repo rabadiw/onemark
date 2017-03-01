@@ -19,6 +19,7 @@
       "target": "nsis"
     },
     "nsis": {
+      "oneClick": true,
       "artifactName": "${productName}-Setup-${version}-${arch}.${ext}",
       "unicode": true
     },
@@ -32,8 +33,8 @@
   },
   "devDependencies": {
     "electron": "1.4.15",
-    "electron-builder": "13.9.0",
-    "electron-packager": "8.5.1"
+    "electron-builder": "14.5.2",
+    "electron-packager": "8.5.2"
   },
   "devEngines": {
     "node": ">=6.x",
@@ -41,7 +42,7 @@
   },
   "scripts": {
     "postinstall": "install-app-deps",
-    "start": "electron ./app",
+    "start": "electron ./app --dev",
     "pack": "build --dir --win --x64",
     "dist": "build",
     "release": "build --publish always",

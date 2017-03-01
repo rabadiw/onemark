@@ -1,6 +1,10 @@
+// Copyright (c) Wael Rabadi
+// See LICENSE for details.
+
 "use strict";
-const {app, shell, dialog, Menu, nativeImage} = require("electron");
-const config = require("./config/settings.js");
+const {app, shell, dialog} = require("electron");
+const {appSettings} = require("./config/settings.js");
+
 const template = [
     {
         label: 'View',
@@ -10,7 +14,7 @@ const template = [
                 accelerator: 'CmdOrCtrl+N',
                 click(item, focusedWindow) {
                     if (focusedWindow) {
-                        focusedWindow.loadURL(config.app.rootIndex);
+                        focusedWindow.loadURL(appSettings.rootIndexUrl);
                     }
                 }
             },
@@ -70,7 +74,9 @@ const template = [
 Version: ${app.getVersion()}
 Chrome: ${process.versions.chrome}
 Node: ${process.versions.node}
-Shell: ${process.versions.electron}`
+Shell: ${process.versions.electron}
+Process ID: ${process.pid}
+`
                     })
                 }
             }
@@ -137,5 +143,8 @@ if (process.platform === 'darwin') {
         }
     ];
 }
-const appMenu = Menu.buildFromTemplate(template);
-Menu.setApplicationMenu(appMenu);
+
+module.exports = template
+
+// const appMenu = Menu.buildFromTemplate(template);
+// Menu.setApplicationMenu(appMenu);
