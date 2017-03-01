@@ -43,6 +43,7 @@
   "scripts": {
     "postinstall": "install-app-deps",
     "start": "electron ./app --dev",
+    "start:api": "electron ./app --dev --run-api",
     "pack": "build --dir --win --x64",
     "dist": "build",
     "release": "build --publish always",
