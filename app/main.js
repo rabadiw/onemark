@@ -2,7 +2,7 @@
 // See LICENSE for details.
 
 "use strict";
-const {uncaughtExceptionHandler, OnemarkApp} = require("./appController")
+const {uncaughtExceptionHandler, OnemarkApp} = require("./OnemarkApp")
 const {startup} = require("./startup")
 
 const useApi = (args, next) => {
@@ -15,7 +15,7 @@ const useApi = (args, next) => {
 }
 
 const useApp = (args, next) => {
-    const app = new OnemarkApp()
+    new OnemarkApp()
 }
 
 // handle uncaught exceptions
