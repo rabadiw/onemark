@@ -8,7 +8,7 @@ const {startup} = require("./startup")
 const useApi = (args, next) => {
     const startupApi = (args) => { return args.indexOf("--run-api") !== -1 }
     if (startupApi(args)) {
-        require("./api/index")
+        require("./api/OnemarkApi").OnemarkApi()
     } else {
         next()
     }
