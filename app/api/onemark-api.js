@@ -20,6 +20,8 @@ class OnemarkApi {
             }
         });
     }
+    run(options) {
+    }
 }
-export { OnemarkApi };
-//# sourceMappingURL=OnemarkApi.js.map
+exports.OnemarkApi = OnemarkApi;
+//# sourceMappingURL=onemark-api.js.map

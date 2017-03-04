@@ -1,3 +1,6 @@
+// Copyright (c) Wael Rabadi. All rights reserved.
+// See LICENSE for details.
+
 // BASE SETUP
 // ==============================================
 
@@ -35,5 +38,13 @@ class OnemarkApi {
       }
     })
   }
+
+  /** 
+   * op
+  */
+  run(options) {
+
+  }
 }
-export { OnemarkApi }
+
+exports.OnemarkApi = OnemarkApi

@@ -1,19 +1,21 @@
-// Copyright (c) Wael Rabadi
+// Copyright (c) Wael Rabadi. All rights reserved.
 // See LICENSE for details.
 
 "use strict";
-const {uncaughtExceptionHandler, OnemarkApp} = require("./OnemarkApp")
-const {startup} = require("./startup")
+const { OnemarkApp, uncaughtExceptionHandler } = require("./onemark-app")
+const { OnemarkApi } = require("./api/onemark-api")
+const { startup } = require("./lib/startup")
 
 const useApi = (args, next) => {
-    const startupApi = (args) => { return args.indexOf("--run-api") !== -1 }
+    const startupApi = (args) => { return /--run-api/.test(args) }
     if (startupApi(args)) {
-        require("./api/OnemarkApi").OnemarkApi()
+        new OnemarkApi()
     } else {
         next()
     }
 }
 
+// eslint-disable-next-line no-unused-vars
 const useApp = (args, next) => {
     new OnemarkApp()
 }
@@ -25,7 +27,7 @@ uncaughtExceptionHandler()
 // different startup options
 //   -- api
 //   -- app
-//   -- squirell (maybe)
+//   -- squirrel (maybe)
 startup()
     .use(useApi)
     .use(useApp)
