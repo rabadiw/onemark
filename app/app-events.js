@@ -1,4 +1,11 @@
-const { sendMessage, sendWindowMessage } = require("./lib/app-messaging")
+const { AppMessaging } = require("./lib/app-messaging")
+const { dialog } = require("electron")
+
+const exceptionHandler = (e) => {
+    dialog.showErrorBox('Caught unhandled exception', e || 'Unknown error message')
+}
+
+const appMessaging = new AppMessaging(exceptionHandler)
 
 const appEventTypes = {
     checkForUpdate: "check-for-update",
@@ -10,14 +17,22 @@ const appEventTypes = {
     windowNotification: "window-notification",
 }
 
-const sendCheckForUpdate = (...args) => { sendMessage(appEventTypes.checkForUpdate, ...args) }
-const sendOpenAboutWindow = (...args) => { sendMessage(appEventTypes.openAboutWindow, ...args) }
-const sendOpenLearnMore = (...args) => { sendMessage(appEventTypes.openLearnMore, ...args) }
-const sendOpenElectronSite = (...args) => { sendMessage(appEventTypes.openElectronSite, ...args) }
-const sendUpdateDownloaded = (...args) => { sendMessage(appEventTypes.updateDownloaded, ...args) }
-const sendUpdateAndRestart = (...args) => { sendMessage(appEventTypes.updateAndRestart, ...args) }
+const sendCheckForUpdate = (...args) => { appMessaging.sendMessage(appEventTypes.checkForUpdate, ...args) }
+const sendOpenAboutWindow = (...args) => { appMessaging.sendMessage(appEventTypes.openAboutWindow, ...args) }
+const sendOpenLearnMore = (...args) => { appMessaging.sendMessage(appEventTypes.openLearnMore, ...args) }
+const sendOpenElectronSite = (...args) => { appMessaging.sendMessage(appEventTypes.openElectronSite, ...args) }
+const sendUpdateDownloaded = (...args) => { appMessaging.sendMessage(appEventTypes.updateDownloaded, ...args) }
+const sendUpdateAndRestart = (...args) => { appMessaging.sendMessage(appEventTypes.updateAndRestart, ...args) }
 
-const sendWindowNotification = (win, ...args) => { sendWindowMessage(win, appEventTypes.windowNotification, ...args) }
+const sendNotification = (...args) => { appMessaging.sendWindowMessage(null, appEventTypes.windowNotification, ...args) }
+// const sendWindowNotification = (win, ...args) => { appMessaging.sendWindowMessage(win, appEventTypes.windowNotification, ...args) }
+
+function sendWindowNotification(...args) {
+    appMessaging.sendWindowMessage(null, appEventTypes.windowNotification, ...args)
+}
+function sendWindowNotification(win, ...args) {
+    appMessaging.sendWindowMessage(win, appEventTypes.windowNotification, ...args)
+}
 
 module.exports = {
     appEventTypes,
@@ -27,5 +42,6 @@ module.exports = {
     sendOpenLearnMore,
     sendUpdateDownloaded,
     sendUpdateAndRestart,
+    sendNotification,
     sendWindowNotification,
 }

@@ -11,23 +11,23 @@
 
 const log = require("electron-log");
 const { autoUpdater } = require("electron");
-const { sendWindowNotification, sendUpdateDownloaded } = require("./app-events");
+const { sendNotification, sendUpdateDownloaded } = require("./app-events");
 const { appSettings } = require("./config/settings")
 
 autoUpdater.on("checking-for-update", (evt, info) => {
-  sendWindowNotification("Checking for update...");
+  sendNotification("Checking for update...");
 })
 autoUpdater.on("update-available", (evt, info) => {
-  sendWindowNotification("Update available.");
+  sendNotification("Update available.");
 })
 autoUpdater.on("update-not-available", (evt, info) => {
-  sendWindowNotification("Update not available.");
+  sendNotification("Update not available.");
 })
 autoUpdater.on("error", (evt, err) => {
-  sendWindowNotification("Error in auto-updater.");
+  sendNotification("Error in auto-updater.");
 })
 autoUpdater.on("download-progress", (evt, progressObj) => {
-  sendWindowNotification("Download progress...");
+  sendNotification("Download progress...");
   log.info("progressObj", progressObj);
 })
 autoUpdater.on("update-downloaded", (evt, info) => {
