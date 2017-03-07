@@ -29,7 +29,7 @@ autoUpdater.on("update-not-available", (evt, info) => {
   status("Update not available.");
 })
 autoUpdater.on("error", (evt, err) => {
-  status("Error in auto-updater.");
+  status(`Error in auto-updater. ${err}`);
 })
 autoUpdater.on("download-progress", (evt, progressObj) => {
   status("Download progress...");
