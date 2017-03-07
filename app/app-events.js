@@ -24,14 +24,19 @@ const sendOpenElectronSite = (...args) => { appMessaging.sendMessage(appEventTyp
 const sendUpdateDownloaded = (...args) => { appMessaging.sendMessage(appEventTypes.updateDownloaded, ...args) }
 const sendUpdateAndRestart = (...args) => { appMessaging.sendMessage(appEventTypes.updateAndRestart, ...args) }
 
-const sendNotification = (...args) => { appMessaging.sendWindowMessage(null, appEventTypes.windowNotification, ...args) }
-// const sendWindowNotification = (win, ...args) => { appMessaging.sendWindowMessage(win, appEventTypes.windowNotification, ...args) }
-
-function sendWindowNotification(...args) {
-    appMessaging.sendWindowMessage(null, appEventTypes.windowNotification, ...args)
+const sendNotification = (...args) => {
+    appMessaging.sendWindowMessage({
+        window: null,
+        channel: appEventTypes.windowNotification,
+        args: args
+    })
 }
-function sendWindowNotification(win, ...args) {
-    appMessaging.sendWindowMessage(win, appEventTypes.windowNotification, ...args)
+const sendWindowNotification = (win, ...args) => {
+    appMessaging.sendWindowMessage({
+        window: win,
+        channel: appEventTypes.windowNotification,
+        args: args
+    })
 }
 
 module.exports = {

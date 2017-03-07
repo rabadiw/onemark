@@ -14,23 +14,29 @@ const { autoUpdater } = require("electron");
 const { sendNotification, sendUpdateDownloaded } = require("./app-events");
 const { appSettings } = require("./config/settings")
 
+const status = (msg) => {
+  sendNotification(msg);
+  log.info(`app-updater::${msg}`);
+}
+
 autoUpdater.on("checking-for-update", (evt, info) => {
-  sendNotification("Checking for update...");
+  status("Checking for update...");
 })
 autoUpdater.on("update-available", (evt, info) => {
-  sendNotification("Update available.");
+  status("Update available.");
 })
 autoUpdater.on("update-not-available", (evt, info) => {
-  sendNotification("Update not available.");
+  status("Update not available.");
 })
 autoUpdater.on("error", (evt, err) => {
-  sendNotification("Error in auto-updater.");
+  status("Error in auto-updater.");
 })
 autoUpdater.on("download-progress", (evt, progressObj) => {
-  sendNotification("Download progress...");
+  status("Download progress...");
   log.info("progressObj", progressObj);
 })
 autoUpdater.on("update-downloaded", (evt, info) => {
+  status("Update downloaded")
   sendUpdateDownloaded(autoUpdater)
   // sendWindowNotification("Update downloaded.  Will quit and install in 5 seconds.");
   // // Wait 5 seconds, then quit and install
@@ -41,7 +47,7 @@ autoUpdater.on("update-downloaded", (evt, info) => {
 
 const appUpdater = {
   checkForUpdate() {
-    console.log("Checking for udpate")
+    status("Checking for update")
     if (!appSettings.isProduction) { return; }
     // Wait a second for the window to exist before checking for updates.
     setTimeout(function () {

@@ -8,18 +8,6 @@ const { appEventTypes } = require("./app-events")
 const { appSettings } = require('./config/settings')
 const windowState = require('electron-window-state')
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
-
-const uncaughtExceptionHandler = () => {
-    // Manage unhandled exceptions as early as possible
-    process.on('uncaughtException', (e) => {
-        console.error(`Caught unhandled exception: ${e}`)
-        dialog.showErrorBox('Caught unhandled exception', e.message || 'Unknown error message')
-        app.quit()
-    })
-}
-
 const createMenu = () => {
     return Menu.buildFromTemplate(require('./app-menu'))
 }
@@ -60,6 +48,9 @@ class OnemarkApp {
 
     constructor() {
 
+        // Keep a global reference of the window object, if you don't, the window will
+        // be closed automatically when the JavaScript object is garbage collected.
+
         this.mainWindow = undefined
         this.mainWindowState = undefined
 
@@ -70,6 +61,12 @@ class OnemarkApp {
         // Quit when all windows are closed.
         app.on("window-all-closed", () => this.closedHandler())
         app.on("activate", () => this.activateHandler())
+    }
+
+    static uncaughtExceptionHandler(e) {
+        console.error(`Caught unhandled exception: ${e}`)
+        dialog.showErrorBox('Caught unhandled exception', e.message || 'Unknown error message')
+        app.quit()
     }
 
     ensureMainWindow() {
@@ -177,5 +174,4 @@ Process ID: ${process.pid}
     }
 }
 
-exports.uncaughtExceptionHandler = uncaughtExceptionHandler
-exports.OnemarkApp = OnemarkApp
+module.exports = { OnemarkApp }

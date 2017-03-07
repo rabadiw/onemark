@@ -54,7 +54,6 @@
     "start:api": "electron ./app --dev --run-api",
     "pack": "build --dir --win --x64",
     "dist": "build",
-    "release": "build --publish always",
-    "release:pre": "build --publish always --prerelease"
+    "release": "build --publish always"
   }
 }

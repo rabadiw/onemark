@@ -2,9 +2,12 @@
 // See LICENSE for details.
 
 "use strict";
-const { OnemarkApp, uncaughtExceptionHandler } = require("./onemark-app")
+const { OnemarkApp } = require("./onemark-app")
 const { OnemarkApi } = require("./api/onemark-api")
 const { startup } = require("./lib/startup")
+
+// handle uncaught exceptions
+process.on('uncaughtException', (e) => OnemarkApp.uncaughtExceptionHandler(e))
 
 const useApi = (args, next) => {
     const startupApi = (args) => { return /--run-api/.test(args) }
@@ -19,9 +22,6 @@ const useApi = (args, next) => {
 const useApp = (args, next) => {
     new OnemarkApp()
 }
-
-// handle uncaught exceptions
-uncaughtExceptionHandler()
 
 // build startup 
 // different startup options

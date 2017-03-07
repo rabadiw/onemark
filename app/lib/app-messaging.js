@@ -1,7 +1,12 @@
 // Copyright (c) Wael Rabadi. All rights reserved.
 // See LICENSE for details.
 
+const log = require("electron-log");
 const { BrowserWindow, ipcMain } = require("electron");
+
+const logInfo = (msg) => {
+  log.info(`app-messaging::${msg}`)
+}
 
 class AppMessaging {
   constructor(exceptionHandler) {
@@ -28,28 +33,22 @@ class AppMessaging {
   }
 
   sendWindowMessage(options = {}) {
-    if (options === undefined || options.message === undefined) {
-      return
-    }
-
-    if (options.window === undefined || typeof options.window !== BrowserWindow) {
-      options.window = this.getMainWindow()
-    }
-
-    options.window.webContents.send(options.channel, options.args)
-  }
-
-  sendWindowMessage(win, channel, ...args) {
+    logInfo(options)
     this.run(() => {
-      if (win === undefined || typeof win !== BrowserWindow) {
-        console.log("Getting window object")
-        win = this.getMainWindow();
+      let { window, channel, args } = options;
+      if (channel === undefined) {
+        return
       }
-      win.webContents.send(channel, ...args)
+
+      if (window === undefined || typeof window !== BrowserWindow) {
+        logInfo("Getting window object")
+        window = this.getMainWindow()
+      }
+
+      window.webContents.send(channel, ...args)
+      logInfo(`Sending "${args}" on channel "${channel}" to window "${window.getTitle()}"`)
     })
   }
 }
-
-
 
 module.exports = { AppMessaging }
