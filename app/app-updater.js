@@ -10,7 +10,7 @@
 //-------------------------------------------------------------------
 
 const log = require("electron-log");
-const { autoUpdater } = require("electron");
+const { autoUpdater } = require("electron-updater");
 const { sendNotification, sendUpdateDownloaded } = require("./app-events");
 const { appSettings } = require("./config/settings")
 
@@ -18,6 +18,9 @@ const status = (msg) => {
   sendNotification(msg);
   log.info(`app-updater::${msg}`);
 }
+
+autoUpdater.logger = log
+autoUpdater.logger.transports.file.level = "info"
 
 autoUpdater.on("checking-for-update", (evt, info) => {
   status("Checking for update...");
@@ -38,11 +41,6 @@ autoUpdater.on("download-progress", (evt, progressObj) => {
 autoUpdater.on("update-downloaded", (evt, info) => {
   status("Update downloaded")
   sendUpdateDownloaded(autoUpdater)
-  // sendWindowNotification("Update downloaded.  Will quit and install in 5 seconds.");
-  // // Wait 5 seconds, then quit and install
-  // setTimeout(function () {
-  //   autoUpdater.quitAndInstall();
-  // }, 5000)
 })
 
 const appUpdater = {
@@ -56,4 +54,4 @@ const appUpdater = {
   }
 };
 
-exports.appUpdater = appUpdater
+module.exports = { appUpdater }

@@ -1,6 +1,6 @@
 {
   "name": "onemark",
-  "version": "1.0.3",
+  "version": "1.0.4-alpha",
   "description": "Onemark all your internet bookmarks to track and manage outside of the browser",
   "main": "app/main.js",
   "author": {
@@ -10,6 +10,10 @@
   "license": "Apache-2.0",
   "private": true,
   "homepage": "https://github.com/rabadiw/onemark#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rabadiw/onemark.git"
+  },
   "bugs": {
     "url": "https://github.com/rabadiw/onemark/issues"
   },
@@ -29,19 +33,16 @@
       "artifactName": "${productName}-Setup-${version}-${arch}.${ext}",
       "unicode": true
     },
-    "publish": [
-      {
-        "provider": "github",
-        "owner": "rabadiw",
-        "repo": "onemark"
-      }
-    ]
+    "publish": {
+      "provider": "github"
+    }
   },
   "devDependencies": {
-    "@types/node": "7.0.5",
+    "@types/node": "7.0.7",
     "@types/express": "4.0.35",
-    "electron": "1.6.1",
+    "electron": "1.6.2",
     "electron-builder": "15.1.1",
+    "electron-builder-squirrel-windows": "15.2.0",
     "electron-packager": "8.5.2",
     "eslint": "3.17.1",
     "typescript": "2.2.1"
