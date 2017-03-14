@@ -10,7 +10,7 @@ class MarksController {
     get(id) {
         return this.marksRepo.get(id);
     }
-    post(marks) {
+    create(marks) {
         return this.marksRepo.append(marks);
     }
     delete(marks) {

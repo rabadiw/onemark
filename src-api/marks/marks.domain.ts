@@ -21,4 +21,12 @@ interface IMarksRepository {
   delete(marks: any): Promise<any[]>
 }
 
-export { IMarksModel, IMarkModel, IMarksRepository }
+interface IMarksController {
+  marksRepo: IMarksRepository
+  getAll()
+  get(id: string)
+  create(marks)
+  delete(marks)
+}
+
+export { IMarksModel, IMarkModel, IMarksRepository, IMarksController }

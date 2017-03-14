@@ -1,6 +1,6 @@
-import { IMarksModel, IMarkModel, IMarksRepository } from "./marks.domain"
+import { IMarksModel, IMarkModel, IMarksRepository, IMarksController } from "./marks.domain"
 
-class MarksController {
+class MarksController implements IMarksController {
   marksRepo: IMarksRepository
 
   constructor(repo: IMarksRepository) {
@@ -15,7 +15,7 @@ class MarksController {
     return this.marksRepo.get(id) as Promise<IMarksModel>
   }
 
-  post(marks) {
+  create(marks) {
     return this.marksRepo.append(marks)
   }
 
