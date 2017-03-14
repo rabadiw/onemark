@@ -4,21 +4,35 @@
 // BASE SETUP
 // ==============================================
 
+import { Express } from "@types/express";
+import { Server } from "http";
+
 const express = require("express")
 const bodyParser = require("body-parser")
 
 class OnemarkApi {
-  constructor() {
-    let app = express()
+  port: number;
+  server: Server;
+  trace: Function;
+  app: Express;
+
+  constructor(options) {
+    let { trace, port } = options
+    this.trace = trace || ((msg) => { console.log(msg) })
+    this.port = port || 3010
+  }
+
+  init(options: any) {
+    this.app = express()
 
     // configure app to use bodyParser()
     // this will let us get the data from a POST
-    app.use(bodyParser.urlencoded({ extended: true }))
-    app.use(bodyParser.json({ limit: 300 }))
+    this.app.use(bodyParser.urlencoded({ extended: true }))
+    this.app.use(bodyParser.json({ limit: 300 }))
 
     // CORS
     // ==============================================
-    app.use((req, res, next) => {
+    this.app.use((req, res, next) => {
       res.header("Access-Control-Allow-Origin", "*")
       res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
       next()
@@ -26,25 +40,31 @@ class OnemarkApi {
 
     // ROUTES
     // ==============================================
-    app.use("/", (req, res) => { res.send("Hello world!") })
+    try {
+      options.routes.forEach(v => {
+        this.app.use(v.template, v.router)
+      })
+    } catch (e) {
+      this.trace(`Building router table failed. ${e}`)
+    }
 
-    // START THE SERVER
-    // ==============================================
-    app.listen(3010, (err) => {
-      if (err) {
-        console.log(err)
-      } else {
-        console.log(`App running at http://localhost:3010`)
-      }
-    })
+    return this;
   }
 
-  /** 
-   * op
-  */
-  run(options) {
-
+  /**
+   * Run the app and start listening on requests
+   * @param options { port: int, host: string }
+   */
+  run() {
+    // START THE SERVER
+    // ==============================================
+    this.server = this.app.listen(this.port, (err) => {
+      if (err) {
+        this.trace(err)
+      }
+    })
+    this.trace(`App running at http://${this.server.address().address}:${this.server.address().port}`)
   }
 }
 
-exports.OnemarkApi = OnemarkApi
+export { OnemarkApi }

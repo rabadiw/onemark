@@ -3,7 +3,7 @@
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "module": "es2015",
+    "module": "commonjs",
     "moduleResolution": "node",
     "noEmitHelpers": true,
     "noImplicitAny": false,
@@ -15,7 +15,7 @@
     "strictNullChecks": false,
     "removeComments": true,
     "inlineSources": true,
-    "target": "es2015"    
+    "target": "es2015"
   },
   "exclude": [
     "node_modules"

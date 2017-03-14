@@ -1,26 +1,39 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const bodyParser = require("body-parser");
 class OnemarkApi {
-    constructor() {
-        let app = express();
-        app.use(bodyParser.urlencoded({ extended: true }));
-        app.use(bodyParser.json({ limit: 300 }));
-        app.use((req, res, next) => {
+    constructor(options) {
+        let { trace, port } = options;
+        this.trace = trace || ((msg) => { console.log(msg); });
+        this.port = port || 3010;
+    }
+    init(options) {
+        this.app = express();
+        this.app.use(bodyParser.urlencoded({ extended: true }));
+        this.app.use(bodyParser.json({ limit: 300 }));
+        this.app.use((req, res, next) => {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
             next();
         });
-        app.use("/", (req, res) => { res.send("Hello world!"); });
-        app.listen(3010, (err) => {
+        try {
+            options.routes.forEach(v => {
+                this.app.use(v.template, v.router);
+            });
+        }
+        catch (e) {
+            this.trace(`Building router table failed. ${e}`);
+        }
+        return this;
+    }
+    run() {
+        this.server = this.app.listen(this.port, (err) => {
             if (err) {
-                console.log(err);
-            }
-            else {
-                console.log(`App running at http://localhost:3010`);
+                this.trace(err);
             }
         });
-    }
-    run(options) {
+        this.trace(`App running at http://${this.server.address().address}:${this.server.address().port}`);
     }
 }
 exports.OnemarkApi = OnemarkApi;

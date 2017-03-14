@@ -12,7 +12,8 @@ process.on('uncaughtException', (e) => OnemarkApp.uncaughtExceptionHandler(e))
 const useApi = (args, next) => {
     const startupApi = (args) => { return /--run-api/.test(args) }
     if (startupApi(args)) {
-        new OnemarkApi()
+        const api = new OnemarkApi()
+        api.init().run()
     } else {
         next()
     }
