@@ -4,31 +4,53 @@
 // BASE SETUP
 // ==============================================
 
-import { Express } from "@types/express";
-import { Server } from "http";
+import { Express } from "@types/express"
+import { Server } from "http"
+import { OptionsJson } from "body-parser"
 
 const express = require("express")
 const bodyParser = require("body-parser")
 
-class OnemarkApi {
-  port: number;
-  server: Server;
-  trace: Function;
-  app: Express;
+interface IExpressOptions {
+  trace: Function
+  port: Number
+  bodyLimit: String
+}
+interface IRouteOptions {
+  template: string
+  router: any
+}
 
-  constructor(options) {
-    let { trace, port } = options
+interface IRegisterOptions {
+  routes: IRouteOptions[]
+}
+
+class OnemarkApi {
+  bodyLimit: number | String
+  port: Number
+  server: Server
+  trace: Function
+  app: Express
+
+  /**
+   * create a new OnemarkApi object
+   * @param options {trace: Function,port: Number,bodyLimit: String}
+   */
+  constructor(options: IExpressOptions) {
+    let { trace, port, bodyLimit } = options
     this.trace = trace || ((msg) => { console.log(msg) })
     this.port = port || 3010
+    this.bodyLimit = bodyLimit || 300
   }
 
-  init(options: any) {
+  init() {
     this.app = express()
 
     // configure app to use bodyParser()
     // this will let us get the data from a POST
     this.app.use(bodyParser.urlencoded({ extended: true }))
-    this.app.use(bodyParser.json({ limit: 300 }))
+    this.app.use(bodyParser.json({ limit: this.bodyLimit }))
+
 
     // CORS
     // ==============================================
@@ -38,6 +60,14 @@ class OnemarkApi {
       next()
     })
 
+    return this
+  }
+
+  /**
+   * register passed routes
+   * @param options {routes:[{template: string, router: RouterHandler}]}
+   */
+  register(options: IRegisterOptions) {
     // ROUTES
     // ==============================================
     try {
@@ -48,12 +78,11 @@ class OnemarkApi {
       this.trace(`Building router table failed. ${e}`)
     }
 
-    return this;
+    return this
   }
 
   /**
    * Run the app and start listening on requests
-   * @param options { port: int, host: string }
    */
   run() {
     // START THE SERVER

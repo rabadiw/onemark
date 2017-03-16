@@ -4,19 +4,23 @@ const express = require("express");
 const bodyParser = require("body-parser");
 class OnemarkApi {
     constructor(options) {
-        let { trace, port } = options;
+        let { trace, port, bodyLimit } = options;
         this.trace = trace || ((msg) => { console.log(msg); });
         this.port = port || 3010;
+        this.bodyLimit = bodyLimit || 300;
     }
-    init(options) {
+    init() {
         this.app = express();
         this.app.use(bodyParser.urlencoded({ extended: true }));
-        this.app.use(bodyParser.json({ limit: 300 }));
+        this.app.use(bodyParser.json({ limit: this.bodyLimit }));
         this.app.use((req, res, next) => {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
             next();
         });
+        return this;
+    }
+    register(options) {
         try {
             options.routes.forEach(v => {
                 this.app.use(v.template, v.router);

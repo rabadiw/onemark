@@ -38,3 +38,6 @@ jspm_packages
 
 # dist
 dist
+
+# visual studio
+.vs
