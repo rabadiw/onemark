@@ -51,7 +51,6 @@ class OnemarkApi {
     this.app.use(bodyParser.urlencoded({ extended: true }))
     this.app.use(bodyParser.json({ limit: this.bodyLimit }))
 
-
     // CORS
     // ==============================================
     this.app.use((req, res, next) => {

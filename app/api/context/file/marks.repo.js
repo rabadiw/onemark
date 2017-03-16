@@ -5,7 +5,7 @@ const fs_1 = require("fs");
 const crypto_1 = require("crypto");
 const settings_1 = require("../../config/settings");
 class MarksListRepo {
-    constructor() {
+    constructor(tracer) {
         this.marksDbPath = settings_1.appSettings.marksDbPath;
         this.defaultModel = {
             version: "1.0.0",
@@ -39,7 +39,8 @@ class MarksListRepo {
                 });
             });
         };
-        console.log(`Marks file path ${this.marksDbPath}`);
+        this.tracer = tracer;
+        this.tracer(`Marks file path ${this.marksDbPath}`);
     }
     getAll() {
         const getAllAsync = (resolve, reject) => {

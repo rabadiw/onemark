@@ -4,7 +4,7 @@ import { IMarksController } from "../marks/marks.domain";
 import { MarksListRepo as MarksRepo } from "../context/file/marks.repo";
 import { MarksController as Controller } from "../marks/marks.controller";
 
-const MarksRouteHandler = (controller: IMarksController) => {
+const MarksRouteHandler = (controller: IMarksController, tracer) => {
 
   const router = Router();
 
@@ -15,7 +15,9 @@ const MarksRouteHandler = (controller: IMarksController) => {
 
   // middleware that is specific to this router
   router.use(function timeLog(req, res, next) {
-    console.log(`Time: ${Date.now()} - ${req.method} - body(${JSON.stringify(req.body)})`);
+    if (tracer) {
+      tracer(`Time: ${Date.now()} - ${req.method} - body(${JSON.stringify(req.body)})`);
+    }
     next();
   });
 
@@ -56,4 +58,6 @@ const MarksRouteHandler = (controller: IMarksController) => {
   return router
 }
 
-export const MarksRouter = MarksRouteHandler(new Controller(new MarksRepo()))
+export const MarksRouter = (tracer) => {
+  return MarksRouteHandler(new Controller(new MarksRepo(tracer)), tracer)
+}

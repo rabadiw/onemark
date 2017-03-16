@@ -7,6 +7,7 @@ import { IMarksRepository } from "../../marks/marks.domain";
 import { IMarksModel, IMarkModel } from "../../marks/marks.domain";
 
 class MarksListRepo implements IMarksRepository {
+  tracer: any;
   // path relative to entry point
   marksDbPath: string = appSettings.marksDbPath;
   defaultModel = {
@@ -48,8 +49,9 @@ class MarksListRepo implements IMarksRepository {
     });
   }
 
-  constructor() {
-    console.log(`Marks file path ${this.marksDbPath}`);
+  constructor(tracer) {
+    this.tracer = tracer
+    this.tracer(`Marks file path ${this.marksDbPath}`);
   }
 
   getAll() {

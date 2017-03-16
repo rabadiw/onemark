@@ -3,14 +3,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const marks_repo_1 = require("../context/file/marks.repo");
 const marks_controller_1 = require("../marks/marks.controller");
-const MarksRouteHandler = (controller) => {
+const MarksRouteHandler = (controller, tracer) => {
     const router = express_1.Router();
     const handleError = (err, res) => {
         console.log(err.message);
         res.status(400).json({ error: err.message });
     };
     router.use(function timeLog(req, res, next) {
-        console.log(`Time: ${Date.now()} - ${req.method} - body(${JSON.stringify(req.body)})`);
+        if (tracer) {
+            tracer(`Time: ${Date.now()} - ${req.method} - body(${JSON.stringify(req.body)})`);
+        }
         next();
     });
     router.route("/")
@@ -46,5 +48,7 @@ const MarksRouteHandler = (controller) => {
     });
     return router;
 };
-exports.MarksRouter = MarksRouteHandler(new marks_controller_1.MarksController(new marks_repo_1.MarksListRepo()));
+exports.MarksRouter = (tracer) => {
+    return MarksRouteHandler(new marks_controller_1.MarksController(new marks_repo_1.MarksListRepo(tracer)), tracer);
+};
 //# sourceMappingURL=marks.router.js.map
