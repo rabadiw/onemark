@@ -1,3 +1,4 @@
+import { ITracer, tracer } from "../../modules/tracer";
 const path = require("path");
 const fs = require("fs");
 
@@ -21,7 +22,8 @@ const appSettings = {
   isProduction: !isDevMode(),
   port: (process.env.PORT || 3010),
   bodyLimit: "100kb",
-  marksDbPath: resolveApp(path.join(...("./context/file/urls.json".split("/"))))
+  marksDbPath: resolveApp(path.join(...("./context/file/urls.json".split("/")))),
+  tracer: tracer as ITracer
 }
 
 export { appSettings }

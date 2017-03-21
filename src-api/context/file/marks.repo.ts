@@ -5,9 +5,10 @@ import { createHash } from "crypto";
 import { appSettings } from "../../config/settings";
 import { IMarksRepository } from "../../marks/marks.domain";
 import { IMarksModel, IMarkModel } from "../../marks/marks.domain";
+import { ITracer } from "../../../modules/tracer"
 
 class MarksListRepo implements IMarksRepository {
-  tracer: any;
+  tracer: ITracer;
   // path relative to entry point
   marksDbPath: string = appSettings.marksDbPath;
   defaultModel = {
@@ -49,9 +50,9 @@ class MarksListRepo implements IMarksRepository {
     });
   }
 
-  constructor(tracer) {
+  constructor(tracer: ITracer) {
     this.tracer = tracer
-    this.tracer(`Marks file path ${this.marksDbPath}`);
+    this.tracer.info(`Marks file path ${this.marksDbPath}`);
   }
 
   getAll() {

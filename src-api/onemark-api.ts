@@ -7,12 +7,13 @@
 import { Express } from "@types/express"
 import { Server } from "http"
 import { OptionsJson } from "body-parser"
+import { ITracer } from "../modules/tracer"
 
 const express = require("express")
 const bodyParser = require("body-parser")
 
 interface IExpressOptions {
-  trace: Function
+  tracer: ITracer
   port: Number
   bodyLimit: String
 }
@@ -29,7 +30,7 @@ class OnemarkApi {
   bodyLimit: number | String
   port: Number
   server: Server
-  trace: Function
+  tracer: ITracer
   app: Express
 
   /**
@@ -37,8 +38,8 @@ class OnemarkApi {
    * @param options {trace: Function,port: Number,bodyLimit: String}
    */
   constructor(options: IExpressOptions) {
-    let { trace, port, bodyLimit } = options
-    this.trace = trace || ((msg) => { console.log(msg) })
+    let { tracer, port, bodyLimit } = options
+    this.tracer = tracer || { info: (msg) => { console.log(msg) } } as ITracer
     this.port = port || 3010
     this.bodyLimit = bodyLimit || 300
   }
@@ -74,7 +75,7 @@ class OnemarkApi {
         this.app.use(v.template, v.router)
       })
     } catch (e) {
-      this.trace(`Building router table failed. ${e}`)
+      this.tracer.info(`Building router table failed. ${e}`)
     }
 
     return this
@@ -88,10 +89,10 @@ class OnemarkApi {
     // ==============================================
     this.server = this.app.listen(this.port, (err) => {
       if (err) {
-        this.trace(err)
+        this.tracer.info(err)
       }
     })
-    this.trace(`App running at http://${this.server.address().address}:${this.server.address().port}`)
+    this.tracer.info(`App running at http://${this.server.address().address}:${this.server.address().port}`)
   }
 }
 

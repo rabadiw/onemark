@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const tracer_1 = require("../tracer");
+const tracer_1 = require("../../modules/tracer");
 const path = require("path");
 const fs = require("fs");
 const appDirectory = fs.realpathSync(path.resolve(__filename, "../../"));
