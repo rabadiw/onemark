@@ -5,7 +5,7 @@ import { createHash } from "crypto";
 import { appSettings } from "../../config/settings";
 import { IMarksRepository } from "../../marks/marks.domain";
 import { IMarksModel, IMarkModel } from "../../marks/marks.domain";
-import { ITracer } from "../../../modules/tracer"
+import { ITracer } from "../../tracer"
 
 class MarksListRepo implements IMarksRepository {
   tracer: ITracer;

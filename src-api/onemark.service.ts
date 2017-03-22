@@ -4,7 +4,7 @@
 import { OnemarkApi } from "./onemark-api"
 import { MarksRouter } from "./marks/marks.router"
 import { appSettings } from "./config/settings"
-import { ITracer } from "../modules/tracer";
+import { ITracer } from "./tracer";
 
 const OnemarkService = (tracer?: ITracer) => {
   tracer = tracer || appSettings.tracer

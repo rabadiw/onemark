@@ -11,7 +11,7 @@ const MarksRouteHandler = (controller, tracer) => {
     };
     router.use(function timeLog(req, res, next) {
         if (tracer) {
-            tracer.info(`Time: ${Date.now()} - ${req.method} - body(${JSON.stringify(req.body)})`);
+            tracer.info(`${req.method} - body(${JSON.stringify(req.body)})`);
         }
         next();
     });

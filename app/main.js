@@ -2,7 +2,7 @@
 // See LICENSE for details.
 
 "use strict";
-const log = require("electron-log");
+const { log } = require("electron-log");
 const { OnemarkApp } = require("./onemark-app")
 const { OnemarkService } = require("./api/onemark.service")
 const { startup } = require("./lib/startup")
@@ -13,7 +13,12 @@ process.on('uncaughtException', (e) => OnemarkApp.uncaughtExceptionHandler(e))
 const useApi = (args, next) => {
     const startupApi = (args) => { return /--run-api/.test(args) }
     if (startupApi(args)) {
-        const tracer = { info: (msg) => { log.info(msg) } }
+        const tracer = {
+            info: (msg) => { log.info(msg) },
+            warn: (msg) => { log.warn(msg) },
+            error: (msg) => { log.error(msg) },
+            success: (msg) => { log.info(msg) },
+        }
         OnemarkService(tracer).run()
     } else {
         next()

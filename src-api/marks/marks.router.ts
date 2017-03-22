@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { IMarksController } from "../marks/marks.domain";
-import { ITracer } from "../../modules/tracer"
+import { ITracer } from "../tracer"
 
 import { MarksListRepo as MarksRepo } from "../context/file/marks.repo";
 import { MarksController as Controller } from "../marks/marks.controller";
@@ -17,7 +17,8 @@ const MarksRouteHandler = (controller: IMarksController, tracer: ITracer) => {
   // middleware that is specific to this router
   router.use(function timeLog(req, res, next) {
     if (tracer) {
-      tracer.info(`Time: ${Date.now()} - ${req.method} - body(${JSON.stringify(req.body)})`);
+      //tracer.info(`Time: ${Date.now()} - ${req.method} - body(${JSON.stringify(req.body)})`);
+      tracer.info(`${req.method} - body(${JSON.stringify(req.body)})`);
     }
     next();
   });

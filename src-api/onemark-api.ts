@@ -7,7 +7,7 @@
 import { Express } from "@types/express"
 import { Server } from "http"
 import { OptionsJson } from "body-parser"
-import { ITracer } from "../modules/tracer"
+import { ITracer } from "./tracer"
 
 const express = require("express")
 const bodyParser = require("body-parser")
