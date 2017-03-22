@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { IMarksController } from "../marks/marks.domain";
-import { ITracer } from "../tracer"
+import { ITracer } from "../../modules/tracer"
 
 import { MarksListRepo as MarksRepo } from "../context/file/marks.repo";
 import { MarksController as Controller } from "../marks/marks.controller";

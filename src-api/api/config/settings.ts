@@ -1,4 +1,4 @@
-import { ITracer, tracer } from "../tracer";
+import { ITracer, tracer } from "../../modules/tracer";
 const path = require("path");
 const fs = require("fs");
 
