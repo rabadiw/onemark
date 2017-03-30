@@ -14,8 +14,8 @@ function resolveApp(relativePath) {
 }
 
 const isDevMode = () => {
-  let { argv } = (process || { argv: [] })
-  return /--dev/.test(argv.join(" "))
+  let { argv } = (process || { argv: <string[]>[] })
+  return argv.filter(v => /--dev/.test(v))[0]
 }
 
 const appSettings = {

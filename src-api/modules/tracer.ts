@@ -12,18 +12,18 @@ enum Levels {
   debug
 }
 
-function pad(val: number, zeros?: number) {
-  zeros = zeros || 2;
-  return (new Array(zeros + 1).join('0') + val).substr(-zeros, zeros);
-}
+// function pad(val: number, zeros?: number) {
+//   zeros = zeros || 2;
+//   return (new Array(zeros + 1).join('0') + val).substr(-zeros, zeros);
+// }
 
 function formatConsole(msg) {
-  var ts =
-    pad(msg.date.getHours()) + ':' +
-    pad(msg.date.getMinutes()) + ':' +
-    pad(msg.date.getSeconds()) + ':' +
-    pad(msg.date.getMilliseconds(), 4);
-  return `[${ts}] [${msg.level}] ${msg.text}`
+  // var ts =
+  //   pad(msg.date.getHours()) + ':' +
+  //   pad(msg.date.getMinutes()) + ':' +
+  //   pad(msg.date.getSeconds()) + ':' +
+  //   pad(msg.date.getMilliseconds(), 4);
+  return `[${msg.date.toISOString()}] [${msg.level}] ${msg.text}`
 }
 
 const log = (level: string, msg: string) => {

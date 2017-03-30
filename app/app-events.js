@@ -1,4 +1,4 @@
-const { AppMessaging } = require("./lib/app-messaging")
+const { AppMessaging } = require("./modules/app-messaging")
 const { dialog } = require("electron")
 
 const exceptionHandler = (e) => {

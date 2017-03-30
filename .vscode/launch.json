@@ -21,7 +21,8 @@
       },
       "program": "${workspaceRoot}/app/main.js",
       "args": [
-        "--dev"
+        "--dev",
+        "--run-api"
       ],
       "protocol": "auto"
     },

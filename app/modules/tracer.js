@@ -7,16 +7,8 @@ var Levels;
     Levels[Levels["info"] = 2] = "info";
     Levels[Levels["debug"] = 3] = "debug";
 })(Levels || (Levels = {}));
-function pad(val, zeros) {
-    zeros = zeros || 2;
-    return (new Array(zeros + 1).join('0') + val).substr(-zeros, zeros);
-}
 function formatConsole(msg) {
-    var ts = pad(msg.date.getHours()) + ':' +
-        pad(msg.date.getMinutes()) + ':' +
-        pad(msg.date.getSeconds()) + ':' +
-        pad(msg.date.getMilliseconds(), 4);
-    return `[${ts}] [${msg.level}] ${msg.text}`;
+    return `[${msg.date.toISOString()}] [${msg.level}] ${msg.text}`;
 }
 const log = (level, msg) => {
     console.log(formatConsole({ date: new Date(), level: level, text: msg }));
