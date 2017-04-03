@@ -7,9 +7,17 @@ const { OnemarkApp } = require("./onemark-app")
 const { OnemarkService } = require("./api/onemark.service")
 //const { squirrelStartup } = require("./squirrelStartup")
 const { startup } = require("./modules/startup")
+const path = require("path")
 
 // handle uncaught exceptions
 process.on('uncaughtException', (e) => OnemarkApp.uncaughtExceptionHandler(e))
+
+const useEnv = (args, next) => {
+    let dotenvPath = path.join(__dirname, ".env")
+    require('dotenv').config({ path: dotenvPath })
+    tracer.info(`Running in ${process.env.RUNTIME_MODE} mode`)
+    next()
+}
 
 // const useSquirrel = (args, next) => {
 //     // squirrelStartup module will call app.quit()
@@ -41,6 +49,7 @@ const useApp = (args, next) => {
 //   -- api
 //   -- app
 startup()
+    .use(useEnv)
     //.use(useSquirrel)
     .use(useApi)
     .use(useApp)

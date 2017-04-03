@@ -5,17 +5,25 @@ const path = require("path");
 const fs = require("fs");
 const appDirectory = fs.realpathSync(path.resolve(__filename, "../../"));
 function resolveApp(relativePath) {
-    return path.resolve(appDirectory, relativePath);
+    let relativePathCleaned = path.join(...(relativePath.match(/([^\\\/])*/g)));
+    return path.resolve(appDirectory, relativePathCleaned);
 }
-const isDevMode = () => {
-    let { argv } = (process || { argv: [] });
-    return argv.filter(v => /--dev/.test(v))[0];
+require('dotenv').config({ path: resolveApp(path.join("..", ".env")) });
+const isRuntime = (mode) => {
+    let runtimeMode = process.env.RUNTIME_MODE || "Development";
+    return runtimeMode.toLowerCase() === mode.toLowerCase();
+};
+const getPort = () => {
+    return (process.env.ONEMARK_PORT || 3010);
+};
+const getOnemarkPath = () => {
+    return resolveApp(path.join(...((process.env.ONEMARK_PATH || "./context/file/urls.json").split("/"))));
 };
 const appSettings = {
-    isProduction: !isDevMode(),
-    port: (process.env.PORT || 3010),
+    isProduction: isRuntime("Production"),
+    port: getPort(),
     bodyLimit: "100kb",
-    marksDbPath: resolveApp(path.join(...("./context/file/urls.json".split("/")))),
+    marksDbPath: getOnemarkPath(),
     tracer: tracer_1.tracer
 };
 exports.appSettings = appSettings;
