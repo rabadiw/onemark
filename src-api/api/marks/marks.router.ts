@@ -1,3 +1,6 @@
+// Copyright (c) Wael Rabadi. All rights reserved.
+// See LICENSE for details.
+
 import { Router } from "express";
 import { IMarksController } from "../marks/marks.domain";
 import { ITracer } from "../../modules/tracer"

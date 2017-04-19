@@ -1,3 +1,6 @@
+// Copyright (c) Wael Rabadi. All rights reserved.
+// See LICENSE for details.
+
 import { IMarksModel, IMarkModel, IMarksRepository, IMarksController } from "./marks.domain"
 
 class MarksController implements IMarksController {

@@ -127,6 +127,7 @@ Chrome: ${process.versions.chrome}
 Node: ${process.versions.node}
 Shell: ${process.versions.electron}
 Process ID: ${process.pid}
+API URL: http://localhost:${require("./api/config/settings").appSettings.port}
 `
             dialog.showMessageBox({
                 type: "info",

@@ -1,3 +1,6 @@
+// Copyright (c) Wael Rabadi. All rights reserved.
+// See LICENSE for details.
+
 import { ITracer, tracer } from "../../modules/tracer";
 const path = require("path");
 const fs = require("fs");
@@ -12,12 +15,12 @@ type RuntimeMode = "Production" | "Development"
 const appDirectory = fs.realpathSync(path.resolve(__filename, "../../"));
 
 function resolveApp(relativePath) {
-  let relativePathCleaned = path.join(...(relativePath.match(/([^\\\/])*/g)))
+  let relativePathCleaned = path.join(...(relativePath.match(/([^\\\/])*/gi)))
   return path.resolve(appDirectory, relativePathCleaned);
 }
 
 // note: follow app/api/config path
-require('dotenv').config({ path: resolveApp(path.join("..", ".env")) })
+require('dotenv').config({ path: resolveApp("../.env") })
 
 const isRuntime = (mode: RuntimeMode) => {
   // code to test between dev or prod, update accordingly
@@ -33,7 +36,7 @@ const getPort = () => {
 }
 
 const getOnemarkPath = () => {
-  return resolveApp(path.join(...((process.env.ONEMARK_PATH || "./context/file/urls.json").split("/"))))
+  return resolveApp(process.env.ONEMARK_PATH || "./context/file/urls.json")
 }
 
 const appSettings = {

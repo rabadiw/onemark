@@ -1,3 +1,6 @@
+// Copyright (c) Wael Rabadi. All rights reserved.
+// See LICENSE for details.
+
 interface IMarksModel {
   version: string;
   updated: string;

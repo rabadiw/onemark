@@ -3,6 +3,7 @@
 
 const path = require("path");
 const url = require('url')
+const fs = require('fs')
 
 const resolveRoot = (...relativePath) => {
     return path.resolve(__dirname, "..", ...relativePath);

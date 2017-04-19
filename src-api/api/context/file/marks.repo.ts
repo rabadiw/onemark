@@ -1,3 +1,6 @@
+// Copyright (c) Wael Rabadi. All rights reserved.
+// See LICENSE for details.
+
 import * as path from "path";
 import * as Rx from "rxjs";
 import { readFile, writeFile } from "fs";
