@@ -11,10 +11,10 @@
   "dependencies": {
     "body-parser": "1.17.1",
     "dotenv": "4.0.0",
-    "electron-log": "2.0.2",
-    "electron-updater": "1.11.2",
-    "electron-window-state": "4.1.0",
+    "electron-log": "2.2.3",
+    "electron-updater": "1.14.2",
+    "electron-window-state": "4.1.1",
     "express": "4.15.2",
-    "rxjs": "5.2.0"
+    "rxjs": "5.3.0"
   }
 }

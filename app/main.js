@@ -3,6 +3,7 @@
 
 "use strict";
 const { tracer } = require("./modules/tracer")
+const { cmdline } = require("./modules/cmdline")
 const { OnemarkApp } = require("./onemark-app")
 const { OnemarkService } = require("./api/onemark.service")
 //const { squirrelStartup } = require("./squirrelStartup")
@@ -30,7 +31,8 @@ const useEnv = (args, next) => {
 // }
 
 const useApi = (args, next) => {
-    const startupApi = (args) => { return /--run-api/.test(args) }
+    //const startupApi = (args) => { return /--run-api/.test(args) }
+    const startupApi = (args) => { return cmdline.getArgValue(args, "--start") === "api" }
     if (startupApi(args)) {
         OnemarkService(tracer).run()
     } else {

@@ -70,11 +70,11 @@ debug@2.6.1:
   dependencies:
     ms "0.7.2"
 
-debug@2.6.3:
-  version "2.6.3"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.3.tgz#0f7eb8c30965ec08c72accfa0130c8b79984141d"
+debug@2.6.4:
+  version "2.6.4"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.4.tgz#7586a9b3c39741c0282ae33445c4e8ac74734fe0"
   dependencies:
-    ms "0.7.2"
+    ms "0.7.3"
 
 deep-equal@^1.0.1:
   version "1.0.1"
@@ -96,31 +96,37 @@ ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
 
-electron-builder-http@~16.6.0:
-  version "16.6.0"
-  resolved "https://registry.yarnpkg.com/electron-builder-http/-/electron-builder-http-16.6.0.tgz#60676caf0f1d9daf385ce070b07eec49efb29f0f"
+electron-builder-http@~17.0.3:
+  version "17.0.3"
+  resolved "https://registry.yarnpkg.com/electron-builder-http/-/electron-builder-http-17.0.3.tgz#fb350112ead7ebc9d744eda4134cc4492a9afd02"
   dependencies:
-    debug "2.6.3"
+    debug "2.6.4"
     fs-extra-p "^4.1.0"
 
-electron-log@2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/electron-log/-/electron-log-2.0.2.tgz#ea7c3d584da1e02df48e68f16fb750b61e3ab05b"
+electron-is-dev@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/electron-is-dev/-/electron-is-dev-0.1.2.tgz#8a1043e32b3a1da1c3f553dce28ce764246167e3"
 
-electron-updater@1.11.2:
-  version "1.11.2"
-  resolved "https://registry.yarnpkg.com/electron-updater/-/electron-updater-1.11.2.tgz#87afc623bd2a7d4345e7cc2329937221a85e0132"
+electron-log@2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/electron-log/-/electron-log-2.2.3.tgz#8176dde2eb1cbfeb9aa7ce1d4cceceeaae978502"
+
+electron-updater@1.14.2:
+  version "1.14.2"
+  resolved "https://registry.yarnpkg.com/electron-updater/-/electron-updater-1.14.2.tgz#49bd145a5a71f0a44b2e8962e3ea64e26d69e57d"
   dependencies:
     bluebird-lst "^1.0.2"
-    electron-builder-http "~16.6.0"
+    electron-builder-http "~17.0.3"
+    electron-is-dev "^0.1.2"
     fs-extra-p "^4.1.0"
-    js-yaml "^3.8.2"
+    js-yaml "^3.8.3"
     semver "^5.3.0"
     source-map-support "^0.4.14"
+    xelement "^1.0.13"
 
-electron-window-state@4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/electron-window-state/-/electron-window-state-4.1.0.tgz#2086c190dfad16722e0b77b172742a161f6fe38a"
+electron-window-state@4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/electron-window-state/-/electron-window-state-4.1.1.tgz#6b34fdc31b38514dfec8b7c8f7b5d4addb67632d"
   dependencies:
     deep-equal "^1.0.1"
     jsonfile "^2.2.3"
@@ -234,9 +240,9 @@ ipaddr.js@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/ipaddr.js/-/ipaddr.js-1.2.0.tgz#8aba49c9192799585bdd643e0ccb50e8ae777ba4"
 
-js-yaml@^3.8.2:
-  version "3.8.2"
-  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.8.2.tgz#02d3e2c0f6beab20248d412c352203827d786721"
+js-yaml@^3.8.3:
+  version "3.8.3"
+  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.8.3.tgz#33a05ec481c850c8875929166fe1beb61c728766"
   dependencies:
     argparse "^1.0.7"
     esprima "^3.1.1"
@@ -287,6 +293,10 @@ ms@0.7.2:
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.2.tgz#ae25cf2512b3885a1d95d7f037868d8431124765"
 
+ms@0.7.3:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.3.tgz#708155a5e44e33f5fd0fc53e81d0d40a91be1fff"
+
 negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
@@ -328,11 +338,15 @@ raw-body@~2.2.0:
     iconv-lite "0.4.15"
     unpipe "1.0.0"
 
-rxjs@5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.2.0.tgz#db537de8767c05fa73721587a29e0085307d318b"
+rxjs@5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.3.0.tgz#d88ccbdd46af290cbdb97d5d8055e52453fabe2d"
   dependencies:
     symbol-observable "^1.0.1"
+
+sax@^1.2.1:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.2.tgz#fd8631a23bc7826bef5d871bdb87378c95647828"
 
 semver@^5.3.0:
   version "5.3.0"
@@ -409,3 +423,9 @@ utils-merge@1.0.0:
 vary@~1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.0.tgz#e1e5affbbd16ae768dd2674394b9ad3022653140"
+
+xelement@^1.0.13:
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/xelement/-/xelement-1.0.14.tgz#46eb00ea6f5e4db9c18d6f05bcd08dc9ebeff8c0"
+  dependencies:
+    sax "^1.2.1"
