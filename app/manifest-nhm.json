@@ -1,7 +1,7 @@
 {
   "name": "com.waelrabadi.onemark",
   "description": "Onemark",
-  "path": "onemark.exe",
+  "path": "nmh/onemark_x64.exe",
   "type": "stdio",
   "allowed_origins": [
     "chrome-extension://bepglfepbakjngcekbnffkhlhbfjpcdo/"
