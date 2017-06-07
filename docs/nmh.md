@@ -4,5 +4,5 @@ Native message host is a program registered (e.g. Windows under Registry) and ge
 
 ### Register Nmh
 #### Windows Chrome
-[HKEY_CURRENT_USER\Software\Google\Chrome\NativeMessageHosts\com.waelrabadi.onemark]
+[HKEY_CURRENT_USER\Software\Google\Chrome\NativeMessagingHosts\com.waelrabadi.onemark]
 @="path\to\manifest.json"

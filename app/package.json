@@ -7,14 +7,14 @@
   "name": "onemark",
   "private": true,
   "productName": "Onemark",
-  "version": "1.0.5-alpha",
+  "version": "1.0.6-alpha",
   "dependencies": {
-    "body-parser": "1.17.1",
+    "body-parser": "1.17.2",
     "dotenv": "4.0.0",
-    "electron-log": "2.2.3",
-    "electron-updater": "1.14.2",
+    "electron-log": "2.2.6",
+    "electron-updater": "1.16.0",
     "electron-window-state": "4.1.1",
-    "express": "4.15.2",
-    "rxjs": "5.3.0"
+    "express": "4.15.3",
+    "rxjs": "5.4.0"
   }
 }
