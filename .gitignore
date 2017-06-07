@@ -41,3 +41,5 @@ dist
 
 # visual studio
 .vs
+*-lock.*
+*.lock
