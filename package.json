@@ -1,6 +1,6 @@
 {
   "name": "onemark",
-  "version": "1.0.6-alpha",
+  "version": "1.0.7-alpha",
   "description": "Onemark all your internet bookmarks to track and manage outside of the browser",
   "main": "app/main.js",
   "author": {
