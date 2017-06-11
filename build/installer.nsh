@@ -13,7 +13,7 @@
 
 !macro customInstall
   ;!system "echo '' > ${BUILD_RESOURCES_DIR}/customInstall"  
-  CreateShortCut "$SMSTARTUP\Onemark.lnk" "$INSTDIR\Onemark.exe" "--run-api"
+  CreateShortCut "$SMSTARTUP\Onemark.lnk" "$INSTDIR\Onemark.exe" "--start=api"
   WriteRegStr HKCU "Software\Google\Chrome\NativeMessagingHosts\com.waelrabadi.onemark" '' '$INSTDIR\manifest-nmh.json'
 !macroend
 
