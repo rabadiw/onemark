@@ -40,7 +40,7 @@ const useApp = (args, next) => {
   next();
   return;
   //new OnemarkApp();
-  console.log("OnemarkAPP");
+  //console.log("OnemarkAPP");
 };
 
 const useDefault = (args, next) => {

@@ -1,0 +1,76 @@
+import * as React from 'react';
+import './Mark.css';
+
+const Header = (props) => {
+    if (props.isPart === false) {
+        return (
+            <div className="section-heading"> <i className="fa fa-bookmark" />{props.title}</div>
+        )
+    } else {
+        return <div>No header</div>
+    }
+}
+
+const MarkGroupItem = (props) => {
+    let { url, title, navigate } = props;
+    return (
+        <div className="section-item" >
+            <a href="#" target={url} title={url} onClick={(e) => navigate.present(e, props)}>
+                <i className="fa fa-globe" width="24" height="24"></i><span>{title}</span>
+            </a>
+        </div>
+    );
+}
+
+const MarkGroup = (props) => {
+    const items = props.items.map((v, i) =>
+        <MarkGroupItem url={v.url} title={v.url} navigate={props.navigate} key={i} />
+    );
+    return (
+        <div>
+            {items}
+        </div>
+    );
+}
+
+const MarkSection = ({ model, actions }: Props) => {
+    if (Array.isArray(model)) {
+        let listItems = model.map((v, i) =>
+            <div className="section-group" title={v.title} key={i}>
+                <Header {...v} />
+                <MarkGroup items={v.items} navigate={actions.navigateUrl} />
+            </div>
+        );
+
+
+        return (
+            <div className="app-mark-section">
+                {listItems}
+            </div>
+        )
+    } else {
+        return (
+            <div className="app-mark-section">
+                No marks found!
+            </div>
+        )
+    }
+}
+
+interface Props {
+    model: Array<any>;
+    actions: any;
+}
+
+function Marks({ model, actions }: Props) {
+    // console.log("The state is " + model);
+    // console.log("The state is " + actions);
+    return (
+        <div className="marks">
+            <MarkSection model={model} actions={actions} />
+        </div>
+    );
+}
+
+export default Marks;
+export { Props };

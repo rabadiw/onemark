@@ -1,0 +1,56 @@
+.marks{
+  padding: 0;
+  display: flex;
+  flex: 1;
+  margin-top: 64px;
+}
+
+.app-mark-section {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-flow: column wrap;
+  padding: 0 12px;
+  overflow: auto;
+  flex: 1 1 .2%;
+}
+
+.app-mark-section .section-heading {
+  font-weight: bold;
+  font-size: large;
+  color: #778899;
+  margin: 1rem 0;
+}
+
+.app-mark-section .section-heading i {
+  padding: 0 6px 0 0;
+}
+
+.app-mark-section .section-group {
+  -webkit-box-flex: 0 1 0%;
+  -moz-box-flex: 0 1 0%;
+  -webkit-flex: 0 1 0%;
+  -ms-flex: 0 1 0%;
+  flex: 0 1 0%;
+  box-sizing: content-box;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  -ms-grid-row-align: flex-start;
+  align-items: flex-start;
+  width: 400px;
+  margin-right: 2rem;
+}
+
+.app-mark-section .section-item {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  white-space: nowrap;
+  padding: .5rem;
+}
+
+.app-mark-section .section-item i {
+  padding: 0 6px 0 8px;
+}

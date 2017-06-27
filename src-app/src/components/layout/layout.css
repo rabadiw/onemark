@@ -1,0 +1,568 @@
+/* You can add global styles to this file, and also import other style files */
+
+body {
+  margin: 0;
+}
+
+
+/* Disable ugly boxes around ./assets/images in IE10 */
+
+a img {
+  border: 0px;
+}
+
+::-moz-selection {
+  background-color: #6ab344;
+  color: #fff;
+}
+
+::selection {
+  background-color: #6ab344;
+  color: #fff;
+}
+
+.app-search-box .mdl-textfield__input {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.app-header .mdl-menu__container {
+  z-index: 50;
+  margin: 0 !important;  
+}
+
+.mdl-textfield--expandable {
+  width: auto;
+}
+
+.app-fab {
+  position: absolute;
+  right: 20%;
+  bottom: -26px;
+  z-index: 3;
+  background: #64ffda !important;
+  color: black !important;
+}
+
+.app-mobile-title {
+  display: none !important;
+}
+
+.app-logo-image {
+  height: 28px;
+  width: 140px;
+}
+
+.app-header {
+  overflow: visible;
+  background-color: white;  
+}
+
+.app-header .material-icons {
+  color: #767777 !important;
+}
+
+.app-header .mdl-layout__drawer-button {
+  background: transparent;
+  color: #767777;
+}
+
+.app-header .mdl-navigation__link {
+  color: #757575;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.app-navigation-container {
+  /* Simple hack to make the overflow happen to the left instead... */
+  direction: rtl;
+  -ms-flex-order: 1;
+  -webkit-box-ordinal-group: 2;
+  order: 1;
+  width: 500px;
+  -webkit-transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.app-navigation {
+  /* ... and now make sure the content is actually LTR */
+  direction: ltr;
+  -ms-flex-pack: end;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+  width: 800px;
+}
+
+.app-search-box.is-focused+.app-navigation-container {
+  opacity: 0;
+  width: 100px;
+}
+
+.app-navigation .mdl-navigation__link {
+  display: inline-block;
+  height: 60px;
+  line-height: 68px;
+  background-color: transparent !important;
+  border-bottom: 4px solid transparent;
+}
+
+.app-navigation .mdl-navigation__link:hover {
+  border-bottom: 4px solid #8bc34a;
+}
+
+.app-search-box {
+  -ms-flex-order: 2;
+  -webkit-box-ordinal-group: 3;
+  order: 2;
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+.app-more-button {
+  -ms-flex-order: 3;
+  -webkit-box-ordinal-group: 4;
+  order: 3;
+}
+
+.app-drawer {
+  border-right: none;
+}
+
+.app-drawer-separator {
+  height: 1px;
+  background-color: #dcdcdc;
+  margin: 8px 0;
+}
+
+.app-drawer .mdl-navigation__link.mdl-navigation__link {
+  font-size: 14px;
+  color: #757575;
+}
+
+.app-drawer span.mdl-navigation__link.mdl-navigation__link {
+  color: #8bc34a;
+}
+
+.app-drawer .mdl-layout-title {
+  position: relative;
+  background: #6ab344;
+  height: 120px;
+}
+
+.app-drawer .app-logo-image {
+  position: absolute;
+  bottom: 16px;
+}
+
+.app-content {
+  background-color: #f3f3f3;
+  height: 100%;
+  padding: 0;
+}
+
+.app-be-together-section {
+  position: relative;
+  height: 800px;
+  width: auto;
+  background-color: #f3f3f3;
+  /*background: url("./assets/images/slide01.jpg") center 30% no-repeat;*/
+  background-size: cover;
+}
+
+.logo-font {
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  line-height: 1;
+  color: #767777;
+  font-weight: 500;
+}
+
+.app-slogan {
+  font-size: 60px;
+  padding-top: 160px;
+}
+
+.app-sub-slogan {
+  font-size: 21px;
+  padding-top: 24px;
+}
+
+.app-create-character {
+  font-size: 21px;
+  padding-top: 400px;
+}
+
+.app-create-character a {
+  text-decoration: none;
+  color: #767777;
+  font-weight: 300;
+}
+
+.app-screen-section {
+  position: relative;
+  padding-top: 60px;
+  padding-bottom: 80px;
+}
+
+.app-screens {
+  text-align: right;
+  width: 100%;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+.app-screen {
+  text-align: center;
+}
+
+.app-screen .app-link {
+  margin-top: 16px;
+  display: block;
+  z-index: 2;
+}
+
+.app-image-link {
+  text-decoration: none;
+}
+
+.app-wear {
+  display: inline-block;
+  width: 160px;
+  margin-right: 32px;
+}
+
+.app-wear .app-screen-image {
+  width: 40%;
+  z-index: 1;
+}
+
+.app-phone {
+  display: inline-block;
+  width: 64px;
+  margin-right: 48px;
+}
+
+.app-phone .app-screen-image {
+  width: 100%;
+  z-index: 1;
+}
+
+.app-tablet {
+  display: inline-block;
+  width: 110px;
+  margin-right: 64px;
+}
+
+.app-tablet .app-screen-image {
+  width: 100%;
+  z-index: 1;
+}
+
+.app-tablet .app-link {
+  display: block;
+  z-index: 2;
+}
+
+.app-tv {
+  display: inline-block;
+  width: 300px;
+  margin-right: 80px;
+}
+
+.app-tv .app-screen-image {
+  width: 100%;
+  z-index: 1;
+}
+
+.app-auto {
+  display: inline-block;
+  width: 300px;
+  overflow: hidden;
+}
+
+.app-auto .app-screen-image {
+  display: block;
+  height: 300px;
+  z-index: 1;
+}
+
+.app-wear-section {
+  position: relative;
+  /*background: url("./assets/images/wear.png") center top no-repeat;*/
+  background-size: cover;
+  height: 800px;
+}
+
+.app-wear-band {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  background-color: #37474f;
+}
+
+.app-wear-band-text {
+  max-width: 800px;
+  margin-left: 25%;
+  padding: 24px;
+  text-align: left;
+  color: white;
+}
+
+.app-wear-band-text p {
+  padding-top: 8px;
+}
+
+.app-link {
+  text-decoration: none;
+  color: #8bc34a !important;
+}
+
+.app-link:hover {
+  color: #7cb342 !important;
+}
+
+.app-link .material-icons {
+  position: relative;
+  top: -1px;
+  vertical-align: middle;
+}
+
+.app-alt-link {
+  text-decoration: none;
+  color: #64ffda !important;
+  font-size: 16px;
+}
+
+.app-alt-link:hover {
+  color: #00bfa5 !important;
+}
+
+.app-alt-link .material-icons {
+  position: relative;
+  top: 6px;
+}
+
+.app-mark-section {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-flow: column wrap;
+  height: 100%;
+  padding: 0 12px;
+  overflow: auto;
+}
+
+.app-mark-section .section-heading {
+  font-weight: bold;
+  font-size: large;
+  color: #778899;
+  margin: 1rem 0;
+}
+
+.app-mark-section .section-heading i {
+  padding: 0 6px 0 0;
+}
+
+.app-mark-section .section-group {
+  -webkit-box-flex: 0 1 auto;
+  -moz-box-flex: 0 1 auto;
+  -webkit-flex: 0 1 auto;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
+  box-sizing: content-box;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  -ms-grid-row-align: flex-start;
+  align-items: flex-start;
+  width: 400px;
+  margin-right: 2rem;
+}
+
+.app-mark-section .section-item {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  white-space: nowrap;
+  padding: .5rem;
+}
+
+.app-mark-section .section-item i {
+  padding: 0 6px 0 8px;
+}
+
+.app-customized-section {
+  text-align: center;
+}
+
+.app-customized-section-text {
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 80px 16px 0 16px;
+}
+
+.app-customized-section-text p {
+  padding-top: 16px;
+}
+
+.app-customized-section-image {
+  /*background: url("./assets/images/devices.jpg") center top no-repeat;*/
+  background-size: cover;
+  height: 400px;
+}
+
+.app-more-section {
+  padding: 80px 0;
+  max-width: 1044px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.app-more-section .app-section-title {
+  margin-left: 12px;
+  padding-bottom: 24px;
+}
+
+.app-card-container {
+  display: inherit;
+}
+
+.app-card-container .mdl-card__media {
+  overflow: hidden;
+  background: transparent;
+}
+
+.app-card-container .mdl-card__media img {
+  width: 100%;
+}
+
+.app-card-container .mdl-card__title {
+  background: transparent;
+  height: auto;
+}
+
+.app-card-container .mdl-card__title-text {
+  color: black;
+  height: auto;
+}
+
+.app-card-container .mdl-card__supporting-text {
+  height: auto;
+  color: black;
+  padding-bottom: 56px;
+}
+
+.app-card-container .mdl-card__actions {
+  position: absolute;
+  bottom: 0;
+}
+
+.app-card-container .mdl-card__actions a {
+  border-top: none;
+  font-size: 16px;
+}
+
+.app-footer {
+  background-color: #fafafa;
+  position: relative;
+}
+
+.app-footer a:hover {
+  color: #8bc34a;
+}
+
+.app-footer .mdl-mega-footer--top-section::after {
+  border-bottom: none;
+}
+
+.app-footer .mdl-mega-footer--middle-section::after {
+  border-bottom: none;
+}
+
+.app-footer .mdl-mega-footer--bottom-section {
+  position: relative;
+}
+
+.app-footer .mdl-mega-footer--bottom-section a {
+  margin-right: 2em;
+}
+
+.app-footer .mdl-mega-footer--right-section a .material-icons {
+  position: relative;
+  top: 6px;
+}
+
+.app-link-menu:hover {
+  cursor: pointer;
+}
+
+.app-title {
+  color: #767777 !important;
+}
+
+
+/**** Mobile layout ****/
+
+@media (max-width: 900px) {
+  .app-navigation-container {
+    display: none;
+  }
+  .app-title {
+    color: #767777 !important;
+  }
+  .app-mobile-title {
+    display: block !important;
+    position: absolute;
+    left: calc(50% - 70px);
+    top: 12px;
+    -webkit-transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  /* WebViews in iOS 9 break the "~" operator, and WebViews in OS X 10.10 break
+     consecutive "+" operators in some cases. Therefore, we need to use both
+     here to cover all the bases. */
+  .android.app-search-box.is-focused~.app-mobile-title,
+  .app-search-box.is-focused+.app-navigation-container+.app-mobile-title {
+    opacity: 0;
+  }
+  .app-more-button {
+    display: none;
+  }
+  .app-search-box.is-focused {
+    width: calc(100% - 48px);
+  }
+  .app-search-box .mdl-textfield__expandable-holder {
+    width: 100%;
+  }
+  .app-be-together-section {
+    height: 350px;
+  }
+  .app-slogan {
+    font-size: 26px;
+    margin: 0 16px;
+    padding-top: 24px;
+  }
+  .app-sub-slogan {
+    font-size: 16px;
+    margin: 0 16px;
+    padding-top: 8px;
+  }
+  .app-create-character {
+    padding-top: 200px;
+    font-size: 16px;
+  }
+  .app-create-character img {
+    height: 12px;
+  }
+  .app-fab {
+    display: none;
+  }
+  .app-wear-band-text {
+    margin-left: 0;
+    padding: 16px;
+  }
+  .app-footer .mdl-mega-footer--bottom-section {
+    display: none;
+  }
+}
