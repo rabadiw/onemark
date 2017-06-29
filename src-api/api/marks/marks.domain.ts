@@ -18,10 +18,10 @@ interface IMarkModel {
 }
 
 interface IMarksRepository {
-  getAll(): Promise<any[]>
-  get(id: string): Promise<any>
-  append(marks: any): Promise<any[]>
-  delete(marks: any): Promise<any[]>
+  getAll(): Promise<{}>
+  get(id: string): Promise<{}>
+  append(marks: any): Promise<{}>
+  delete(marks: any): Promise<{}>
 }
 
 interface IMarksController {

@@ -9,7 +9,7 @@
       "isShellCommand": true,
       "args": ["-p", "./src-api"],
       "showOutput": "silent",
-      "problemMatcher": "$tsc"      
+      "problemMatcher": "$tsc"
     },
     {
       "taskName": "Build",

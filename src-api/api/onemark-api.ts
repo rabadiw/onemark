@@ -4,41 +4,38 @@
 // BASE SETUP
 // ==============================================
 
-import { Express } from "@types/express"
+import { Express } from "express"
 import { Server } from "http"
-import { OptionsJson } from "body-parser"
-import { ITracer } from "../modules/tracer";
+import { ITracer } from "../modules/tracer"
 
 const express = require("express")
 const bodyParser = require("body-parser")
 
 interface IExpressOptions {
-  tracer: ITracer
-  port: Number
   bodyLimit: String
+  port: Number
+  tracer: ITracer
 }
 interface IRouteOptions {
-  template: string
   router: any
+  template: string
 }
-
 interface IRegisterOptions {
   routes: IRouteOptions[]
 }
 
 class OnemarkApi {
+  app: Express
   bodyLimit: number | String
   port: Number
   server: Server
   tracer: ITracer
-  app: Express
 
   /**
    * create a new OnemarkApi object
    * @param options {trace: Function,port: Number,bodyLimit: String}
    */
-  constructor(options: IExpressOptions) {
-    let { tracer, port, bodyLimit } = options
+  constructor({ tracer, port, bodyLimit }: IExpressOptions) {
     this.tracer = tracer || { info: (msg) => { console.log(msg) } } as ITracer
     this.port = port || 3010
     this.bodyLimit = bodyLimit || 300

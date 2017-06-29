@@ -3,8 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const bodyParser = require("body-parser");
 class OnemarkApi {
-    constructor(options) {
-        let { tracer, port, bodyLimit } = options;
+    constructor({ tracer, port, bodyLimit }) {
         this.tracer = tracer || { info: (msg) => { console.log(msg); } };
         this.port = port || 3010;
         this.bodyLimit = bodyLimit || 300;

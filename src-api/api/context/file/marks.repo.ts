@@ -10,17 +10,14 @@ import { IMarksRepository } from "../../marks/marks.domain";
 import { IMarksModel, IMarkModel } from "../../marks/marks.domain";
 import { ITracer } from "../../../modules/tracer"
 
+const defaultModel = {
+  version: "1.0.0",
+  updated: "2016-08-10T21:18:04.432Z",
+  data: []
+};
+
 class MarksListRepo implements IMarksRepository {
   tracer: ITracer;
-  // path relative to entry point
-  marksDbPath: string = appSettings.marksDbPath;
-  defaultModel = {
-    version: "1.0.0",
-    updated: "2016-08-10T21:18:04.432Z",
-    data: []
-  };
-
-  marksDbSourceInternal = Rx.Observable.bindNodeCallback(readFile)(this.marksDbPath);
 
   loadMarks = (callback) => {
     let data: string = "";
@@ -32,14 +29,12 @@ class MarksListRepo implements IMarksRepository {
         if (e.code !== "ENOENT") {
           throw e;
         }
-        callback(JSON.stringify(this.defaultModel));
+        callback(JSON.stringify(defaultModel));
       },
       () => {
         callback(data);
       });
   }
-
-  marksDbSource = Rx.Observable.bindCallback(this.loadMarks)();
 
   saveMarksDb = (data) => {
     return new Promise((resolve, reject) => {
@@ -52,6 +47,11 @@ class MarksListRepo implements IMarksRepository {
       });
     });
   }
+
+  // path relative to entry point
+  marksDbPath: string = appSettings.marksDbPath;
+  marksDbSourceInternal = Rx.Observable.bindNodeCallback(readFile)(this.marksDbPath);
+  marksDbSource = Rx.Observable.bindCallback(this.loadMarks)();
 
   constructor(tracer: ITracer) {
     this.tracer = tracer

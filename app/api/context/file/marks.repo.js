@@ -4,15 +4,13 @@ const Rx = require("rxjs");
 const fs_1 = require("fs");
 const crypto_1 = require("crypto");
 const settings_1 = require("../../config/settings");
+const defaultModel = {
+    version: "1.0.0",
+    updated: "2016-08-10T21:18:04.432Z",
+    data: []
+};
 class MarksListRepo {
     constructor(tracer) {
-        this.marksDbPath = settings_1.appSettings.marksDbPath;
-        this.defaultModel = {
-            version: "1.0.0",
-            updated: "2016-08-10T21:18:04.432Z",
-            data: []
-        };
-        this.marksDbSourceInternal = Rx.Observable.bindNodeCallback(fs_1.readFile)(this.marksDbPath);
         this.loadMarks = (callback) => {
             let data = "";
             this.marksDbSourceInternal.subscribe((buffer) => {
@@ -21,12 +19,11 @@ class MarksListRepo {
                 if (e.code !== "ENOENT") {
                     throw e;
                 }
-                callback(JSON.stringify(this.defaultModel));
+                callback(JSON.stringify(defaultModel));
             }, () => {
                 callback(data);
             });
         };
-        this.marksDbSource = Rx.Observable.bindCallback(this.loadMarks)();
         this.saveMarksDb = (data) => {
             return new Promise((resolve, reject) => {
                 data.updated = (new Date()).toISOString();
@@ -39,10 +36,14 @@ class MarksListRepo {
                 });
             });
         };
+        this.marksDbPath = settings_1.appSettings.marksDbPath;
+        this.marksDbSourceInternal = Rx.Observable.bindNodeCallback(fs_1.readFile)(this.marksDbPath);
+        this.marksDbSource = Rx.Observable.bindCallback(this.loadMarks)();
         this.tracer = tracer;
         this.tracer.info(`Marks file path ${this.marksDbPath}`);
     }
     getAll() {
+        this.marksDbSource.publishReplay();
         const getAllAsync = (resolve, reject) => {
             this.marksDbSource.subscribe((x) => resolve(x), (e) => reject(e));
         };

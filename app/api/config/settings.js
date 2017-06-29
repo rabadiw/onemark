@@ -28,7 +28,7 @@ const isProduction = () => {
     return isRuntime("Production");
 };
 const getPort = () => {
-    return (process.env.ONEMARK_API_PORT || 8081);
+    return parseInt((process.env.ONEMARK_API_PORT || "8081"));
 };
 const getOnemarkPath = () => {
     return resolveApp(process.env.ONEMARK_PATH || "./context/file/urls.json");

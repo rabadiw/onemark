@@ -9,9 +9,9 @@ import { ITracer } from "../modules/tracer";
 const OnemarkService = (tracer?: ITracer) => {
   tracer = tracer || appSettings.tracer
   let api = new OnemarkApi({
+    tracer: tracer,
     port: appSettings.port,
     bodyLimit: appSettings.bodyLimit,
-    tracer: tracer
   })
   let options = {
     routes: [

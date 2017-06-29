@@ -6,9 +6,9 @@ const settings_1 = require("./config/settings");
 const OnemarkService = (tracer) => {
     tracer = tracer || settings_1.appSettings.tracer;
     let api = new onemark_api_1.OnemarkApi({
+        tracer: tracer,
         port: settings_1.appSettings.port,
         bodyLimit: settings_1.appSettings.bodyLimit,
-        tracer: tracer
     });
     let options = {
         routes: [
