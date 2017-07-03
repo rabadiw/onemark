@@ -1,3 +1,6 @@
+// Copyright (c) Wael Rabadi. All rights reserved.
+// See LICENSE for details.
+
 import * as React from 'react';
 import './Mark.css';
 
@@ -7,7 +10,7 @@ const Header = (props) => {
             <div className="section-heading"> <i className="fa fa-bookmark" />{props.title}</div>
         )
     } else {
-        return <div>No header</div>
+        return <div className="section-heading"> <i className="fa fa-bookmark" />No header</div>
     }
 }
 

@@ -3,6 +3,7 @@
 
 interface IMarksModel {
   version: string;
+  //ISO Format
   updated: string;
   data: [IMarkModel];
 }
@@ -13,6 +14,7 @@ interface IMarkModel {
   domain: string;
   favIconUrl: string;
   title: string;
+  //ISO Format
   updated: string;
   url: string;
 }

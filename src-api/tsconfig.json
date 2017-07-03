@@ -8,7 +8,6 @@
     "noEmitHelpers": true,
     "noImplicitAny": false,
     "newLine": "LF",
-    "rootDir": "./src-api",
     "outDir": "../app",
     "skipDefaultLibCheck": true,
     "sourceMap": true,    

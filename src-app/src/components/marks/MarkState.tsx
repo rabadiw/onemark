@@ -1,5 +1,8 @@
+// Copyright (c) Wael Rabadi. All rights reserved.
+// See LICENSE for details.
+
 import * as _ from 'lodash';
-import { openUrl } from "../../lib/env";
+import { openUrl } from "../../lib/common";
 
 // Group state by default
 class MarkState {

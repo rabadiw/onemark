@@ -1,3 +1,6 @@
+// Copyright (c) Wael Rabadi. All rights reserved.
+// See LICENSE for details.
+
 import React, { Component } from 'react';
 import './layout.css';
 import logo from '../../assets/icon-48.png'

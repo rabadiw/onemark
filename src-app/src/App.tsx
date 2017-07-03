@@ -1,5 +1,10 @@
+// Copyright (c) Wael Rabadi. All rights reserved.
+// See LICENSE for details.
+
 import * as React from 'react';
 import './App.css';
+import 'font-awesome/css/font-awesome.css';
+
 import Marks from './components/marks/Mark';
 import MarkState from './components/marks/MarkState';
 import MarkService from './marks/MarkService';
@@ -7,9 +12,7 @@ import MarkService from './marks/MarkService';
 import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 
-import RaisedButton from 'material-ui/RaisedButton';
-
-const apiUrl = 'http://localhost:3010/api/marks';
+//import RaisedButton from 'material-ui/RaisedButton';
 
 interface SearchBarProps {
   textChanged(e)
@@ -26,7 +29,10 @@ const SearchBar = (props: SearchBarProps) => {
   )
 }
 
-interface Props { }
+interface Props {
+  apiUrl?: string,
+  isDeignMode?: boolean
+}
 
 class App extends React.PureComponent<Props, object> {
 
@@ -36,7 +42,7 @@ class App extends React.PureComponent<Props, object> {
     super(props);
 
     this.handleSearchChange = this.handleSearchChange.bind(this);
-    this.state = new MarkState(new MarkService(apiUrl), (state) => this.present(state), {}, {});
+    this.state = new MarkState(new MarkService({ baseApiUrl: props.apiUrl, isDesignMode: props.isDeignMode }), (state) => this.present(state), {}, {});
     this.state.actions.fetch.present(null, null);
   }
 

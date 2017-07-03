@@ -1,59 +1,30 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Rx = require("rxjs");
-const fs_1 = require("fs");
 const crypto_1 = require("crypto");
 const settings_1 = require("../../config/settings");
-const defaultModel = {
-    version: "1.0.0",
-    updated: "2016-08-10T21:18:04.432Z",
-    data: []
-};
+const markFileDb_1 = require("./markFileDb");
 class MarksListRepo {
     constructor(tracer) {
-        this.loadMarks = (callback) => {
-            let data = "";
-            this.marksDbSourceInternal.subscribe((buffer) => {
-                data += buffer.toString("utf8");
-            }, (e) => {
-                if (e.code !== "ENOENT") {
-                    throw e;
-                }
-                callback(JSON.stringify(defaultModel));
-            }, () => {
-                callback(data);
-            });
-        };
-        this.saveMarksDb = (data) => {
-            return new Promise((resolve, reject) => {
-                data.updated = (new Date()).toISOString();
-                fs_1.writeFile(this.marksDbPath, JSON.stringify(data), (err) => {
-                    if (err) {
-                        reject(err);
-                        return;
-                    }
-                    resolve();
-                });
-            });
-        };
         this.marksDbPath = settings_1.appSettings.marksDbPath;
-        this.marksDbSourceInternal = Rx.Observable.bindNodeCallback(fs_1.readFile)(this.marksDbPath);
-        this.marksDbSource = Rx.Observable.bindCallback(this.loadMarks)();
         this.tracer = tracer;
         this.tracer.info(`Marks file path ${this.marksDbPath}`);
+        this.marksFileDb = new markFileDb_1.default(tracer, this.marksDbPath);
+        this.marksDbSource$ = this.marksFileDb.createRx();
     }
     getAll() {
-        this.marksDbSource.publishReplay();
         const getAllAsync = (resolve, reject) => {
-            this.marksDbSource.subscribe((x) => resolve(x), (e) => reject(e));
+            this.marksDbSource$.subscribe((x) => resolve(x), (e) => reject(e));
         };
         return new Promise(getAllAsync);
     }
     get(id) {
         const getAsync = (resolve, reject) => {
-            this.marksDbSource.subscribe((x) => {
-                let obj = (typeof x !== "string") ? x : JSON.parse(String(x));
-                obj.data = obj.data.filter((v) => v.id === id);
+            this.marksDbSource$.subscribe((x) => {
+                let obj = {
+                    version: x.version,
+                    updated: x.updated,
+                    data: (x.data.filter((v) => v.id === id))
+                };
                 resolve(obj);
             }, (e) => {
                 reject(e);
@@ -62,24 +33,31 @@ class MarksListRepo {
         return new Promise(getAsync);
     }
     append(marks) {
+        const createId = (v) => {
+            let hash = crypto_1.createHash("sha256");
+            hash.update(v);
+            return hash.digest("hex");
+        };
+        const getDomain = (v) => {
+            let domain = v.match(/\b([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}\b/i);
+            if (domain) {
+                return domain[0];
+            }
+            return "";
+        };
         const appendAsync = (resolve, reject) => {
-            this.marksDbSource.subscribe((x) => {
-                let obj = (typeof x !== "string") ? x : JSON.parse(String(x));
+            this.marksDbSource$.subscribe((x) => {
                 let objMap = new Map();
-                obj.data.forEach((v) => objMap.set(v.id, v));
+                x.data.forEach((v) => objMap.set(v.id, v));
                 if (!Array.isArray(marks)) {
                     marks = [marks];
                 }
                 marks.forEach((v) => {
-                    let hash = crypto_1.createHash("sha256");
-                    hash.update(v.url);
-                    v.id = hash.digest("hex");
-                    let domain = v.url.match(/\b([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}\b/i);
-                    if (domain) {
-                        v.domain = domain[0];
-                    }
+                    v.id = createId(v.url);
+                    v.domain = getDomain(v.url);
                     if (objMap.has(v.id)) {
-                        v.created = objMap.get(v.id).created;
+                        let curObj = objMap.get(v.id);
+                        v.created = curObj.created;
                         v.updated = (new Date()).toISOString();
                     }
                     else {
@@ -87,8 +65,12 @@ class MarksListRepo {
                     }
                     objMap.set(v.id, v);
                 });
-                obj.data = Array.from(objMap.values());
-                this.saveMarksDb(obj)
+                let obj = {
+                    version: x.version,
+                    updated: (new Date()).toISOString(),
+                    data: Array.from(objMap.values())
+                };
+                this.marksFileDb.saveMarksDb(obj)
                     .then(resolve)
                     .catch(err => reject(err));
             }, (e) => {
@@ -99,16 +81,19 @@ class MarksListRepo {
     }
     delete(marks) {
         return new Promise((resolve, reject) => {
-            this.marksDbSource.subscribe((x) => {
-                let obj = (typeof x !== "string") ? x : JSON.parse(String(x));
+            this.marksDbSource$.subscribe((x) => {
                 let objMap = new Map();
-                obj.data.forEach((v) => objMap.set(v.id, v));
+                x.data.forEach((v) => objMap.set(v.id, v));
                 if (!Array.isArray(marks)) {
                     marks = [marks];
                 }
                 marks.forEach((v) => objMap.delete(v));
-                obj.data = Array.from(objMap.values());
-                this.saveMarksDb(obj)
+                let obj = {
+                    version: x.version,
+                    updated: (new Date()).toISOString(),
+                    data: Array.from(objMap.values())
+                };
+                this.marksFileDb.saveMarksDb(obj)
                     .then(resolve)
                     .catch(err => reject(err));
             }, (e) => {
