@@ -17,7 +17,7 @@ try {
     .then(startApp);
 } catch (e) {
   // NotYetImplmeneted!
-  startApp({ onemark_api_url: "http://localhost:32801/", design_mode: false })
+  startApp({ onemark_api_url: 'http://localhost:32801/', design_mode: false });
 }
 
 interface EnvResponse {
