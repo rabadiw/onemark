@@ -9,9 +9,6 @@ import * as fs from 'fs';
 import * as path from 'path';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-// let apiUrl = (process.env.ONEMARK_API_URL || 'http://localhost:3010/');
-// let isDesignMode = (process.env.DESIGN_MODE || false);
-
 try {
   fetch('http://localhost:3001/api/env', {
     headers: { accept: 'application/json' }
@@ -20,6 +17,7 @@ try {
     .then(startApp);
 } catch (e) {
   // NotYetImplmeneted!
+  startApp({ onemark_api_url: "http://localhost:32801/", design_mode: false })
 }
 
 interface EnvResponse {
