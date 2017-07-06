@@ -9,16 +9,14 @@ import * as fs from 'fs';
 import * as path from 'path';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-try {
-  fetch('http://localhost:3001/api/env', {
-    headers: { accept: 'application/json' }
-  })
-    .then(parseJSON)
-    .then(startApp);
-} catch (e) {
-  // NotYetImplmeneted!
-  startApp({ onemark_api_url: 'http://localhost:32801/', design_mode: false });
-}
+fetch('http://localhost:3001/api/env', {
+  headers: { accept: 'application/json' }
+})
+  .then(parseJSON)
+  .then(startApp).catch((err) => {
+    // not the best solution, but will do for now.
+    startApp({ onemark_api_url: 'http://localhost:32801/', design_mode: false });
+  });
 
 interface EnvResponse {
   onemark_api_url: String;
