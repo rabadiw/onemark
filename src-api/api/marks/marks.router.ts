@@ -5,7 +5,7 @@ import { Router } from "express";
 import { IMarksController } from "../marks/marks.domain";
 import { ITracer } from "../../modules/tracer"
 
-import { MarksListRepo as MarksRepo } from "../context/file/marks.repo";
+import { MarksListRepo as MarksRepo, IMarksListRepoOption } from "../context/file/marks.repo";
 import { MarksController as Controller } from "../marks/marks.controller";
 
 const MarksRouteHandler = (controller: IMarksController, tracer: ITracer) => {
@@ -63,6 +63,12 @@ const MarksRouteHandler = (controller: IMarksController, tracer: ITracer) => {
   return router
 }
 
-export const MarksRouter = (tracer) => {
-  return MarksRouteHandler(new Controller(new MarksRepo(tracer)), tracer)
+export interface IMarksRouterOption {
+  tracer: ITracer,
+  markDataPath: String
+}
+
+export const MarksRouter = ({ tracer, markDataPath }: IMarksRouterOption) => {
+  let marksRepoOption: IMarksListRepoOption = { tracer: tracer, markDataPath: markDataPath }
+  return MarksRouteHandler(new Controller(new MarksRepo(marksRepoOption)), tracer)
 }

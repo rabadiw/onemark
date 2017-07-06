@@ -2,11 +2,12 @@
 // See LICENSE for details.
 
 import * as _ from 'lodash';
-import { openUrl } from "../../lib/common";
+import { openUrl } from '../../lib/common';
 
 // Group state by default
 class MarkState {
-  [x: string]: any;
+  [x: string]: any; // tslint:disable-line
+  // tslint:disable-next-line
   constructor(service, present, model, rawData) {
     this.markService = service;
     this.present = present;
@@ -17,9 +18,10 @@ class MarkState {
       filter: { name: 'Filter', canExecute: true, present: (evt, args) => this.filter(evt, args) },
       fetch: { name: 'Fetch', canExecute: true, present: (evt, args) => this.fetch(evt, args) },
       navigateUrl: { name: 'Open URL', canExecute: true, present: (evt, args) => this.navigateUrl(evt, args) }
-    }
+    };
   }
 
+  // tslint:disable-next-line
   filter(evt, args) {
     if (args === '') {
       this.internalPresent(this.rawData);
@@ -30,6 +32,7 @@ class MarkState {
     }
   }
 
+  // tslint:disable-next-line
   fetch(evt, args) {
     this.markService
       .getMarks()
@@ -38,9 +41,10 @@ class MarkState {
         this.rawData = results;
         this.internalPresent(results);
 
-      }).catch((err) => console.log(err));
+      }).catch((err) => console.log(err)); // tslint:disable-line
   }
 
+  // tslint:disable-next-line
   internalPresent(data) {
     var nextState =
       _.chain(data)
@@ -58,6 +62,7 @@ class MarkState {
     this.present(new MarkState(this.markService, this.present, nextState, this.rawData));
   }
 
+  // tslint:disable-next-line
   navigateUrl(evt, args) {
     openUrl(args);
     if (evt) { evt.preventDefault(); }

@@ -1,13 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const crypto_1 = require("crypto");
-const settings_1 = require("../../config/settings");
 const markFileDb_1 = require("./markFileDb");
 class MarksListRepo {
-    constructor(tracer) {
-        this.marksDbPath = settings_1.appSettings.marksDbPath;
+    constructor({ tracer, markDataPath }) {
         this.tracer = tracer;
         this.tracer.info(`Marks file path ${this.marksDbPath}`);
+        this.marksDbPath = markDataPath;
         this.marksFileDb = new markFileDb_1.default(tracer, this.marksDbPath);
         this.marksDbSource$ = this.marksFileDb.createRx();
     }

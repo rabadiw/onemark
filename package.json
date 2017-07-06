@@ -1,6 +1,6 @@
 {
   "name": "onemark",
-  "version": "1.0.9-alpha",
+  "version": "1.0.8-alpha",
   "description": "Onemark all your internet bookmarks to track and manage outside of the browser",
   "main": "app/main.js",
   "author": {
@@ -57,9 +57,10 @@
     "@types/express": "4.0.36",
     "@types/node": "8.0.7",
     "body-parser": "1.17.2",
+    "concurrently": "3.5.0",
     "electron": "1.6.11",
-    "electron-builder": "19.11.1",
-    "electron-builder-squirrel-windows": "19.11.0",
+    "electron-builder": "19.12.0",
+    "electron-builder-squirrel-windows": "19.12.0",
     "electron-packager": "8.7.2",
     "eslint": "4.1.1",
     "express": "4.15.3",
@@ -72,10 +73,16 @@
   },
   "scripts": {
     "postinstall": "install-app-deps",
+    
+    "start:client": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "node ./src-client/client-server.js --env=./src-api/.env",
+    "dev:client": "node client-startup.js",
+    
     "build:api": "tsc -p ./src-api",
     "preapi": "yarn run build:api",
     "api": "electron ./app --start=api --env=./src-api/.env",
-    "start": "electron ./app --env=./src-api/.env",
+    "app": "electron ./app --env=./src-api/.env",
+    "start": "concurrently \"yarn run api\" \"yarn run app\"",
     "pack": "build --dir --win --x64",
     "dist": "build",
     "release": "build --publish always"

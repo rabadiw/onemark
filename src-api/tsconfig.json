@@ -14,7 +14,8 @@
     "strictNullChecks": false,
     "removeComments": true,
     "inlineSources": true,
-    "target": "es2015"
+    "target": "es2015",
+    "skipLibCheck": true
   },
   "exclude": [
     "node_modules"

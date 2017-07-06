@@ -8,22 +8,24 @@ const Header = (props) => {
     if (props.isPart === false) {
         return (
             <div className="section-heading"> <i className="fa fa-bookmark" />{props.title}</div>
-        )
+        );
     } else {
-        return <div className="section-heading"> <i className="fa fa-bookmark" />No header</div>
+        return (
+            <div className="section-heading"> <i className="fa fa-bookmark" />No header</div>
+        );
     }
-}
+};
 
 const MarkGroupItem = (props) => {
     let { url, title, navigate } = props;
     return (
         <div className="section-item" >
             <a href="#" target={url} title={url} onClick={(e) => navigate.present(e, props)}>
-                <i className="fa fa-globe" width="24" height="24"></i><span>{title}</span>
+                <i className="fa fa-globe" width="24" height="24" /><span>{title}</span>
             </a>
         </div>
     );
-}
+};
 
 const MarkGroup = (props) => {
     const items = props.items.map((v, i) =>
@@ -34,35 +36,36 @@ const MarkGroup = (props) => {
             {items}
         </div>
     );
-}
+};
 
 const MarkSection = ({ model, actions }: Props) => {
     if (Array.isArray(model)) {
         let listItems = model.map((v, i) =>
-            <div className="section-group" title={v.title} key={i}>
-                <Header {...v} />
-                <MarkGroup items={v.items} navigate={actions.navigateUrl} />
-            </div>
+            (
+                <div className="section-group" title={v.title} key={i}>
+                    <Header {...v} />
+                    <MarkGroup items={v.items} navigate={actions.navigateUrl} />
+                </div>
+            )
         );
-
 
         return (
             <div className="app-mark-section">
                 {listItems}
             </div>
-        )
+        );
     } else {
         return (
             <div className="app-mark-section">
                 No marks found!
             </div>
-        )
+        );
     }
-}
+};
 
 interface Props {
-    model: Array<any>;
-    actions: any;
+    model: Array<any>; // tslint:disable-line
+    actions: any; // tslint:disable-line
 }
 
 function Marks({ model, actions }: Props) {

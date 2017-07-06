@@ -2,7 +2,7 @@
 // See LICENSE for details.
 
 "use strict"
-const { app, Menu, BrowserWindow, dialog, ipcMain, shell, ipcRenderer } = require("electron")
+const { app, Menu, BrowserWindow, dialog, ipcMain, shell, session } = require("electron")
 const { appUpdater } = require("./app-updater")
 const { appEventTypes } = require("./app-events")
 const { appSettings } = require('./config/settings')
@@ -98,6 +98,19 @@ class OnemarkApp {
             win.show()
             // Check for update
             appUpdater.checkForUpdate()
+        })
+
+        // intercept client API calls and redirect to API url
+        session.defaultSession.webRequest.onBeforeRequest(['*://*./*'], (details, callback) => {
+            if (details.url.indexOf(":3001/api/env", 1) > 0) {
+                let newUrl = `${process.env.ONEMARK_API_URL}api/env`;
+                console.log(`Redirecting ${details.url} to ${newUrl}`)
+                callback({
+                    redirectURL: `${newUrl}`
+                })
+            } else {
+                callback({})
+            }
         })
 
         ipcMain.on(appEventTypes.checkForUpdate, (event, args) => {

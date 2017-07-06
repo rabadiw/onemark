@@ -2,6 +2,7 @@
 // See LICENSE for details.
 
 "use strict";
+const { appSettings } = require("./api/config/settings")
 const { tracer } = require("./modules/tracer")
 const { cmdline } = require("./modules/cmdline")
 const { OnemarkApp } = require("./onemark-app")
@@ -34,7 +35,13 @@ const useApi = (args, next) => {
     //const startupApi = (args) => { return /--run-api/.test(args) }
     const startupApi = (args) => { return cmdline.getArgValue(args, "--start") === "api" }
     if (startupApi(args)) {
-        OnemarkService(tracer).run()
+        let svcOption = {
+            tracer: tracer,
+            port: appSettings.port,
+            bodyLimit: appSettings.bodyLimit,
+            markDataPath: appSettings.marksDbPath
+        }
+        OnemarkService(svcOption).run()
     } else {
         next()
     }

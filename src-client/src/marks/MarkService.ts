@@ -2,16 +2,16 @@
 import { MarkDesignData } from './MarkDesignData.js';
 import { traceError } from '../lib/common.js';
 
-interface IMarkServiceOption {
-    baseApiUrl: string,
-    isDesignMode: boolean
+interface MarkServiceOption {
+    baseApiUrl: string;
+    isDesignMode: boolean;
 }
 
 class MarkService {
     isDesignMode: boolean;
     baseApiUrl: string;
 
-    constructor({ baseApiUrl, isDesignMode }: IMarkServiceOption) {
+    constructor({ baseApiUrl, isDesignMode }: MarkServiceOption) {
         this.baseApiUrl = baseApiUrl;
         this.isDesignMode = isDesignMode;
     }
@@ -27,7 +27,7 @@ class MarkService {
             } else {
 
                 fetch(
-                    this.baseApiUrl + "marks",
+                    this.baseApiUrl + 'api/marks',
                     {
                         headers: { 'accept': 'application/json' }
                     }
@@ -53,3 +53,4 @@ class MarkService {
 }
 
 export default MarkService;
+export { MarkServiceOption };

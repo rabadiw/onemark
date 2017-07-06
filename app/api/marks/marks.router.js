@@ -48,7 +48,8 @@ const MarksRouteHandler = (controller, tracer) => {
     });
     return router;
 };
-exports.MarksRouter = (tracer) => {
-    return MarksRouteHandler(new marks_controller_1.MarksController(new marks_repo_1.MarksListRepo(tracer)), tracer);
+exports.MarksRouter = ({ tracer, markDataPath }) => {
+    let marksRepoOption = { tracer: tracer, markDataPath: markDataPath };
+    return MarksRouteHandler(new marks_controller_1.MarksController(new marks_repo_1.MarksListRepo(marksRepoOption)), tracer);
 };
 //# sourceMappingURL=marks.router.js.map

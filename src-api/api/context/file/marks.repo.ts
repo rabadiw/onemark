@@ -4,22 +4,27 @@
 import * as path from "path";
 
 import { createHash } from "crypto";
-import { appSettings } from "../../config/settings";
 import { IMarksRepository } from "../../marks/marks.domain";
 import { IMarksModel, IMarkModel } from "../../marks/marks.domain";
 import { ITracer } from "../../../modules/tracer"
 import { Observable } from "rxjs";
 import MarkFileDb from "./markFileDb";
 
+interface IMarksListRepoOption {
+  tracer: ITracer,
+  markDataPath: String
+}
+
 class MarksListRepo implements IMarksRepository {
   tracer: ITracer;
   marksFileDb: MarkFileDb;
-  marksDbPath: string = appSettings.marksDbPath;
+  marksDbPath: String;
   marksDbSource$: Observable<IMarksModel>;
 
-  constructor(tracer: ITracer) {
+  constructor({ tracer, markDataPath }: IMarksListRepoOption) {
     this.tracer = tracer
     this.tracer.info(`Marks file path ${this.marksDbPath}`)
+    this.marksDbPath = markDataPath
     this.marksFileDb = new MarkFileDb(tracer, this.marksDbPath)
     this.marksDbSource$ = this.marksFileDb.createRx()
   }
@@ -150,4 +155,4 @@ class MarksListRepo implements IMarksRepository {
   }
 }
 
-export { MarksListRepo }
+export { MarksListRepo, IMarksListRepoOption }

@@ -3,7 +3,7 @@
 
 const path = require("path");
 const url = require('url')
-const fs = require('fs')
+// const fs = require('fs')
 
 const resolveRoot = (...relativePath) => {
     return path.resolve(__dirname, "..", ...relativePath);
@@ -16,9 +16,8 @@ const isElectronDevMode = () => {
         /[\\/]electron[\\/]/.test(process.execPath)
 }
 const isDevMode = () => {
-    return /--dev/.test(process.argv || [])
+    return (process.argv || []).find(v => /--dev/.test(v)) !== undefined
 }
-
 
 const settings = {
     isProduction: !(isDevMode() || isElectronDevMode()),

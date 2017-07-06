@@ -26,7 +26,7 @@ interface IRegisterOptions {
 
 class OnemarkApi {
   app: Express
-  bodyLimit: number | String
+  bodyLimit: Number | String
   port: Number
   server: Server
   tracer: ITracer
@@ -93,4 +93,4 @@ class OnemarkApi {
   }
 }
 
-export { OnemarkApi }
+export { OnemarkApi, IExpressOptions, IRouteOptions, IRegisterOptions }

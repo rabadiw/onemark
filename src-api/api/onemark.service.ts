@@ -1,21 +1,25 @@
 // Copyright (c) Wael Rabadi. All rights reserved.
 // See LICENSE for details.
 
-import { OnemarkApi } from "./onemark-api"
-import { MarksRouter } from "./marks/marks.router"
-import { appSettings } from "./config/settings"
+import { OnemarkApi, IExpressOptions } from "./onemark-api"
+import { MarksRouter, IMarksRouterOption } from "./marks/marks.router"
 import { ITracer } from "../modules/tracer";
 
-const OnemarkService = (tracer?: ITracer) => {
-  tracer = tracer || appSettings.tracer
-  let api = new OnemarkApi({
-    tracer: tracer,
-    port: appSettings.port,
-    bodyLimit: appSettings.bodyLimit,
-  })
+interface IOnemarkServiceOption extends IExpressOptions {
+  markDataPath: String
+}
+
+const OnemarkService = ({ tracer, port, bodyLimit, markDataPath }: IOnemarkServiceOption) => {
+
+  let onemarkApiOption: IExpressOptions = { tracer: tracer, port: port, bodyLimit: bodyLimit }
+  let marksRouterOption: IMarksRouterOption = { tracer: tracer, markDataPath: markDataPath }
+  let envRes = { onemark_api_url: process.env.ONEMARK_API_URL, design_mode: process.env.DESIGN_MODE }
+  let api = new OnemarkApi(onemarkApiOption)
+
   let options = {
     routes: [
-      { template: "/api/marks", router: MarksRouter(tracer) },
+      { template: "/api/marks", router: MarksRouter(marksRouterOption) },
+      { template: "/api/env", router: ((req, res) => { res.json(envRes) }) },
       { template: "/", router: ((req, res) => { res.send("Hello world!") }) }
     ]
   }
@@ -27,4 +31,4 @@ const OnemarkService = (tracer?: ITracer) => {
   }
 }
 
-export { OnemarkService }
+export { OnemarkService, IOnemarkServiceOption }

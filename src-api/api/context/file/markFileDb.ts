@@ -11,9 +11,9 @@ const DefaultModel = {
 
 class MarkFileDb {
   tracer: ITracer;
-  marksDbPath: string;
+  marksDbPath: String;
 
-  constructor(tracer: ITracer, dbpath: string) {
+  constructor(tracer: ITracer, dbpath: String) {
     this.tracer = tracer
     this.marksDbPath = dbpath
   }
@@ -23,7 +23,7 @@ class MarkFileDb {
       // Maintain updated value
       data.updated = (new Date()).toISOString();
       // Save to file
-      writeFile(this.marksDbPath, JSON.stringify(data), (err) => {
+      writeFile(this.marksDbPath.toString(), JSON.stringify(data), (err) => {
         if (err) { reject(err); return; }
         resolve();
       });

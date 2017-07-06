@@ -24,7 +24,6 @@ if (envPath === undefined) {
   appDirectory = path.dirname(envPath)
 }
 
-
 function resolveApp(relativePath: string) {
   let relativePathCleaned = path.join(...(relativePath.match(/([^\\\/])*/gi)))
   return path.resolve(appDirectory, relativePathCleaned);
@@ -49,7 +48,7 @@ const isProduction = () => {
 }
 
 const getPort = () => {
-  return parseInt((process.env.ONEMARK_API_PORT || "8081"))
+  return parseInt((process.env.ONEMARK_API_PORT || "3081"))
 }
 
 const getOnemarkPath = () => {
