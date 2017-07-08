@@ -1,6 +1,5 @@
 {
   "name": "onemark",
-  "version": "1.0.9-alpha",
   "description": "Onemark all your internet bookmarks to track and manage outside of the browser",
   "main": "app/main.js",
   "author": {
@@ -64,6 +63,7 @@
     "electron-packager": "8.7.2",
     "eslint": "4.1.1",
     "express": "4.15.3",
+    "fs-extra": "3.0.1",
     "rxjs": "5.4.1",
     "typescript": "2.4.1"
   },
@@ -78,6 +78,8 @@
     "dev:server": "node ./src-client/client-server.js --env=./src-api/.env",
     "dev:client": "node client-startup.js",
     
+    "build:client": "node client-build.js",
+
     "build:api": "tsc -p ./src-api",
     "preapi": "yarn run build:api",
     "api": "electron ./app --start=api --env=./src-api/.env",

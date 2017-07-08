@@ -23,10 +23,11 @@ class MarksListRepo implements IMarksRepository {
 
   constructor({ tracer, markDataPath }: IMarksListRepoOption) {
     this.tracer = tracer
-    this.tracer.info(`Marks file path ${this.marksDbPath}`)
     this.marksDbPath = markDataPath
     this.marksFileDb = new MarkFileDb(tracer, this.marksDbPath)
     this.marksDbSource$ = this.marksFileDb.createRx()
+    
+    this.tracer.info(`Marks file path ${this.marksDbPath}`)
   }
 
   getAll() {

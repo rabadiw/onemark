@@ -5,10 +5,10 @@ const markFileDb_1 = require("./markFileDb");
 class MarksListRepo {
     constructor({ tracer, markDataPath }) {
         this.tracer = tracer;
-        this.tracer.info(`Marks file path ${this.marksDbPath}`);
         this.marksDbPath = markDataPath;
         this.marksFileDb = new markFileDb_1.default(tracer, this.marksDbPath);
         this.marksDbSource$ = this.marksFileDb.createRx();
+        this.tracer.info(`Marks file path ${this.marksDbPath}`);
     }
     getAll() {
         const getAllAsync = (resolve, reject) => {

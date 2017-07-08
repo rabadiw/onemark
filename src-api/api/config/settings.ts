@@ -2,12 +2,15 @@
 // See LICENSE for details.
 
 import { ITracer, tracer } from "../../modules/tracer";
-import { cmdline } from "../../modules/cmdline"
+import { cmdline } from "../../modules/cmdline";
 
+const electron = require('electron');
 const path = require("path");
 const fs = require("fs");
 
 type RuntimeMode = "Production" | "Development"
+
+const app = electron.app || electron.remote.app;
 
 // Set the path to root path of the app
 // expected structure
@@ -32,7 +35,7 @@ function resolveApp(relativePath: string) {
 // note: follow app/api/config path
 //let envPath = path.resolve(cmdline.getArgValue(process.argv, "--env")) || resolveApp("../.env")
 console.log(`env path used ${envPath}`)
-require('dotenv').config({ path: envPath })
+require("dotenv").config({ path: envPath })
 
 const isRuntime = (mode: RuntimeMode) => {
   // code to test between dev or prod, update accordingly
@@ -52,7 +55,15 @@ const getPort = () => {
 }
 
 const getOnemarkPath = () => {
-  return resolveApp(process.env.ONEMARK_PATH || "./context/file/urls.json")
+  let dbpath = process.env.ONEMARK_PATH || "./context/file/urls.json"
+  if (isProduction()) {
+    //let contextPath = process.env.APPDATA || (process.platform == "darwin" ? process.env.HOME + "Library/Preferences" : "/var/local")
+    //return path.resolve(`${contextPath}/onemark/${dbpath}`)
+
+    let userData = app.getPath("userData")
+    return path.normalize(path.join(userData, dbpath))
+  }
+  return resolveApp(dbpath)
 }
 
 const appSettings = {
