@@ -73,13 +73,10 @@
   },
   "scripts": {
     "postinstall": "install-app-deps",
-    
     "start:client": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "dev:server": "node ./src-client/client-server.js --env=./src-api/.env",
     "dev:client": "node client-startup.js",
-    
     "build:client": "node client-build.js",
-
     "build:api": "tsc -p ./src-api",
     "preapi": "yarn run build:api",
     "api": "electron ./app --start=api --env=./src-api/.env",
