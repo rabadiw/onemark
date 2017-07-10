@@ -80,6 +80,7 @@
     "build:api": "tsc -p ./src-api",
     "preapi": "yarn run build:api",
     "api": "electron ./app --start=api --env=./src-api/.env",
+    "preapp": "yarn run build:client",
     "app": "electron ./app --env=./src-api/.env",
     "start": "concurrently \"yarn run api\" \"yarn run app\"",
     "pack": "build --dir --win --x64",
