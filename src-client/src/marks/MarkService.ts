@@ -23,7 +23,7 @@ class MarkService {
         this.baseApiUrl = baseApiUrl;
         this.isDesignMode = isDesignMode;
 
-        if (isDesignMode) {
+        if (isDesignMode === true) {
             this.getMarksInternal = () => this.getMarksInDesignMode()
         } else {
             this.getMarksInternal = () => this.getMarksProd()

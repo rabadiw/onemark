@@ -7,7 +7,7 @@
   "name": "onemark",
   "private": true,
   "productName": "Onemark",
-  "version": "1.0.12-alpha",
+  "version": "1.0.13-alpha",
   "dependencies": {
     "body-parser": "1.17.2",
     "dotenv": "4.0.0",

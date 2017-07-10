@@ -27,8 +27,8 @@ function parseJSON(response: Response) {
   return response.json();
 }
 function startApp(env: EnvResponse) {
-  let apiUrl = env.onemark_api_url;
-  let isDesignMode = env.design_mode;
+  let apiUrl = env.onemark_api_url.toString();
+  let isDesignMode = env.design_mode.valueOf();
 
   ReactDOM.render(
     <AppShell apiUrl={apiUrl} isDesignMode={isDesignMode} />,
