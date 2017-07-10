@@ -36,7 +36,6 @@ autoUpdater.on("error", (evt, err) => {
 })
 autoUpdater.on("download-progress", (evt, progressObj) => {
   status("Download progress...");
-  log.info("progressObj", progressObj);
 })
 autoUpdater.on("update-downloaded", (evt, info) => {
   status("Update downloaded")

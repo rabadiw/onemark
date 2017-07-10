@@ -5,7 +5,11 @@ const log = require("electron-log");
 const { BrowserWindow, ipcMain } = require("electron");
 
 const logInfo = (msg) => {
-  log.info(`app-messaging::${msg}`)
+  let logMsg = msg
+  if (typeof (msg) === "object") {
+    logMsg = JSON.stringify(msg)
+  }
+  log.info(`app-messaging::${logMsg}`)
 }
 
 class AppMessaging {

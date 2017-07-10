@@ -7,6 +7,15 @@ const { appUpdater } = require("./app-updater")
 const { appEventTypes } = require("./app-events")
 const { appSettings } = require('./config/settings')
 const windowState = require('electron-window-state')
+const log = require("electron-log");
+
+const logInfo = (msg) => {
+    let logMsg = msg
+    if (typeof (msg) === "object") {
+        logMsg = JSON.stringify(msg)
+    }
+    log.info(`app::${logMsg}`)
+}
 
 const createMenu = () => {
     return Menu.buildFromTemplate(require('./app-menu'))
@@ -104,7 +113,7 @@ class OnemarkApp {
         session.defaultSession.webRequest.onBeforeRequest(['*://*./*'], (details, callback) => {
             if (details.url.indexOf(":3001/api/env", 1) > 0) {
                 let newUrl = `${process.env.ONEMARK_API_URL}api/env`;
-                console.log(`Redirecting ${details.url} to ${newUrl}`)
+                logInfo(`Redirecting ${details.url} to ${newUrl}`)
                 callback({
                     redirectURL: `${newUrl}`
                 })
@@ -113,11 +122,11 @@ class OnemarkApp {
             }
         })
 
-        ipcMain.on(appEventTypes.checkForUpdate, (event, args) => {
+        ipcMain.on(appEventTypes.checkForUpdate, (event, ...args) => {
             appUpdater.checkForUpdate()
         })
 
-        ipcMain.on(appEventTypes.updateDownloaded, (event, args) => {
+        ipcMain.on(appEventTypes.updateDownloaded, (event, ...args) => {
             let { autoUpdater } = args
             if (autoUpdater) {
                 ipcMain.on(appEventTypes.updateAndRestart, () => {
@@ -126,13 +135,13 @@ class OnemarkApp {
             }
         })
 
-        ipcMain.on(appEventTypes.windowNotification, (event, args) => {
-            console.log(args)
+        ipcMain.on(appEventTypes.windowNotification, (event, ...args) => {
+            logInfo(args)
             dialog.showErrorBox("Notification", "Test message" + args)
         })
 
-        ipcMain.on(appEventTypes.openAboutWindow, (event, args) => {
-            console.log(args)
+        ipcMain.on(appEventTypes.openAboutWindow, (event, ...args) => {
+            logInfo(args)
             let content = `${app.getName()} 
 
 Version: ${app.getVersion()}
@@ -150,12 +159,12 @@ API URL: http://localhost:${require("./api/config/settings").appSettings.port}
         })
 
         // eslint-disable-next-line no-unused-vars
-        ipcMain.on(appEventTypes.openLearnMore, (event, args) => {
+        ipcMain.on(appEventTypes.openLearnMore, (event, ...args) => {
             shell.openExternal(appSettings.appUrl);
         })
 
         // eslint-disable-next-line no-unused-vars
-        ipcMain.on(appEventTypes.openElectronSite, (event, args) => {
+        ipcMain.on(appEventTypes.openElectronSite, (event, ...args) => {
             shell.openExternal(appSettings.electronUrl);
         })
 
