@@ -27,7 +27,7 @@ class MarkState {
       this.internalPresent(this.rawData);
     } else {
       let re = new RegExp(args);
-      let nextState = this.rawData.filter(t => re.exec(t.url));
+      let nextState = this.rawData.filter(t => re.exec(t.url) || re.exec(t.title));
       this.internalPresent(nextState);
     }
   }

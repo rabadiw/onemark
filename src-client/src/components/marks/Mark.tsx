@@ -18,9 +18,10 @@ const Header = (props) => {
 
 const MarkGroupItem = (props) => {
     let { url, title, navigate } = props;
+    let clickHandler = (e) => navigate.present(e, props);
     return (
         <div className="section-item" >
-            <a href="#" target={url} title={url} onClick={(e) => navigate.present(e, props)}>
+            <a href="#" target={url} title={url} onClick={clickHandler}>
                 <i className="fa fa-globe" width="24" height="24" /><span>{title}</span>
             </a>
         </div>
@@ -29,7 +30,7 @@ const MarkGroupItem = (props) => {
 
 const MarkGroup = (props) => {
     const items = props.items.map((v, i) =>
-        <MarkGroupItem url={v.url} title={v.url} navigate={props.navigate} key={i} />
+        <MarkGroupItem url={v.url} title={v.title} navigate={props.navigate} key={i} />
     );
     return (
         <div>
@@ -57,7 +58,9 @@ const MarkSection = ({ model, actions }: Props) => {
     } else {
         return (
             <div className="app-mark-section">
-                No marks found!
+                <div className="section-group">
+                    No marks found!
+                </div>
             </div>
         );
     }
