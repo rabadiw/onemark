@@ -85,6 +85,7 @@
     "start": "concurrently \"yarn run api\" \"yarn run app\"",
     "pack": "build --dir --win --x64",
     "dist": "build",
+    "prerelease": "yarn run build:client",
     "release": "build --publish always"
   },
   "dependencies": {
