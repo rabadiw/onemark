@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated": "2016-11-29T22:15:04.620Z",
+  "updated": "2017-04-03T04:30:08.336Z",
   "data": [
     {
       "url": "https://blogs.msdn.microsoft.com/dotnet/2016/11/16/announcing-net-core-1-1/",
@@ -73,6 +73,14 @@
       "id": "f3e6e43634e08a84cc3104416fba5cdfc31ef9ff89fd2daf0cdb03bd9b315a46",
       "domain": "stackoverflow.com",
       "created": "2016-11-29T22:15:04.620Z"
+    },
+    {
+      "url": "https://www.google.com/",
+      "title": "Google",
+      "favIconUrl": "https://www.google.com/images/branding/product/ico/googleg_lodp.ico",
+      "id": "d0e196a0c25d35dd0a84593cbae0f38333aa58529936444ea26453eab28dfc86",
+      "domain": "www.google.com",
+      "created": "2017-04-03T04:30:08.336Z"
     }
   ]
 }

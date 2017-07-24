@@ -38,7 +38,7 @@ class MarkService {
         return new Promise<[Mark]>((resolve, reject) => {
 
             fetch(
-                this.baseApiUrl + 'api/marks',
+                `${this.baseApiUrl}api/marks`,
                 {
                     headers: { 'accept': 'application/json' }
                 }
@@ -65,6 +65,23 @@ class MarkService {
         })
     }
 
+    deleteMarks(marks: [Mark]) {
+
+        let deleteMark = (id: string) => {
+            return fetch(
+                `${this.baseApiUrl}api/marks/${id}`, { method: 'delete' }
+            )
+        }
+        // delete one at a time
+        return new Promise<void>((resolve, reject) => {
+            Promise
+                .all(marks.map(v => deleteMark(v.id)))
+                .catch((error) => {
+                    traceError(error);
+                })
+            resolve()
+        });
+    }
 }
 
 export default MarkService;

@@ -17,7 +17,8 @@ class MarkState {
     this.actions = {
       filter: { name: 'Filter', canExecute: true, present: (evt, args) => this.filter(evt, args) },
       fetch: { name: 'Fetch', canExecute: true, present: (evt, args) => this.fetch(evt, args) },
-      navigateUrl: { name: 'Open URL', canExecute: true, present: (evt, args) => this.navigateUrl(evt, args) }
+      navigateUrl: { name: 'Open URL', canExecute: true, present: (evt, args) => this.navigateUrl(evt, args) },
+      delete: { name: 'Delete Mark', canExecute: true, present: (evt, args) => this.deleteMark(evt, args) }
     };
   }
 
@@ -66,6 +67,14 @@ class MarkState {
   navigateUrl(evt, args) {
     openUrl(args);
     if (evt) { evt.preventDefault(); }
+  }
+
+  deleteMark(evt, args) {
+    if (args && args.id) {
+      this.markService
+        .deleteMarks([args])
+        .then(() => this.fetch(null, null))
+    }
   }
 }
 

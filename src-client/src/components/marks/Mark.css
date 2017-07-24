@@ -1,56 +1,89 @@
 .marks{
   padding: 0;
-  display: flex;
-  flex: 1;
-  margin-top: 64px;
+  margin: 0;
 }
 
-.app-mark-section {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  flex-flow: column wrap;
-  padding: 0 12px;
-  overflow: auto;
-  flex: 1 1 .2%;
+.marks .grid {
+  display: grid;
+  grid-gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  margin: 21px 21px;
 }
 
-.app-mark-section .section-heading {
+.marks .grid > div:nth-child(odd){
+  background-color: rgb(234,234,234);  
+}
+
+.marks .empty {
+  margin: 30px 30px 30px 30px;
+}
+
+.marks .section {
+  background: inherit;
+}
+
+.marks .section .heading {
   font-weight: bold;
   font-size: large;
   color: #778899;
-  margin: 1rem 0;
+  margin: .6rem 0; 
 }
 
-.app-mark-section .section-heading i {
-  padding: 0 6px 0 0;
+.marks .heading i {
+   padding: 0 6px 0 0; 
 }
 
-.app-mark-section .section-group {
-  -webkit-box-flex: 0 1 0%;
-  -moz-box-flex: 0 1 0%;
-  -webkit-flex: 0 1 0%;
-  -ms-flex: 0 1 0%;
-  flex: 0 1 0%;
-  box-sizing: content-box;
-  -webkit-box-align: start;
-  -ms-flex-align: start;
-  -ms-grid-row-align: flex-start;
-  align-items: flex-start;
-  width: 400px;
-  margin-right: 2rem;
+.marks .section .group {
+  background-color: inherit;
 }
 
-.app-mark-section .section-item {
+.marks .section > div{
+  padding: 0 12px;
+}
+
+.marks .section .item {
   overflow: hidden;
   text-overflow: ellipsis;
   display: block;
   white-space: nowrap;
-  padding: .5rem;
+  padding: .5rem .5rem; 
 }
 
-.app-mark-section .section-item i {
-  padding: 0 6px 0 8px;
+.marks .section .item i {
+   padding: 0 8px 0 12px; 
+}
+
+.marks .section .item .menu{
+  position: absolute;
+  margin-left: -25px;
+  margin-top: -15px;
+  z-index: 100;
+}
+
+.marks .section .item .menu i:hover {
+  color:rgb(0,128,0); 
+}
+
+.marks .section .item .edit{
+  padding: 0 .5rem .5rem .5rem;
+}
+.marks .section .item .edit > input {
+   width: 80%;
+}
+.marks .section .item .edit > i {
+   color: green;
+   font-size: 32px;
+   padding: 0px 0px 0px 8px; 
+   vertical-align: middle;
+
+}
+.marks .section .item .edit > i:last-child {
+   color: red;
+}
+.marks .section .item .edit > i:hover {
+  text-shadow: 1px 1px #778899;
+}
+
+.hidden {
+  visibility: hidden;
 }

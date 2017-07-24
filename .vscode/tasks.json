@@ -6,15 +6,32 @@
     {
       "taskName": "API Build",
       "command": "tsc",
-      "isShellCommand": true,
-      "args": ["-p", "./src-api"],
-      "showOutput": "always",
-      "problemMatcher": "$tsc"
+      "type": "shell",
+      "args": [
+        "-p",
+        "./src-api"
+      ],
+      "problemMatcher": "$tsc",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
     },
     {
       "taskName": "Build",
-      "dependsOn":["API Build"],
-      "isBuildCommand": true
+      "dependsOn": [
+        "API Build"
+      ],
+      "type": "shell"
+    },
+    {
+      "type": "npm",
+      "script": "build:api",
+      "problemMatcher": [
+        "$tsc"
+      ]
     }
   ]
 }

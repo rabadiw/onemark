@@ -70,7 +70,9 @@ class App extends React.PureComponent<Props, object> {
           iconElementLeft={<span />}
           iconElementRight={<SearchBar textChanged={this.handleSearchChange} />}
         />
-        <Marks model={this.state.model} actions={this.state.actions} />
+        <div className="main">
+          <Marks model={this.state.model} actions={this.state.actions} />
+        </div>
         {/*<RaisedButton
           label="Super Secret Password"
           secondary={true}

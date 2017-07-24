@@ -9,14 +9,10 @@ import * as fs from 'fs';
 import * as path from 'path';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-fetch('http://localhost:3001/api/env', {
-  headers: { accept: 'application/json' }
-})
-  .then(parseJSON)
-  .then(startApp).catch((err) => {
-    // not the best solution, but will do for now.
-    startApp({ onemark_api_url: 'http://localhost:32801/', design_mode: false });
-  });
+import App from './App';
+import './index.css';
+// import registerServiceWorker from './registerServiceWorker';
+import CloudBackend from './gcp';
 
 interface EnvResponse {
   onemark_api_url: String;
@@ -37,21 +33,31 @@ function startApp(env: EnvResponse) {
 
 }
 
-import App from './App';
-// import registerServiceWorker from './registerServiceWorker';
-import './index.css';
-
-// onTouchTap support
-injectTapEventPlugin();
-
-// ReactDOM.render(
-//   <App />,
-//   document.getElementById('root') as HTMLElement
-// );
-// registerServiceWorker();
-
+// Themed Shell
 const AppShell = (props) => (
   <MuiThemeProvider>
     <App apiUrl={props.apiUrl} isDeignMode={props.isDesignMode} />
   </MuiThemeProvider>
 );
+
+// onTouchTap support
+injectTapEventPlugin();
+
+// <-- old render code
+// ReactDOM.render(
+//   <App />,
+//   document.getElementById('root') as HTMLElement
+// );
+// registerServiceWorker();
+// --> end old render code
+
+CloudBackend.initalize();
+
+// Start up code
+fetch('http://localhost:3001/api/env', { headers: { accept: 'application/json' } })
+  .then(parseJSON)
+  .then(startApp)
+  .catch((err) => {
+    // not the best solution, but will do for now.
+    startApp({ onemark_api_url: 'http://localhost:32801/', design_mode: false });
+  });
