@@ -1,27 +1,27 @@
-﻿import { Mark } from './MarkModel';
-import { MarkDesignData } from './MarkDesignData.js';
-import { traceError } from '../lib/common.js';
+﻿import { Mark } from './MarkModel'
+import { MarkDesignData } from './MarkDesignData.js'
+import { traceError } from '../lib/common.js'
 
 interface MarkServiceOption {
-    baseApiUrl: string;
-    isDesignMode: boolean;
+    baseApiUrl: string
+    isDesignMode: boolean
     // repo: IMarkRepo
 }
 
-interface IMarkRepo {
+interface MarkRepo {
     query: () => [Mark]
 }
 
 class MarkService {
-    getMarksInternal: () => Promise<[Mark]>;
-    isDesignMode: boolean;
-    baseApiUrl: string;
+    getMarksInternal: () => Promise<[Mark]>
+    isDesignMode: boolean
+    baseApiUrl: string
 
     // constructor({ repo }: MarkServiceOption) { }
 
     constructor({ baseApiUrl, isDesignMode }: MarkServiceOption) {
-        this.baseApiUrl = baseApiUrl;
-        this.isDesignMode = isDesignMode;
+        this.baseApiUrl = baseApiUrl
+        this.isDesignMode = isDesignMode
 
         if (isDesignMode === true) {
             this.getMarksInternal = () => this.getMarksInDesignMode()
@@ -43,24 +43,24 @@ class MarkService {
                     headers: { 'accept': 'application/json' }
                 }
             ).catch((error) => {
-                traceError(error);
-                reject(error);
+                traceError(error)
+                reject(error)
             }).then((response) => {
                 if (response && response.json) {
                     response.json().then((data) =>
                         resolve(data.data)
-                    );
+                    )
                 }
-            });
-        });
+            })
+        })
     }
     getMarksInDesignMode() {
         return new Promise<[Mark]>((resolve, reject) => {
             return MarkDesignData.data.map(v => {
                 if (!v.title || v.title.trim().length === 0) {
-                    v.title = v.domain;
+                    v.title = v.domain
                 }
-                return v;
+                return v
             })
         })
     }
@@ -77,12 +77,12 @@ class MarkService {
             Promise
                 .all(marks.map(v => deleteMark(v.id)))
                 .catch((error) => {
-                    traceError(error);
+                    traceError(error)
                 })
             resolve()
-        });
+        })
     }
 }
 
-export default MarkService;
-export { MarkServiceOption };
+export default MarkService
+export { MarkServiceOption }

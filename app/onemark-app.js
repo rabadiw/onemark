@@ -29,7 +29,9 @@ const createMainWindow = (options) => {
         y: options.stateManager.y,
         width: options.stateManager.width,
         height: options.stateManager.height,
-        icon: appSettings.iconPath
+        icon: appSettings.iconPath,
+        // turn on css-grid
+        webPreferences: { experimentalFeatures: true }
     })
 
     win.loadURL(options.indexUrl)

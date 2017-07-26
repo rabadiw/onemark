@@ -18,11 +18,37 @@ export function log(v) {
   console.log(v);
 }
 
-export function openUrl(props) {
+export function openLink(props) {
+  if (isElectron()) {
+    // create and dispatch the event
+    var event = new CustomEvent("open_link", {
+      detail: {
+        url: props.url,
+        title: props.title
+      }
+    })
+    window.document.dispatchEvent(event)
+  } else {
+    window.open(props.url, props.url)
+  }
+}
+
+export function copyLink(props) {
+  // create and dispatch the event
+  var event = new CustomEvent("copy_link", {
+    detail: {
+      url: props.url,
+      title: props.title
+    }
+  })
+  window.document.dispatchEvent(event)
+}
+
+export function isElectron() {
   try {
-    global.electronPort.openUrl({ url: props.url, title: props.url });
+    return (window.process.versions.electron !== undefined)
   } catch (e) {
-    window.open(props.url, props.url);
+    return false
   }
 }
 

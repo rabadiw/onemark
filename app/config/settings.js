@@ -10,7 +10,6 @@ const resolveRoot = (...relativePath) => {
 }
 
 const isElectronDevMode = () => {
-    // Thanks to 
     return process.defaultApp ||
         /[\\/]electron-prebuilt[\\/]/.test(process.execPath) ||
         /[\\/]electron[\\/]/.test(process.execPath)
@@ -29,6 +28,10 @@ const settings = {
     }),
     appUrl: "https://github.com/rabadiw/onemark#readme",
     electronUrl: "http://electron.atom.io"
+}
+
+if (isElectronDevMode()) {
+    // settings.rootIndexUrl = "http://localhost:3000"
 }
 
 exports.appSettings = settings

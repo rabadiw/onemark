@@ -1,63 +1,63 @@
 // Copyright (c) Wael Rabadi. All rights reserved.
 // See LICENSE for details.
 
-import * as React from 'react';
-import './App.css';
-import 'font-awesome/css/font-awesome.css';
+import * as React from 'react'
+import './App.css'
+import 'font-awesome/css/font-awesome.css'
 
-import Marks from './components/marks/Mark';
-import MarkState from './components/marks/MarkState';
-import MarkService, { MarkServiceOption } from './marks/MarkService';
+import Marks from './components/marks/Mark'
+import MarkState from './components/marks/MarkState'
+import MarkService, { MarkServiceOption } from './marks/MarkService'
 
-import AppBar from 'material-ui/AppBar';
-import TextField from 'material-ui/TextField';
+import AppBar from 'material-ui/AppBar'
+import TextField from 'material-ui/TextField'
 
-// import RaisedButton from 'material-ui/RaisedButton';
+// import RaisedButton from 'material-ui/RaisedButton'
 
 interface SearchBarProps {
-  textChanged(e: Event);
+  textChanged(e: Event)
 }
 const SearchBar = (props: SearchBarProps) => {
   // const handleChange = (event) => {
   //   this.setState({
   //     value: event.target.value,
-  //   });
-  // };
+  //   })
+  // }
 
   return (
     <TextField hintText="Search" type="Search" onChange={props.textChanged} />
-  );
-};
+  )
+}
 
 interface Props {
-  apiUrl?: string;
-  isDeignMode?: boolean;
+  apiUrl?: string
+  isDeignMode?: boolean
 }
 
 class App extends React.PureComponent<Props, object> {
 
-  state: MarkState;
+  state: MarkState
 
   // tslint:disable-next-line
   constructor(props) {
-    super(props);
+    super(props)
 
-    let markServiceOption: MarkServiceOption = { baseApiUrl: props.apiUrl, isDesignMode: props.isDeignMode };
-    this.handleSearchChange = this.handleSearchChange.bind(this);
-    this.state = new MarkState(new MarkService(markServiceOption), (state) => this.present(state), {}, {});
-    this.state.actions.fetch.present(null, null);
+    let markServiceOption: MarkServiceOption = { baseApiUrl: props.apiUrl, isDesignMode: props.isDeignMode }
+    this.handleSearchChange = this.handleSearchChange.bind(this)
+    this.state = new MarkState(new MarkService(markServiceOption), (state) => this.present(state), {}, {})
+    this.state.actions.fetch.present(null, null)
   }
 
   // tslint:disable-next-line
   handleSearchChange(event) {
-    // console.log("Search value", event.target.value);
+    // console.log("Search value", event.target.value)
     // tslint:disable-next-line
-    this.state.actions.filter.present(null, event.target.value);
+    this.state.actions.filter.present(null, event.target.value)
   }
 
   // tslint:disable-next-line
   present(state) {
-    this.setState(state);
+    this.setState(state)
   }
 
   render() {
@@ -78,9 +78,9 @@ class App extends React.PureComponent<Props, object> {
           secondary={true}
         />*/}
       </main >
-    );
+    )
   }
 }
 
-export default App;
-export { Props };
+export default App
+export { Props }

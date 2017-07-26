@@ -4,14 +4,16 @@
 
 const electron = require('electron');
 
-const electronPort = (function () {
-  return {
-    openUrl: function (props) {
-      if (props && props.url) {
-        electron.shell.openExternal(props.url, props.title);
-      }
-    }
+// open link event
+window.document.addEventListener("open_link", function (args) {
+  let { url, title } = args.detail;
+  if (url) {
+    electron.shell.openExternal(url, title);
   }
 });
 
-global.electronPort  = new electronPort();
+// copy link event
+window.document.addEventListener("copy_link", function (args) {
+  let { url } = args.detail;
+  electron.clipboard.writeText(url)
+});
