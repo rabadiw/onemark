@@ -45,7 +45,7 @@ const MarkGridView = ({ model, actions }: Props) => {
 
   let listItems = model.map((v, i) => {
     //listItems.push((<HeaderWrapper {...v} />))
-    return [<Header title={v.title} />, v.items.map((v2, i2) => (<MarkItem id={v2.id} url={v2.url} title={v2.title} actions={actions} group={v.title} key={`${v2.id}`} />))]
+    return [<Header title={v.title} />, v.items.map((v2, i2) => (<MarkItem id={v2.id} url={v2.url} title={v2.title} actions={cmds} group={v.title} key={`${v2.id}`} />))]
   })
 
   return (

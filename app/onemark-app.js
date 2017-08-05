@@ -30,6 +30,7 @@ const createMainWindow = (options) => {
         width: options.stateManager.width,
         height: options.stateManager.height,
         icon: appSettings.iconPath,
+        minWidth: 420,
         // turn on css-grid
         webPreferences: { experimentalFeatures: true }
     })

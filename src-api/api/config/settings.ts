@@ -55,7 +55,7 @@ const getPort = () => {
 }
 
 const getOnemarkPath = () => {
-  let dbpath = process.env.ONEMARK_PATH || "./context/file/urls.json"
+  let dbpath = process.env.ONEMARK_PATH || "../../data/urls.json"
   if (isProduction()) {
     //let contextPath = process.env.APPDATA || (process.platform == "darwin" ? process.env.HOME + "Library/Preferences" : "/var/local")
     //return path.resolve(`${contextPath}/onemark/${dbpath}`)

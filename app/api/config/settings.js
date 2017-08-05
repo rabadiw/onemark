@@ -33,7 +33,7 @@ const getPort = () => {
     return parseInt((process.env.ONEMARK_API_PORT || "3081"));
 };
 const getOnemarkPath = () => {
-    let dbpath = process.env.ONEMARK_PATH || "./context/file/urls.json";
+    let dbpath = process.env.ONEMARK_PATH || "../../data/urls.json";
     if (isProduction()) {
         let userData = app.getPath("userData");
         return path.normalize(path.join(userData, dbpath));
