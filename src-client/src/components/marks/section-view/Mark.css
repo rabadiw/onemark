@@ -22,6 +22,17 @@
   background: inherit;
 }
 
+.marks .subgrid{
+  /* grid-column: auto/span 2; */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.marks .section .hidden {
+  visibility: collapse;
+  display: none;
+}
+
 .marks .section .heading {
   font-weight: bold;
   font-size: large;
@@ -47,6 +58,9 @@
   display: block;
   white-space: nowrap;
   padding: .5rem .5rem; 
+}
+.item > :nth-child(even){
+  border: 1px dashed rgba(128,128,128,.5);
 }
 
 .marks .section .item i {

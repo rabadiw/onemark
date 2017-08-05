@@ -31,7 +31,7 @@ const settings = {
 }
 
 if (isElectronDevMode()) {
-    // settings.rootIndexUrl = "http://localhost:3000"
+    settings.rootIndexUrl = "http://localhost:3000"
 }
 
 exports.appSettings = settings

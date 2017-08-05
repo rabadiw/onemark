@@ -54,7 +54,9 @@ injectTapEventPlugin()
 CloudBackend.initalize()
 
 // Start up code
-fetch('http://localhost:3001/api/env', { headers: { accept: 'application/json' } })
+let envApiUrl = 'http://localhost:3001/api/env'
+
+fetch(envApiUrl, { headers: { accept: 'application/json' } })
   .then(parseJSON)
   .then(startApp)
   .catch((err) => {

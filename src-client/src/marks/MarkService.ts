@@ -35,23 +35,23 @@ class MarkService {
     }
 
     getMarksProd() {
+        let marksApiUrl = `${this.baseApiUrl}api/marks`
         return new Promise<[Mark]>((resolve, reject) => {
 
-            fetch(
-                `${this.baseApiUrl}api/marks`,
-                {
-                    headers: { 'accept': 'application/json' }
-                }
-            ).catch((error) => {
-                traceError(error)
-                reject(error)
-            }).then((response) => {
-                if (response && response.json) {
-                    response.json().then((data) =>
-                        resolve(data.data)
-                    )
-                }
+            fetch(marksApiUrl, {
+                headers: { 'accept': 'application/json' }
             })
+                .catch((error) => {
+                    traceError(error)
+                    reject(error)
+                })
+                .then((response) => {
+                    if (response && response.json) {
+                        response.json().then((data) =>
+                            resolve(data.data)
+                        )
+                    }
+                })
         })
     }
     getMarksInDesignMode() {
@@ -66,7 +66,7 @@ class MarkService {
     }
 
     deleteMarks(marks: [Mark]) {
-
+        // generic func
         let deleteMark = (id: string) => {
             return fetch(
                 `${this.baseApiUrl}api/marks/${id}`, { method: 'delete' }
@@ -74,11 +74,11 @@ class MarkService {
         }
         // delete one at a time
         return new Promise<void>((resolve, reject) => {
-            Promise
-                .all(marks.map(v => deleteMark(v.id)))
-                .catch((error) => {
-                    traceError(error)
-                })
+            Promise.all(
+                marks.map(v => deleteMark(v.id))
+            ).catch((err) => {
+                traceError(err)
+            })
             resolve()
         })
     }

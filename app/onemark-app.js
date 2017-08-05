@@ -113,7 +113,8 @@ class OnemarkApp {
 
         // intercept client API calls and redirect to API url
         session.defaultSession.webRequest.onBeforeRequest(['*://*./*'], (details, callback) => {
-            if (details.url.indexOf(":3001/api/env", 1) > 0) {
+            if (details.url.indexOf(":3001/api/env", 1) > 0 &&
+                '3001' !== process.env.ONEMARK_API_PORT) {
                 let newUrl = `${process.env.ONEMARK_API_URL}api/env`;
                 logInfo(`Redirecting ${details.url} to ${newUrl}`)
                 callback({

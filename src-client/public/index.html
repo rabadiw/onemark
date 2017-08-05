@@ -42,9 +42,13 @@
     -->
 </body>
 <script>
-  if (window.process && window.process.versions.electron) {
+  try {
     // You can also require other files to run in this process
     require('./renderer.js')
+  } catch (e) {
+    // simple logic to just ignore
   }
+
 </script>
+
 </html>

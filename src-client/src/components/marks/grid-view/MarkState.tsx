@@ -2,7 +2,7 @@
 // See LICENSE for details.
 
 import * as _ from 'lodash'
-import { openLink, copyLink } from '../../lib/common'
+import { openLink, copyLink } from '../../../lib/common'
 
 // Group state by default
 class MarkState {
@@ -48,32 +48,33 @@ class MarkState {
 
   // tslint:disable-next-line
   internalPresent(data) {
-    var nextState =
-      _.chain(data)
-        .sortBy('domain')
-        .groupBy('domain')
-        .toPairs()
-        .flatMap(i => _
-          .chain(i[1])
-          .chunk(8)
-          .map((t, tidx) =>
-            _.zipObject(['title', 'items', 'isPart'], [i[0], t, tidx > 0])
-          ).value()
-        ).value()
-
+    //var nextState = dataAsChunk(data)
+    var nextState = this.dataAsGroup(data)
     this.present(new MarkState(this.markService, this.present, nextState, this.rawData))
   }
 
-  internalPresent2(data) {
-    var nextState =
-      _.chain(data)
-        .sortBy('domain')
-        .groupBy('domain')
-        .toPairs()
-        .map(t => _.zipObject(['title', 'items', 'isPart'], [t[0], t[1], false]))
-        .value()
+  dataAsChunk(data) {
+    return _.chain(data)
+      .sortBy('domain')
+      .groupBy('domain')
+      .toPairs()
+      .flatMap(i => _
+        .chain(i[1])
+        .chunk(8)
+        .map((t, tidx) =>
+          _.zipObject(['title', 'items', 'isPart'], [i[0], t, tidx > 0])
+        ).value()
+      ).value()
+  }
 
-    this.present(new MarkState(this.markService, this.present, nextState, this.rawData))
+  dataAsGroup(data) {
+    return _.chain(data)
+      .sortBy('domain')
+      .groupBy('domain')
+      .toPairs()      
+      .map(t => _.zipObject(['title', 'items'], [t[0], t[1]]))
+      .flatten()
+      .value()    
   }
 
   openMark(evt: Event, args: { url: string, title: string }) {

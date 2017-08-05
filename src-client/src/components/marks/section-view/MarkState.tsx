@@ -2,7 +2,7 @@
 // See LICENSE for details.
 
 import * as _ from 'lodash'
-import { openLink, copyLink } from '../../lib/common'
+import { openLink, copyLink } from '../../../lib/common'
 
 // Group state by default
 class MarkState {

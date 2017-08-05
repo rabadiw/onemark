@@ -1,0 +1,110 @@
+.marks{
+  padding: 0;
+  margin: 0;
+}
+
+.marks .grid {
+  background-color: transparent;
+  margin: 21px 21px;
+  display: grid;
+  grid-gap: 16px 26px;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, auto));
+  grid-template-rows: repeat(auto-fill, 4.2rem);
+  grid-auto-flow: row;
+  overflow: visible;    
+}
+
+/* .marks .grid > div:nth-child(odd){
+  background-color: rgb(234,234,234);  
+} */
+
+.marks .empty {
+  margin: 30px 30px 30px 30px;
+}
+
+.marks .heading {
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: rgba(63,63,63,.4);
+  text-align: justify;
+  vertical-align: middle;
+  max-height: 4.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.marks .heading i {
+   padding: 0 6px 0 0; 
+}
+
+.marks .item {
+  overflow: hidden;  
+  display: grid;
+  grid-auto-columns: 95% 48px;
+  grid-auto-flow: column;  
+  padding: .5rem .5rem; 
+  min-width: 20rem;
+  max-height: 4.2rem;
+  border: 0;
+  background-color: white;
+  box-shadow: 5px 5px 4px 0px silver;
+  place-items: center;
+  justify-items: start;
+}
+/* .item > :nth-child(even){
+  border: 1px dashed rgba(128,128,128,.5);
+} */
+
+.marks .item i {
+   padding: 0 8px 0 12px; 
+}
+
+.marks .item .title {
+  white-space: nowrap;
+  vertical-align: middle;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  z-index: 100;  
+  padding: 16px 0; /*place-items: center does not work in chrome 56*/
+}
+
+.marks .item .menu {
+  position: relative;
+  z-index: 10;
+  left: -16px;  
+}
+
+.marks .item .menu button{
+  max-width: 48px;
+  padding: 0 0;
+}
+
+.marks .item .menu i:hover {
+  color:rgb(0,128,0); 
+}
+
+.marks .item .edit{
+  padding: 0 .5rem .5rem .5rem;
+}
+.marks .item .edit > input {
+   width: 80%;
+}
+.marks .item .edit > i {
+   color: green;
+   font-size: 32px;
+   padding: 0px 0px 0px 8px; 
+   vertical-align: middle;
+
+}
+.marks .item .edit > i:last-child {
+   color: red;
+}
+.marks .item .edit > i:hover {
+  text-shadow: 1px 1px #778899;
+}
+
+.hidden {
+  visibility: hidden;
+}

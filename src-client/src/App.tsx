@@ -5,8 +5,8 @@ import * as React from 'react'
 import './App.css'
 import 'font-awesome/css/font-awesome.css'
 
-import Marks from './components/marks/Mark'
-import MarkState from './components/marks/MarkState'
+import Marks from './components/marks/grid-view/Mark'
+import MarkState from './components/marks/grid-view/MarkState'
 import MarkService, { MarkServiceOption } from './marks/MarkService'
 
 import AppBar from 'material-ui/AppBar'
@@ -45,6 +45,7 @@ class App extends React.PureComponent<Props, object> {
     let markServiceOption: MarkServiceOption = { baseApiUrl: props.apiUrl, isDesignMode: props.isDeignMode }
     this.handleSearchChange = this.handleSearchChange.bind(this)
     this.state = new MarkState(new MarkService(markServiceOption), (state) => this.present(state), {}, {})
+    // trigger initial load
     this.state.actions.fetch.present(null, null)
   }
 
