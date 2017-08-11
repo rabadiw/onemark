@@ -31,8 +31,8 @@ const createMainWindow = (options) => {
         height: options.stateManager.height,
         icon: appSettings.iconPath,
         minWidth: 420,
-        // turn on css-grid
-        webPreferences: { experimentalFeatures: true }
+        // turn on experimental features (e.g. css-grid in chrome version 56)
+        //webPreferences: { experimentalFeatures: true }
     })
 
     win.loadURL(options.indexUrl)
