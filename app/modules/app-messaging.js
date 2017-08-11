@@ -24,8 +24,25 @@ class AppMessaging {
     }
   }
 
-  sendMessage(channel, ...args) {
+  // {
+  //   channel: string,
+  //   args: [],
+  //   notifyClient: boolean
+  // }
+  sendMessage(options = {}) {
+    let { channel, args, notifyClient } = options
     this.run(() => { ipcMain.emit(channel, ...args) })
+
+    // send message to client if notifyClient is true
+    if (true === notifyClient) {
+      this.run(() => {
+        this.sendWindowMessage({
+          window: null,
+          args: args,
+          channel: channel
+        })
+      })
+    }
   }
 
   getMainWindow() {
@@ -50,7 +67,7 @@ class AppMessaging {
       }
 
       window.webContents.send(channel, ...args)
-      logInfo(`Sending "${args}" on channel "${channel}" to window "${window.getTitle()}"`)
+      logInfo(`Sending "${JSON.stringify(args)}" on channel "${channel}" to window "${window.getTitle()}"`)
     })
   }
 }

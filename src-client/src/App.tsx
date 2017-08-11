@@ -2,7 +2,7 @@
 // See LICENSE for details.
 
 import * as React from 'react'
-import * as Rx from "rxjs"
+import * as Rx from 'rxjs'
 import './App.css'
 import 'font-awesome/css/font-awesome.css'
 
@@ -16,7 +16,7 @@ import TextField from 'material-ui/TextField'
 // import RaisedButton from 'material-ui/RaisedButton'
 
 interface SearchBarProps {
-  textChanged(e: Event)
+  textChanged: (e: string | null) => void
 }
 const SearchBar = (props: SearchBarProps) => {
   // const handleChange = (event) => {
@@ -30,18 +30,16 @@ const SearchBar = (props: SearchBarProps) => {
   )
 }
 
-class SearchBar2 extends React.PureComponent<{ textChanged: (e) => void }, {}>{
-  onTextChanged: any;
+class SearchBar2 extends React.PureComponent<SearchBarProps, {}> {
+  onTextChanged: (e: React.FormEvent<HTMLInputElement>) => void
   subscription: Rx.Subscription
   textChanged$: Rx.Subject<{ text: string | null }>
 
-  constructor(props) {
+  constructor(props: SearchBarProps) {
     super(props)
 
     this.onTextChanged = this.handleTextChanged.bind(this)
     this.textChanged$ = new Rx.Subject()
-    //this.textChanged$.map(payload => props.textChanged(payload))
-
   }
   componentWillMount() {
     this.subscription = this.textChanged$
@@ -56,8 +54,8 @@ class SearchBar2 extends React.PureComponent<{ textChanged: (e) => void }, {}>{
     this.subscription.unsubscribe()
   }
 
-  handleTextChanged(e: React.FormEvent<HTMLElement>) {
-    let target: any = e.target
+  handleTextChanged(e: React.FormEvent<HTMLInputElement>) {
+    let target = e.currentTarget
     this.textChanged$.next({ text: target.value })
     e.preventDefault()
   }
@@ -90,11 +88,11 @@ class App extends React.PureComponent<Props, object> {
   }
 
   // tslint:disable-next-line
-  handleSearchChange(event) {
+  handleSearchChange(v: string | null) {
     // console.log("Search value", event.target.value)
     // tslint:disable-next-line
-    //this.state.actions.filter.present(null, event.target.value)
-    this.state.actions.filter.present(null, event)
+    // this.state.actions.filter.present(null, event.target.value)
+    this.state.actions.filter.present(null, v)
   }
 
   // tslint:disable-next-line

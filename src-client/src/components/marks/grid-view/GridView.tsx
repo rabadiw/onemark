@@ -34,18 +34,17 @@ const MarkGridView = ({ model, actions }: Props) => {
     return (<EmptyHeader />)
   }
 
-  // let listItems = model.map((v, i) =>
-  //   (
-  //     <div className="section" title={v.title} key={i}>
-  //       <HeaderWrapper {...v} />
-  //       <MarkGroup items={v.items} actions={cmds} />
-  //     </div>
-  //   )
-  // )
-
   let listItems = model.map((v, i) => {
-    //listItems.push((<HeaderWrapper {...v} />))
-    return [<Header title={v.title} />, v.items.map((v2, i2) => (<MarkItem id={v2.id} url={v2.url} title={v2.title} actions={cmds} group={v.title} key={`${v2.id}`} />))]
+    // listItems.push((<HeaderWrapper {...v} />))
+    let itemMapper = (v2, i2) => {
+      let attr = {
+        id: v2.id, url: v2.url, title: v2.title,
+        actions: cmds, group: v.title, key: v2.id
+      }
+      return (<MarkItem {...attr} />)
+    }
+
+    return [<Header title={v.title} />, v.items.map(itemMapper)]
   })
 
   return (

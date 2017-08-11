@@ -17,25 +17,33 @@ const appEventTypes = {
     windowNotification: "window-notification",
 }
 
-const sendCheckForUpdate = (...args) => { appMessaging.sendMessage(appEventTypes.checkForUpdate, ...args) }
-const sendOpenAboutWindow = (...args) => { appMessaging.sendMessage(appEventTypes.openAboutWindow, ...args) }
-const sendOpenLearnMore = (...args) => { appMessaging.sendMessage(appEventTypes.openLearnMore, ...args) }
-const sendOpenElectronSite = (...args) => { appMessaging.sendMessage(appEventTypes.openElectronSite, ...args) }
-const sendUpdateDownloaded = (...args) => { appMessaging.sendMessage(appEventTypes.updateDownloaded, ...args) }
-const sendUpdateAndRestart = (...args) => { appMessaging.sendMessage(appEventTypes.updateAndRestart, ...args) }
+const _msg = (channel, notifiyClient, ...args) => {
+    appMessaging.sendMessage({
+        channel: channel,
+        args: args,
+        notifyClient: notifiyClient
+    })
+}
+
+const sendOpenLearnMore = (...args) => { _msg(appEventTypes.openLearnMore, false, ...args) }
+const sendCheckForUpdate = (...args) => { _msg(appEventTypes.checkForUpdate, false, ...args) }
+const sendOpenAboutWindow = (...args) => { _msg(appEventTypes.openAboutWindow, false, ...args) }
+const sendOpenElectronSite = (...args) => { _msg(appEventTypes.openElectronSite, false, ...args) }
+const sendUpdateAndRestart = (...args) => { _msg(appEventTypes.updateAndRestart, false, ...args) }
+const sendUpdateDownloaded = (...args) => { _msg(appEventTypes.updateDownloaded, true, ...args) }
 
 const sendNotification = (...args) => {
     appMessaging.sendWindowMessage({
         window: null,
+        args: args,
         channel: appEventTypes.windowNotification,
-        args: args
     })
 }
 const sendWindowNotification = (win, ...args) => {
     appMessaging.sendWindowMessage({
         window: win,
+        args: args,
         channel: appEventTypes.windowNotification,
-        args: args
     })
 }
 

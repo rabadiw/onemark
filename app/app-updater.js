@@ -44,7 +44,7 @@ autoUpdater.on("update-downloaded", (evt, info) => {
 
 const appUpdater = {
   checkForUpdate() {
-    status("Checking for update")
+    status("Check for update")    
     if (!appSettings.isProduction) { return; }
     // Wait a second for the window to exist before checking for updates.
     setTimeout(function () {

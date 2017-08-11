@@ -456,6 +456,24 @@ a img {
   color: #767777 !important;
 }
 
+.notice {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 2000;
+    background: rgba(0,0,0,.7);
+    color: rgb(245, 255, 250);
+    text-align: center;
+}
+.notice .apply, a:link, a:visited {
+  font-size: 24px;
+  color: rgb(0,128,0);
+}
+.notice .close, a:link, a:visited {
+  font-size: 24px;
+  color: rgb(128,0,0);
+}
+
 
 /**** Mobile layout ****/
 

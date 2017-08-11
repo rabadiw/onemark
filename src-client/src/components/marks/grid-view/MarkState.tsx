@@ -48,11 +48,13 @@ class MarkState {
 
   // tslint:disable-next-line
   internalPresent(data) {
-    //var nextState = dataAsChunk(data)
+    // var nextState = dataAsChunk(data)
     var nextState = this.dataAsGroup(data)
     this.present(new MarkState(this.markService, this.present, nextState, this.rawData))
   }
 
+  // data is [Marks]
+  // tslint:disable-next-line
   dataAsChunk(data) {
     return _.chain(data)
       .sortBy('domain')
@@ -67,14 +69,16 @@ class MarkState {
       ).value()
   }
 
+  // data is [Marks]
+  // tslint:disable-next-line
   dataAsGroup(data) {
     return _.chain(data)
       .sortBy('domain')
       .groupBy('domain')
-      .toPairs()      
+      .toPairs()
       .map(t => _.zipObject(['title', 'items'], [t[0], t[1]]))
       .flatten()
-      .value()    
+      .value()
   }
 
   openMark(evt: Event, args: { url: string, title: string }) {
