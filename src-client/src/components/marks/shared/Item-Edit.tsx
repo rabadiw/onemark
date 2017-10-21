@@ -5,8 +5,8 @@ const EditMark = (props: { title: string, cancelEdit: (e: React.FormEvent<HTMLEl
   return (
     <div className="item edit">
       <input defaultValue={title} type="text" />
-      <i className="fa fa-check" width="24" height="24" />
-      <i className="fa fa-times" width="24" height="24" onClick={cancelEdit} />
+      <i className="fa fa-check" />
+      <i className="fa fa-times" onClick={cancelEdit} />
     </div>
   )
 }

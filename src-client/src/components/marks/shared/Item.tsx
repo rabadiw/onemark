@@ -109,7 +109,7 @@ class MarkItem extends React.PureComponent<MarkItemProps, { showMenu: boolean, i
     let markElem = (
       <div className="title">
         <a href="#" target={url} title={url} onClick={this.open}>
-          <i className="fa fa-bookmark" width="24" height="24" /><span>{title}</span>
+          <i className="fa fa-bookmark" /><span>{title}</span>
         </a>
       </div>
     )

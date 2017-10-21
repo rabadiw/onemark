@@ -51,23 +51,23 @@
     ]
   },
   "devDependencies": {
-    "@types/body-parser": "1.16.4",
+    "@types/body-parser": "1.16.5",
     "@types/electron": "1.6.10",
-    "@types/express": "4.0.36",
-    "@types/node": "8.0.20",
-    "body-parser": "1.17.2",
-    "electron": "1.7.5",
-    "electron-builder": "19.19.1",
-    "electron-builder-squirrel-windows": "19.20.1",
-    "electron-packager": "8.7.2",
-    "eslint": "4.4.1",
-    "express": "4.15.4",
-    "firebase": "4.2.0",
-    "firebase-tools": "3.9.2",
-    "fs-extra": "4.0.1",
-    "npm-run-all": "4.0.2",
+    "@types/express": "4.0.37",
+    "@types/node": "8.0.34",
+    "body-parser": "1.18.2",
+    "electron": "1.7.9",
+    "electron-builder": "19.37.1",
+    "electron-builder-squirrel-windows": "19.37.0",
+    "electron-packager": "9.1.0",
+    "eslint": "4.8.0",
+    "express": "4.16.2",
+    "firebase": "4.5.1",
+    "firebase-tools": "3.13.1",
+    "fs-extra": "4.0.2",
+    "npm-run-all": "4.1.1",
     "rxjs": "5.4.3",
-    "typescript": "2.4.2"
+    "typescript": "2.5.3"
   },
   "devEngines": {
     "node": ">=6.x",
@@ -93,6 +93,6 @@
     "release": "build --publish always"
   },
   "dependencies": {
-    "yarn": "^0.24.5"
+    "yarn": "^1.2.1"
   }
 }

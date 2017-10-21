@@ -2,21 +2,23 @@
 // See LICENSE for details.
 
 interface IMarksModel {
-  version: string;
+  version: string
   //ISO Format
-  updated: string;
-  data: [IMarkModel];
+  updated: string
+  data: [IMarkModel]
 }
 
 interface IMarkModel {
-  id: string;
-  created: string;
-  domain: string;
-  favIconUrl: string;
-  title: string;
+  id: string
+  created: string
+  domain: string
+  favIconUrl: string
+  title: string
   //ISO Format
-  updated: string;
-  url: string;
+  updated: string
+  url: string
+  browser: string
+  favIcon: string
 }
 
 interface IMarksRepository {

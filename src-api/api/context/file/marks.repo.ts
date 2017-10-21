@@ -64,7 +64,6 @@ class MarksListRepo implements IMarksRepository {
     const createId = (v: string) => {
       let hash = createHash("sha256");
       hash.update(v);
-      // set id, created, and domain
       return hash.digest("hex");
     }
     const getDomain = (v: string) => {
