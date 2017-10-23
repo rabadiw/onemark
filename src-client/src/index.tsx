@@ -12,7 +12,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import App from './App'
 import './index.css'
 // import registerServiceWorker from './registerServiceWorker'
-import CloudBackend from './gcp'
+//import CloudBackend from './gcp'
 
 interface EnvResponse {
   onemark_api_url: String
@@ -51,7 +51,7 @@ injectTapEventPlugin()
 // registerServiceWorker()
 // --> end old render code
 
-CloudBackend.initalize()
+//CloudBackend.initalize()
 
 // Start up code
 let envApiUrl = 'http://localhost:3001/api/env'

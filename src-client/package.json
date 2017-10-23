@@ -5,10 +5,10 @@
   "proxy": "http://localhost:3001/",
   "homepage": "./",
   "dependencies": {
-    "@types/jest": "21.1.2",
-    "@types/node": "8.0.34",
-    "@types/react": "16.0.10",
-    "@types/react-dom": "16.0.1",
+    "@types/jest": "21.1.4",
+    "@types/node": "8.0.46",
+    "@types/react": "16.0.16",
+    "@types/react-dom": "16.0.2",
     "react": "16.0.0",
     "react-dom": "16.0.0",
     "classnames": "2.2.5",
@@ -16,15 +16,15 @@
     "font-awesome": "4.7.0",
     "immutable": "3.8.2",
     "lodash": "4.17.4",
-    "material-components-web": "0.22.0",
+    "material-components-web": "0.23.0",
     "material-ui": "0.19.4",
     "react-tap-event-plugin": "3.0.2",
-    "firebase": "4.5.1"
+    "firebase": "4.6.0"
   },
   "devDependencies": {
-    "react-scripts-ts": "2.7.0",
-    "typescript": "2.5.3"
-
+    "react-scripts-ts": "2.8.0",
+    "typescript": "2.5.3",
+    "npm-check-updates": "2.13.0"
   },
   "scripts": {
     "start": "react-scripts-ts start",

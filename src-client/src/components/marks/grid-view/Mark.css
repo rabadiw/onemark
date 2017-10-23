@@ -21,12 +21,12 @@
   margin: 21px 21px;
   display: grid;
   grid-gap: 12px 20px;
-  grid-auto-flow: column;
+  grid-auto-flow: row;
   grid-template-rows: repeat(auto-fill, 3rem);
-  grid-template-columns: repeat(auto-fill, minmax(20rem, auto));
+  grid-template-columns: repeat(auto-fill, minmax(auto, 20rem));
   overflow: visible;    
-  width: auto;
-  height: 95vmin;
+  /* width: 95vmin; */
+  /* height: 90vmin; */
 }
 
 /* .marks .grid > div:nth-child(odd){
@@ -48,6 +48,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   align-self: center;
+  grid-column: 1/all;
 }
 
 .marks .heading i {
@@ -57,10 +58,10 @@
 .marks .item {
   overflow: hidden;  
   display: grid;
-  grid-auto-columns: 95% 48px;
+  grid-auto-columns: 93% 48px;
   grid-auto-flow: column;  
   padding: .1rem .1rem; 
-  min-width: 20rem;
+  min-width: 10rem;
   max-height: 3rem;
   border: 0;
   background-color: white;
@@ -130,18 +131,9 @@
   visibility: hidden;
 }
 
-@media (max-width: 1040px) {
+@media (max-width: 600px) {
   .marks .grid {
-    grid-template-columns: repeat(2, minmax(20rem, auto));
-  } 
-}
-
-@media (max-width: 710px) {
-  .marks .grid {
-    grid-auto-columns: max-content;
-    grid-auto-flow: row;
-    grid-template-columns: auto;
+    grid-template-columns: none;
     width: auto;
-    height: auto;
   } 
 }

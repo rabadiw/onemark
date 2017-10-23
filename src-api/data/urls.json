@@ -51,6 +51,22 @@
       "created": "2016-11-29T22:15:04.620Z"
     },
     {
+      "url": "https://msdn.microsoft.com/en-us/magazine/mt703436.aspx",
+      "title": "Windows PowerShell 2",
+      "favIconUrl": "https://msdn.microsoft.com/favicon.ico",
+      "id": "b5d9861335d07bc21f22abf1bca87c56457a09758ba2f52de13272ddb06ab96f",
+      "domain": "msdn.microsoft.com",
+      "created": "2016-11-29T22:15:04.620Z"
+    },
+    {
+      "url": "https://msdn.microsoft.com/en-us/magazine/mt703436.aspx",
+      "title": "Windows PowerShell 3",
+      "favIconUrl": "https://msdn.microsoft.com/favicon.ico",
+      "id": "b5d9861335d07bc21f22abf1bca87c56457a09758ba2f52de13272ddb06ab96f",
+      "domain": "msdn.microsoft.com",
+      "created": "2016-11-29T22:15:04.620Z"
+    },
+    {
       "url": "https://msdn.microsoft.com/en-us/powershell/reference/5.1/microsoft.powershell.management/new-service",
       "title": "New-Service",
       "favIconUrl": "https://msdn.microsoft.com/favicon.ico",
