@@ -1,7 +1,7 @@
 // Copyright (c) Wael Rabadi. All rights reserved.
 // See LICENSE for details.
 
-import { OnemarkApi, IExpressOptions } from "./onemark-api"
+import { OnemarkServer, IExpressOptions } from "./onemark.server"
 import { MarksRouter, IMarksRouterOption } from "./marks/marks.router"
 import { ITracer } from "../modules/tracer";
 
@@ -11,10 +11,10 @@ interface IOnemarkServiceOption extends IExpressOptions {
 
 const OnemarkService = ({ tracer, port, bodyLimit, markDataPath }: IOnemarkServiceOption) => {
 
-  let onemarkApiOption: IExpressOptions = { tracer: tracer, port: port, bodyLimit: bodyLimit }
+  let onemarkServerOption: IExpressOptions = { tracer: tracer, port: port, bodyLimit: bodyLimit }
   let marksRouterOption: IMarksRouterOption = { tracer: tracer, markDataPath: markDataPath }
   let envRes = { onemark_api_url: process.env.ONEMARK_API_URL, design_mode: process.env.DESIGN_MODE }
-  let api = new OnemarkApi(onemarkApiOption)
+  let api = new OnemarkServer(onemarkServerOption)
 
   let options = {
     routes: [

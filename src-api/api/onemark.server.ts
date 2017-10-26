@@ -24,7 +24,7 @@ interface IRegisterOptions {
   routes: IRouteOptions[]
 }
 
-class OnemarkApi {
+class OnemarkServer {
   app: Express
   bodyLimit: Number | String
   port: Number
@@ -32,7 +32,7 @@ class OnemarkApi {
   tracer: ITracer
 
   /**
-   * create a new OnemarkApi object
+   * create a new OnemarkServer object
    * @param options {trace: Function,port: Number,bodyLimit: String}
    */
   constructor({ tracer, port, bodyLimit }: IExpressOptions) {
@@ -94,4 +94,4 @@ class OnemarkApi {
   }
 }
 
-export { OnemarkApi, IExpressOptions, IRouteOptions, IRegisterOptions }
+export { OnemarkServer, IExpressOptions, IRouteOptions, IRegisterOptions }

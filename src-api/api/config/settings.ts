@@ -10,7 +10,9 @@ const fs = require("fs");
 
 type RuntimeMode = "Production" | "Development"
 
-const app = electron.app || electron.remote.app;
+const app = (electron.app != undefined)
+  ? electron.app || electron.remote.app
+  : undefined
 
 // Set the path to root path of the app
 // expected structure
@@ -60,7 +62,10 @@ const getOnemarkPath = () => {
     //let contextPath = process.env.APPDATA || (process.platform == "darwin" ? process.env.HOME + "Library/Preferences" : "/var/local")
     //return path.resolve(`${contextPath}/onemark/${dbpath}`)
 
-    let userData = app.getPath("userData")
+    let userData = ""
+    if (app) {
+      app.getPath("userData")
+    }
     return path.normalize(path.join(userData, dbpath))
   }
   return resolveApp(dbpath)
