@@ -76,7 +76,7 @@ class OnemarkApp {
     }
 
     static uncaughtExceptionHandler(e) {
-        console.error(`Caught unhandled exception: ${e}`)
+        console.error(`Caught unhandled exception: ${JSON.stringify(e)}`)
         dialog.showErrorBox('Caught unhandled exception', e.message || 'Unknown error message')
         app.quit()
     }

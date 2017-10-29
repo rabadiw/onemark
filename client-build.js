@@ -12,7 +12,13 @@ buildProces.on("exit", (code, signal) => {
     return
   }
   // copy build to app/www
-  // first clear app/www  
-  spawnSync('powershell', ['rm -r ./app/www/*'], { stdio: 'inherit', cwd: '.', shell: true })
-  spawnSync('powershell', ['mv ./src-client/build/* ./app/www'], { stdio: 'inherit', cwd: '.', shell: true })
+  // first clear app/www
+  if (process.platform === "win32") {
+    spawnSync('powershell', ['rm -r ./app/www/*'], { stdio: 'inherit', cwd: '.', shell: true })
+    spawnSync('powershell', ['mv ./src-client/build/* ./app/www'], { stdio: 'inherit', cwd: '.', shell: true })
+  } else {
+    spawnSync('rm', ['-r', './app/www/*'], { stdio: 'inherit', cwd: '.', shell: true })
+    spawnSync('mkdir', ['./app/www'], { stdio: 'inherit', cwd: '.', shell: true })
+    spawnSync('mv', ['./src-client/build/*', './app/www'], { stdio: 'inherit', cwd: '.', shell: true })
+  }
 })

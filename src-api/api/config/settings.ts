@@ -10,7 +10,7 @@ const fs = require("fs");
 
 type RuntimeMode = "Production" | "Development"
 
-const app = (electron.app != undefined)
+const app = (electron && electron.app)
   ? electron.app || electron.remote.app
   : undefined
 
