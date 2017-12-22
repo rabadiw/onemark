@@ -20,11 +20,51 @@
     "appId": "com.rabadiw.onemark",
     "productName": "Onemark",
     "mac": {
-      "category": "public.app-category.productivity"
+      "category": "public.app-category.productivity",
+      "target": "default",
+      "extraFiles": [
+        {
+          "from": "build/nmh/onemark_darwin",
+          "to": "nmh/onemark_darwin"
+        },
+        {
+          "from": "build/config.sh",
+          "to": "config.sh"
+        },
+        {
+          "from": "build/com.waelrabadi.onemark.plist",
+          "to": "com.waelrabadi.onemark.plist"
+        }
+      ]
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "category": "Office",
+      "target": [
+        "AppImage",
+        "deb"
+      ]
     },
     "win": {
-      "target": [
-        "nsis"
+      "target": "nsis",
+      "extraFiles": [
+        {
+          "from": "build/nmh/onemark_win64.exe",
+          "to": "nmh/onemark_win64.exe"
+        }
       ]
     },
     "nsis": {
@@ -38,12 +78,12 @@
     },
     "extraFiles": [
       {
-        "from": "build/manifest-nmh.json",
-        "to": "manifest-nmh.json"
+        "from": "build/com.waelrabadi.onemark.json",
+        "to": "com.waelrabadi.onemark.json"
       },
       {
-        "from": "build/nmh",
-        "to": "nmh"
+        "from": "build/nmh/.env",
+        "to": "nmh/.env"
       }
     ],
     "asarUnpack": [
@@ -51,29 +91,29 @@
     ]
   },
   "devDependencies": {
-    "@types/body-parser": "1.16.7",
+    "@types/body-parser": "1.16.8",
     "@types/electron": "1.6.10",
-    "@types/node": "8.0.47",
+    "@types/node": "8.5.2",
     "body-parser": "1.18.2",
-    "electron": "1.7.9",
-    "electron-builder": "19.42.2",
-    "electron-builder-squirrel-windows": "19.42.0",
-    "electron-packager": "9.1.0",
-    "eslint": "4.10.0",
+    "electron": "1.7.10",
+    "electron-builder": "19.49.0",
+    "electron-builder-squirrel-windows": "19.49.0",
+    "electron-packager": "10.1.0",
+    "eslint": "4.13.1",
     "express": "4.16.2",
-    "firebase": "4.6.0",
-    "firebase-tools": "3.13.1",
-    "fs-extra": "4.0.2",
-    "npm-run-all": "4.1.1",
-    "rxjs": "5.5.2",
-    "typescript": "2.5.3"
+    "firebase": "4.8.1",
+    "firebase-tools": "3.16.0",
+    "fs-extra": "5.0.0",
+    "npm-run-all": "4.1.2",
+    "rxjs": "5.5.6",
+    "typescript": "2.6.2"
   },
   "devEngines": {
-    "node": ">=6.x",
+    "node": ">=7.x",
     "npm": ">=3.x"
   },
   "scripts": {
-    "postinstall": "install-app-deps",
+    "postinstall": "electron-builder install-app-deps",
     "build:api": "tsc -p ./src-api",
     "build:client": "node client-build.js",
     "preapi": "yarn run build:api",
@@ -86,12 +126,13 @@
     "client": "npm-run-all --parallel api client-web",
     "dev": "npm-run-all --parallel api client-web app",
     "start": "npm-run-all --parallel api app",
-    "pack": "build --dir --win --x64",
+    "pack": "build --dir",
     "dist": "build",
     "prerelease": "yarn run build:client",
     "release": "build --publish always"
   },
   "dependencies": {
-    "yarn": "^1.2.1"
+    "src-client": "file:src-client",
+    "yarn": "^1.3.2"
   }
 }
