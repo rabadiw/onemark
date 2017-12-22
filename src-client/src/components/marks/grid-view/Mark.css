@@ -66,8 +66,8 @@
   border: 0;
   background-color: white;
   box-shadow: 5px 5px 4px 0px silver;
-  place-items: center;
   justify-items: start;
+  align-items: center;
 }
 /* .item > :nth-child(even){
   border: 1px dashed rgba(128,128,128,.5);
@@ -84,7 +84,6 @@
   text-overflow: ellipsis;
   width: 100%;
   z-index: 100;  
-  padding: 16px 0; /*place-items: center does not work in chrome 56*/
 }
 
 .marks .item .title a {

@@ -18,7 +18,39 @@ const useEnv = (args, next) => {
     let dotenvPath = path.join(__dirname, ".env")
     require('dotenv').config({ path: dotenvPath })
     tracer.info(`Running in ${process.env.RUNTIME_MODE} mode`)
+
+    // darwin
+    configureDarwin()
+    configureLinux()
+
     next()
+
+    function configureDarwin() {
+        // OSX only
+        if (false === /^darwin/.test(process.platform)) { return }
+
+        if (process.env.SETUP === 1) {
+            setup()
+        }
+    }
+    function configureLinux() {
+        // linux based distro only
+        if (false === /^linux/.test(process.platform)) { return }
+        if (process.env.SETUP === 1) {
+            setup()
+        }
+    }
+    function setup() {
+        const { exec } = require('child_process');
+        exec('config.sh', (err, stdout, stderr) => {
+            if (err) {
+                console.log(`stderr: ${stderr}`);
+                // node couldn't execute the command
+                return;
+            }
+
+        });
+    }
 }
 
 // const useSquirrel = (args, next) => {

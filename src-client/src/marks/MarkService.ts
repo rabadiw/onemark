@@ -39,7 +39,7 @@ class MarkService {
         return new Promise<[Mark]>((resolve, reject) => {
 
             fetch(marksApiUrl, {
-                headers: { 'accept': 'application/json' }
+                headers: new Headers({ 'accept': 'application/json' })
             })
                 .catch((error) => {
                     traceError(error)
