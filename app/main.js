@@ -2,7 +2,7 @@
 // See LICENSE for details.
 
 "use strict";
-const { appSettings } = require("./api/config/settings")
+const { AppConfig } = require("./api/config/settings")
 const { tracer } = require("./modules/tracer")
 const { cmdline } = require("./modules/cmdline")
 const { OnemarkApp } = require("./onemark-app")
@@ -14,43 +14,56 @@ const path = require("path")
 // handle uncaught exceptions
 process.on('uncaughtException', (e) => OnemarkApp.uncaughtExceptionHandler(e))
 
+let appSettings = {}
+
 const useEnv = (args, next) => {
-    let dotenvPath = path.join(__dirname, ".env")
-    require('dotenv').config({ path: dotenvPath })
+    const configureDarwin = () => {
+        // OSX only
+        if (false === /^darwin/.test(process.platform)) { return }
+
+        if (process.env.ONEMARK_SETUP === 1) {
+            setup()
+        }
+    }
+    const configureLinux = () => {
+        // linux based distro only
+        if (false === /^linux/.test(process.platform)) { return }
+        if (process.env.ONEMARK_SETUP === 1) {
+            setup()
+        }
+    }
+    const setup = () => {
+        const { exec } = require('child_process');
+        const fs = require("fs")
+
+        let setupFile = appSettings.configPath()
+        if (fs.existsSync(setupFile)) {
+            exec(setupFile, (err, stdout, stderr) => {
+                if (err) {
+                    console.log(`stderr: ${stderr}`);
+                    // node couldn't execute the command
+                    return;
+                }
+            });
+        }
+    }
+
+    // .env should always be at root with main.js
+    appSettings = AppConfig.loadEnvironment().loadSettings()
+
+    //require('dotenv').config({ path: appSettings.envPath() })
     tracer.info(`Running in ${process.env.RUNTIME_MODE} mode`)
+
+    tracer.info(`ONEMARK_SETUP: ${process.env.ONEMARK_SETUP}`)
+    tracer.info(`appsettings: ${JSON.stringify(appSettings)}`)
+    tracer.info(`envpath: ${appSettings.envPath}`)
+    tracer.info(`configPath: ${appSettings.configPath}`)
 
     // darwin
     configureDarwin()
     configureLinux()
 
     next()
-
-    function configureDarwin() {
-        // OSX only
-        if (false === /^darwin/.test(process.platform)) { return }
-
-        if (process.env.SETUP === 1) {
-            setup()
-        }
-    }
-    function configureLinux() {
-        // linux based distro only
-        if (false === /^linux/.test(process.platform)) { return }
-        if (process.env.SETUP === 1) {
-            setup()
-        }
-    }
-    function setup() {
-        const { exec } = require('child_process');
-        exec('config.sh', (err, stdout, stderr) => {
-            if (err) {
-                console.log(`stderr: ${stderr}`);
-                // node couldn't execute the command
-                return;
-            }
-
-        });
-    }
 }
 
 // const useSquirrel = (args, next) => {

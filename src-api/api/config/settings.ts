@@ -14,36 +14,12 @@ const app = (electron && electron.app)
   ? electron.app || electron.remote.app
   : undefined
 
-// Set the path to root path of the app
-// expected structure
-// root
-//    - domain
-//    - context
-let appDirectory: string
-let envPath = cmdline.getArgValue(process.argv, "--env")
-if (envPath === undefined) {
-  appDirectory = fs.realpathSync(path.resolve(__filename, "../../"));
-  envPath = resolveApp("../.env")
-} else {
-  envPath = path.resolve(envPath)
-  appDirectory = path.dirname(envPath)
+const pathNormalize = (fspath) => {
+  if (undefined === fspath) return
+  return path.normalize(path.join(...(fspath.match(/([^\\\/])*/gi))))
 }
-
-function resolveApp(relativePath: string) {
-  let relativePathCleaned = path.join(...(relativePath.match(/([^\\\/])*/gi)))
-  return path.resolve(appDirectory, relativePathCleaned);
-}
-
-// note: follow app/api/config path
-//let envPath = path.resolve(cmdline.getArgValue(process.argv, "--env")) || resolveApp("../.env")
-console.log(`env path used ${envPath}`)
-require("dotenv").config({ path: envPath })
 
 const isRuntime = (mode: RuntimeMode) => {
-  // code to test between dev or prod, update accordingly
-  // let { argv } = (process || { argv: <string[]>[] })
-  // const cmdDevPredicate = v => /^--dev$/.test(v)
-  // return ((mode === "Development") && argv.some(cmdDevPredicate))
   let runtimeMode: string = process.env.RUNTIME_MODE || "Development"
   return runtimeMode.toLowerCase() === mode.toLowerCase()
 }
@@ -56,8 +32,29 @@ const getPort = () => {
   return parseInt((process.env.ONEMARK_API_PORT || "3081"))
 }
 
+const pathResolver = () => {
+  // Set the path to root path of the app
+  // expected structure
+  // root
+  //    - domain
+  //    - context
+  let appDirectory: string
+  appDirectory = fs.realpathSync(path.resolve(__filename, "../../"));
+  if (isProduction()) {
+    appDirectory = process.cwd()
+  }
+  return {
+    resolve: (relativePath: string) => {
+      let relativePathCleaned = pathNormalize(relativePath)
+      return path.resolve(appDirectory, relativePathCleaned);
+    }
+  }
+}
+// logically should be here
+let appPathResolver = pathResolver()
+
 const getOnemarkPath = () => {
-  let dbpath = process.env.ONEMARK_PATH || "../../data/urls.json"
+  let dbpath = process.env.ONEMARK_PATH //|| "../../data/urls.json"
   if (isProduction()) {
     //let contextPath = process.env.APPDATA || (process.platform == "darwin" ? process.env.HOME + "Library/Preferences" : "/var/local")
     //return path.resolve(`${contextPath}/onemark/${dbpath}`)
@@ -68,15 +65,54 @@ const getOnemarkPath = () => {
     }
     return path.normalize(path.join(userData, dbpath))
   }
-  return resolveApp(dbpath)
+  return appPathResolver.resolve(dbpath)
+}
+
+const getConfigPath = () => {
+  let configpath = "../../build"
+  if (isProduction()) {
+    configpath = ""
+  }
+  return appPathResolver.resolve(path.join(configpath, "config.sh"))
+}
+
+const getEnvPath = () => {
+  let envPath = cmdline.getArgValue(process.argv, "--env")
+  if (undefined === envPath) {
+    envPath = appPathResolver.resolve("../.env")
+  } else {
+    envPath = path.resolve(pathNormalize(envPath))
+  }
+  return envPath
 }
 
 const appSettings = {
   isProduction: isProduction(),
   port: getPort(),
   bodyLimit: "100kb",
-  marksDbPath: getOnemarkPath(),
-  tracer: tracer as ITracer
+  tracer: tracer as ITracer,
+  marksDbPath: getOnemarkPath,
+  configPath: getConfigPath,
+  envPath: getEnvPath
 }
 
-export { appSettings }
+class AppConfig {
+  static loadEnvironment() {
+    require('dotenv').config({ path: getEnvPath() })
+    return this
+  }
+  static loadSettings() {
+    const settings = {
+      isProduction: isProduction(),
+      port: getPort(),
+      bodyLimit: "100kb",
+      tracer: tracer as ITracer,
+      marksDbPath: getOnemarkPath(),
+      configPath: getConfigPath(),
+      envPath: getEnvPath()
+    }
+    return settings
+  }
+}
+
+export { AppConfig }

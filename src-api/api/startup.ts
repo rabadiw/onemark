@@ -7,6 +7,6 @@ let svcOption = {
   tracer: appSettings.tracer,
   port: appSettings.port,
   bodyLimit: appSettings.bodyLimit,
-  markDataPath: appSettings.marksDbPath
+  markDataPath: appSettings.marksDbPath()
 }
 OnemarkService(svcOption).run()
