@@ -97,12 +97,13 @@ const appSettings = {
 }
 
 class AppConfig {
+  static settings: any;
   static loadEnvironment() {
     require('dotenv').config({ path: getEnvPath() })
     return this
   }
   static loadSettings() {
-    const settings = {
+    return {
       isProduction: isProduction(),
       port: getPort(),
       bodyLimit: "100kb",
@@ -111,7 +112,12 @@ class AppConfig {
       configPath: getConfigPath(),
       envPath: getEnvPath()
     }
-    return settings
+  }
+  static init() {
+    if (undefined === this.settings) {
+      this.settings = this.loadEnvironment().loadSettings();
+    }
+    return this.settings;
   }
 }
 

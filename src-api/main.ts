@@ -2,7 +2,8 @@
 // See LICENSE for details.
 
 "use strict";
-const { AppConfig } = require("./api/config/settings")
+import { AppConfig } from "./api/config/settings";
+// const { AppConfig } = require("./api/config/settings")
 const { tracer } = require("./modules/tracer")
 const { cmdline } = require("./modules/cmdline")
 const { OnemarkApp } = require("./onemark-app")
@@ -14,42 +15,40 @@ const path = require("path")
 // handle uncaught exceptions
 process.on('uncaughtException', (e) => OnemarkApp.uncaughtExceptionHandler(e))
 
-let appSettings = {}
+let appSettings: any = {}
 
 const useEnv = (args, next) => {
-    const configureDarwin = () => {
-        // OSX only
-        if (false === /^darwin/.test(process.platform)) { return }
+    const configureSystem = () => {
 
-        if (process.env.ONEMARK_SETUP === 1) {
-            setup()
+        const isDarwinOrLinux = () => {
+            return ((/^darwin|^linux/.test(process.platform)))
         }
-    }
-    const configureLinux = () => {
+        // OSX only
         // linux based distro only
-        if (false === /^linux/.test(process.platform)) { return }
-        if (process.env.ONEMARK_SETUP === 1) {
+        if (!isDarwinOrLinux()) { return }
+
+        if (process.env.ONEMARK_SETUP === "1") {
             setup()
         }
     }
     const setup = () => {
-        const { exec } = require('child_process');
+        const { exec } = require('child_process')
         const fs = require("fs")
 
         let setupFile = appSettings.configPath()
         if (fs.existsSync(setupFile)) {
             exec(setupFile, (err, stdout, stderr) => {
                 if (err) {
-                    console.log(`stderr: ${stderr}`);
+                    console.log(`stderr: ${stderr}`)
                     // node couldn't execute the command
-                    return;
+                    return
                 }
-            });
+            })
         }
     }
 
     // .env should always be at root with main.js
-    appSettings = AppConfig.loadEnvironment().loadSettings()
+    appSettings = AppConfig.init()
 
     //require('dotenv').config({ path: appSettings.envPath() })
     tracer.info(`Running in ${process.env.RUNTIME_MODE} mode`)
@@ -59,9 +58,8 @@ const useEnv = (args, next) => {
     tracer.info(`envpath: ${appSettings.envPath}`)
     tracer.info(`configPath: ${appSettings.configPath}`)
 
-    // darwin
-    configureDarwin()
-    configureLinux()
+    // setup system
+    configureSystem()
 
     next()
 }

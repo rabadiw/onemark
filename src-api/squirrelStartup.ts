@@ -73,4 +73,4 @@ const squirrelStartup = (args) => {
   }
 }
 
-exports.squirrelStartup = squirrelStartup
+export { squirrelStartup }

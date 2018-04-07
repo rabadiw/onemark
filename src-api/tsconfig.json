@@ -10,10 +10,10 @@
     "newLine": "LF",
     "outDir": "../app",
     "skipDefaultLibCheck": true,
-    "sourceMap": true,    
+    "sourceMap": false,    
     "strictNullChecks": false,
     "removeComments": true,
-    "inlineSources": true,
+    "inlineSources": false,
     "target": "es2015",
     "skipLibCheck": true
   },

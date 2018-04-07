@@ -29,4 +29,4 @@ const startup = () => {
   }
 };
 
-exports.startup = startup
+export { startup }

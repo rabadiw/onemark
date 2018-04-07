@@ -1,7 +1,8 @@
 // Copyright (c) Wael Rabadi. All rights reserved.
 // See LICENSE for details.
 
-const path = require("path");
+import * as path from "path";
+// const path = require("path");
 const url = require('url')
 // const fs = require('fs')
 
@@ -10,7 +11,7 @@ const resolveRoot = (...relativePath) => {
 }
 
 const isElectronDevMode = () => {
-    return process.defaultApp ||
+    return process["defaultApp"] ||
         /[\\/]electron-prebuilt[\\/]/.test(process.execPath) ||
         /[\\/]electron[\\/]/.test(process.execPath)
 }
@@ -35,4 +36,4 @@ const settings = {
 //     settings.rootIndexUrl = "http://localhost:3000"
 // }
 
-exports.appSettings = settings
+export const appSettings = settings 

@@ -58,6 +58,9 @@ const createMainWindow = (options) => {
 
 class OnemarkApp {
 
+    mainWindowState: any = undefined;
+    mainWindow: any = undefined;
+
     constructor() {
 
         // Keep a global reference of the window object, if you don't, the window will
@@ -131,7 +134,10 @@ class OnemarkApp {
         })
 
         ipcMain.on(appEventTypes.updateDownloaded, (event, ...args) => {
-            let { autoUpdater } = args
+            if (!args) { return }
+            
+            //let { autoUpdater } = args
+            let autoUpdater = args[0];
             if (autoUpdater) {
                 ipcMain.on(appEventTypes.updateAndRestart, () => {
                     autoUpdater.quitAndInstall()
@@ -149,9 +155,9 @@ class OnemarkApp {
             let content = `${app.getName()} 
 
 Version: ${app.getVersion()}
-Chrome: ${process.versions.chrome}
+Chrome: ${process.versions["chrome"]}
 Node: ${process.versions.node}
-Shell: ${process.versions.electron}
+Shell: ${process.versions["electron"]}
 Process ID: ${process.pid}
 API URL: http://localhost:${require("./api/config/settings").appSettings.port}
 `
@@ -201,4 +207,4 @@ API URL: http://localhost:${require("./api/config/settings").appSettings.port}
     }
 }
 
-module.exports = { OnemarkApp }
+export { OnemarkApp }

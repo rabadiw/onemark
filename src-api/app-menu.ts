@@ -78,6 +78,7 @@ const template = [
         ]
     },
 ];
+
 if (process.platform === "darwin") {
     const name = require("electron").app.getName();
     template.unshift({
@@ -112,7 +113,7 @@ if (process.platform === "darwin") {
                 role: "quit"
             },
         ]
-    });
+    } as any);
     // Window menu.
     template[3].submenu = [
         {
@@ -136,7 +137,7 @@ if (process.platform === "darwin") {
             label: "Bring All to Front",
             role: "front"
         }
-    ];
+    ] as any;
 }
 
-module.exports = template
+export { template }

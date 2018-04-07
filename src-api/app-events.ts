@@ -1,8 +1,8 @@
 const { AppMessaging } = require("./modules/app-messaging")
-const { dialog } = require("electron")
+const { Dialog } = require("electron")
 
 const exceptionHandler = (e) => {
-    dialog.showErrorBox('Caught unhandled exception', e || 'Unknown error message')
+    Dialog.showErrorBox('Caught unhandled exception', e || 'Unknown error message')
 }
 
 const appMessaging = new AppMessaging(exceptionHandler)

@@ -13,6 +13,8 @@ const logInfo = (msg) => {
 }
 
 class AppMessaging {
+  run: (action: any) => void;
+  exceptionHandler: any;
   constructor(exceptionHandler) {
     this.exceptionHandler = exceptionHandler
     this.run = (action) => {
@@ -29,7 +31,7 @@ class AppMessaging {
   //   args: [],
   //   notifyClient: boolean
   // }
-  sendMessage(options = {}) {
+  sendMessage(options: any = {}) {
     let { channel, args, notifyClient } = options
     this.run(() => { ipcMain.emit(channel, ...args) })
 
@@ -53,7 +55,7 @@ class AppMessaging {
     return windows[0].webContents
   }
 
-  sendWindowMessage(options = {}) {
+  sendWindowMessage(options: any = {}) {
     logInfo(options)
     this.run(() => {
       let { window, channel, args } = options;
@@ -72,4 +74,4 @@ class AppMessaging {
   }
 }
 
-module.exports = { AppMessaging }
+export { AppMessaging }
