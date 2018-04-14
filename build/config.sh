@@ -37,7 +37,8 @@ sed -i -e "s/HOST_PATH/$ESCAPED_HOST_PATH/" "$TARGET_DIR/$HOST_NAME.json"
 chmod o+r "$TARGET_DIR/$HOST_NAME.json"
 
 # Update .env file
-sed -i -e "s/ONEMARK_SETUP=1/ONEMARK_SETUP=0/" "$DIR/Resources/app.asar.unpacked/.env"
+sed -e "s/ONEMARK_SETUP=1/ONEMARK_SETUP=0/" "$DIR/Resources/app.asar.unpacked/.env"
+sed -e "s/ONEMARK_PATH=.*/ONEMARK_PATH=~\/\.Onemark\/data\/urls\.json/" "$DIR/Resources/app.asar.unpacked/.env"
 
 echo "Native messaging host $HOST_NAME has been installed."
 
