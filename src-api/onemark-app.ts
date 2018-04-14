@@ -2,10 +2,10 @@
 // See LICENSE for details.
 
 "use strict"
+import { appSettings } from "./config/settings"
 const { app, Menu, BrowserWindow, dialog, ipcMain, shell, session } = require("electron")
 const { appUpdater } = require("./app-updater")
 const { appEventTypes } = require("./app-events")
-const { appSettings } = require('./config/settings')
 const windowState = require('electron-window-state')
 const log = require("electron-log");
 
@@ -48,6 +48,7 @@ const createMainWindow = (options) => {
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
         win = null
+        process.exit(1)
     })
 
     // track window state
@@ -135,7 +136,7 @@ class OnemarkApp {
 
         ipcMain.on(appEventTypes.updateDownloaded, (event, ...args) => {
             if (!args) { return }
-            
+
             //let { autoUpdater } = args
             let autoUpdater = args[0];
             if (autoUpdater) {

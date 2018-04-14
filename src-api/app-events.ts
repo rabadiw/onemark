@@ -47,7 +47,7 @@ const sendWindowNotification = (win, ...args) => {
     })
 }
 
-module.exports = {
+export {
     appEventTypes,
     sendCheckForUpdate,
     sendOpenAboutWindow,

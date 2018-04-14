@@ -35,7 +35,7 @@ const useEnv = (args, next) => {
         const { exec } = require('child_process')
         const fs = require("fs")
 
-        let setupFile = appSettings.configPath()
+        let setupFile = appSettings.configPath
         if (fs.existsSync(setupFile)) {
             exec(setupFile, (err, stdout, stderr) => {
                 if (err) {

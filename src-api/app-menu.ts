@@ -140,4 +140,4 @@ if (process.platform === "darwin") {
     ] as any;
 }
 
-export { template }
+module.exports = template

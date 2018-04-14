@@ -1,10 +1,10 @@
 const { spawn, spawnSync } = require('child_process')
 
-const args = ['build'];
 const opts = { stdio: 'inherit', cwd: 'src-client', shell: true };
 
 // build
-let buildProces = spawn('yarn', args, opts);
+spawn('yarn', ['install'], opts);
+let buildProces = spawn('yarn', ['build'], opts);
 
 buildProces.on("exit", (code, signal) => {
   if (code !== 0) {
@@ -14,11 +14,11 @@ buildProces.on("exit", (code, signal) => {
   // copy build to app/www
   // first clear app/www
   if (process.platform === "win32") {
-    spawnSync('powershell', ['rm -r ./app/www/*'], { stdio: 'inherit', cwd: '.', shell: true })
-    spawnSync('powershell', ['mv ./src-client/build/* ./app/www'], { stdio: 'inherit', cwd: '.', shell: true })
+    spawnSync('powershell', ['rm -recurse ./app/www/'], { stdio: 'inherit', cwd: '.', shell: true })
+    spawnSync('powershell', ['cp -recurse ./src-client/build/* ./app/www/'], { stdio: 'inherit', cwd: '.', shell: true })
   } else {
-    spawnSync('rm', ['-r', './app/www/*'], { stdio: 'inherit', cwd: '.', shell: true })
-    spawnSync('mkdir', ['./app/www'], { stdio: 'inherit', cwd: '.', shell: true })
-    spawnSync('mv', ['./src-client/build/*', './app/www'], { stdio: 'inherit', cwd: '.', shell: true })
+    spawnSync('rm', ['-r', './app/www/'], { stdio: 'inherit', cwd: '.', shell: true })
+    spawnSync('mkdir', ['-p', './app/www/'], { stdio: 'inherit', cwd: '.', shell: true })
+    spawnSync('cp', ['-r', './src-client/build/*', './app/www/'], { stdio: 'inherit', cwd: '.', shell: true })
   }
 })

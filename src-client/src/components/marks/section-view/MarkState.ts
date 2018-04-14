@@ -2,7 +2,7 @@
 // See LICENSE for details.
 
 import * as _ from 'lodash'
-import { openLink, copyLink } from '../../lib/common'
+import { openLink, copyLink } from '../../../lib/common'
 
 // Group state by default
 class MarkState {
@@ -64,7 +64,8 @@ class MarkState {
     this.present(new MarkState(this.markService, this.present, nextState, this.rawData))
   }
 
-  internalPresent2(data) {
+  // tslint:disable-next-line
+  internalPresent2(data: any) {
     var nextState =
       _.chain(data)
         .sortBy('domain')

@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "proxy": "http://localhost:3001/",
-  "homepage": "./",
+  "homepage": ".",
   "dependencies": {
-    "@types/jest": "22.2.2",
-    "@types/node": "9.6.2",
-    "@types/react": "16.3.5",
-    "@types/react-dom": "16.0.4",
+    "@types/jest": "22.2.3",
+    "@types/node": "9.6.4",
+    "@types/react": "16.3.10",
+    "@types/react-dom": "16.0.5",
+    "@types/lodash": "4.14.106",
     "react": "16.3.1",
     "react-dom": "16.3.1",
     "classnames": "2.2.5",
@@ -21,8 +22,8 @@
     "firebase": "4.12.1"
   },
   "devDependencies": {
-    "react-scripts-ts": "2.8.0",
-    "typescript": "2.6.2"
+    "react-scripts-ts": "2.15.1",
+    "typescript": "2.8.1"
   },
   "scripts": {
     "start": "react-scripts-ts start",

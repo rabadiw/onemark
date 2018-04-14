@@ -12,7 +12,14 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import App from './App'
 import './index.css'
 // import registerServiceWorker from './registerServiceWorker'
-//import CloudBackend from './gcp'
+// import CloudBackend from './gcp'
+
+// Themed Shell
+const AppShell = (props) => (
+  <MuiThemeProvider>
+    <App apiUrl={props.apiUrl} isDeignMode={props.isDesignMode} />
+  </MuiThemeProvider>
+)
 
 interface EnvResponse {
   onemark_api_url: String
@@ -22,6 +29,7 @@ interface EnvResponse {
 function parseJSON(response: Response) {
   return response.json()
 }
+
 function startApp(env: EnvResponse) {
   let apiUrl = env.onemark_api_url.toString()
   let isDesignMode = env.design_mode.valueOf()
@@ -32,13 +40,6 @@ function startApp(env: EnvResponse) {
   )
 
 }
-
-// Themed Shell
-const AppShell = (props) => (
-  <MuiThemeProvider>
-    <App apiUrl={props.apiUrl} isDeignMode={props.isDesignMode} />
-  </MuiThemeProvider>
-)
 
 // onTouchTap support
 injectTapEventPlugin()
@@ -51,7 +52,7 @@ injectTapEventPlugin()
 // registerServiceWorker()
 // --> end old render code
 
-//CloudBackend.initalize()
+// CloudBackend.initalize()
 
 // Start up code
 let envApiUrl = 'http://localhost:3001/api/env'

@@ -115,27 +115,27 @@
   },
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
-    "postapi:build": "cp -r ./src-api/public/ ./app/ && npm install",
+    "postapi:build": "cp -r ./src-api/public/ ./app/ && yarn install",
     "api:build": "tsc -p ./src-api",
     "preapi": "yarn run api:build",
     "api": "electron ./app --start=api --env=./src-api/.env",
-    "preapp": "yarn run client:build",
-    "app": "electron ./app --env=./src-api/.env",
     "firebase": "firebase serve",
     "client:build": "node client-build.js",
     "client-server": "node ./src-client/client-server.js --env=./src-api/.env",
     "client-web": "node client-startup.js",
     "client": "npm-run-all --parallel api client-web",
     "dev": "npm-run-all --parallel api client-web app",
+    "preapp": "npm-run-all api:build client:build",
+    "app": "electron ./app --env=./src-api/.env",
     "start": "npm-run-all --parallel api app",
     "test": "jest",
     "pack": "build --dir",
     "dist": "build",
-    "prerelease": "yarn run build:client",
+    "prerelease": "yarn run client:build",
     "release": "build --publish always"
   },
   "dependencies": {
     "src-client": "file:src-client",
-    "yarn": "^1.3.2"
+    "yarn": "^1.5.1"
   }
 }

@@ -1,6 +1,3 @@
-// Copyright (c) Wael Rabadi. All rights reserved.
-// See LICENSE for details.
-
 import * as _ from 'lodash'
 import { openLink, copyLink } from '../../../lib/common'
 
@@ -55,7 +52,7 @@ class MarkState {
 
   // data is [Marks]
   // tslint:disable-next-line
-  dataAsChunk(data) {
+  dataAsChunk(data: any) {
     return _.chain(data)
       .sortBy('domain')
       .groupBy('domain')
@@ -71,13 +68,12 @@ class MarkState {
 
   // data is [Marks]
   // tslint:disable-next-line
-  dataAsGroup(data) {
+  dataAsGroup(data: any) {
     return _.chain(data)
       .sortBy('domain')
       .groupBy('domain')
       .toPairs()
       .map(t => _.zipObject(['title', 'items'], [t[0], t[1]]))
-      .flatten()
       .value()
   }
 

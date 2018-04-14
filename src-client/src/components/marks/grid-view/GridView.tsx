@@ -44,7 +44,7 @@ const MarkGridView = ({ model, actions }: Props) => {
       return (<MarkItem {...attr} />)
     }
 
-    return [<Header title={v.title} />, v.items.map(itemMapper)]
+    return [<Header title={v.title} key={i} />, v.items.map(itemMapper)]
   })
 
   return (

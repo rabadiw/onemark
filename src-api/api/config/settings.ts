@@ -39,10 +39,10 @@ const pathResolver = () => {
   //    - domain
   //    - context
   let appDirectory: string
-  appDirectory = fs.realpathSync(path.resolve(__filename, "../../"));
-  if (isProduction()) {
-    appDirectory = process.cwd()
-  }
+  appDirectory = fs.realpathSync(path.resolve(__filename, "..", ".."));
+  // if (isProduction()) {
+  //   appDirectory = process.cwd()
+  // }
   return {
     resolve: (relativePath: string) => {
       let relativePathCleaned = pathNormalize(relativePath)
@@ -69,11 +69,12 @@ const getOnemarkPath = () => {
 }
 
 const getConfigPath = () => {
-  let configpath = "../../build"
+  let configpath = "../../build/config.sh"
   if (isProduction()) {
-    configpath = ""
+    configpath = "../../../config.sh"
   }
-  return appPathResolver.resolve(path.join(configpath, "config.sh"))
+  console.info(`${configpath}: ${appPathResolver.resolve(configpath)} `)
+  return appPathResolver.resolve(configpath)
 }
 
 const getEnvPath = () => {

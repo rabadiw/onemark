@@ -4,7 +4,7 @@
 
 set -e
 
-DIR="$( cd "$( dirname "$0" )" && pwd )"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 if [ "$(uname -s)" = "Darwin" ]; then
   if [ "$(whoami)" = "root" ]; then
     TARGET_DIR="/Library/Google/Chrome/NativeMessagingHosts"
@@ -28,14 +28,18 @@ mkdir -p "$TARGET_DIR"
 cp "$DIR/$HOST_NAME.json" "$TARGET_DIR"
 
 # Update host path in the manifest.
-HOST_PATH=$DIR/nmh/onemark_darwin
-ESCAPED_HOST_PATH=${HOST_PATH////\\/}
+HOST_PATH=nmh/onemark_darwin
+FULL_HOST_PATH="$DIR/$HOST_PATH"
+ESCAPED_HOST_PATH=${FULL_HOST_PATH////\\/}
 sed -i -e "s/HOST_PATH/$ESCAPED_HOST_PATH/" "$TARGET_DIR/$HOST_NAME.json"
 
 # Set permissions for the manifest so that all users can read it.
 chmod o+r "$TARGET_DIR/$HOST_NAME.json"
 
 # Update .env file
-sed -i -e "s/SETUP=1/SETUP=0/" "$TARGET_DIR/Resources/app.asar.unpacked/.env"
+sed -i -e "s/ONEMARK_SETUP=1/ONEMARK_SETUP=0/" "$DIR/Resources/app.asar.unpacked/.env"
 
 echo "Native messaging host $HOST_NAME has been installed."
+
+cp "$DIR/com.waelrabadi.onemark.plist" ~/Library/LaunchAgents/com.waelrabadi.onemark.plist
+launchctl load -w ~/Library/LaunchAgents/com.waelrabadi.onemark.plist
