@@ -61,7 +61,9 @@ const useEnv = (args, next) => {
     // setup system
     configureSystem()
 
-    next()
+    if (next) {
+        next()
+    }
 }
 
 // const useSquirrel = (args, next) => {
@@ -74,9 +76,9 @@ const useEnv = (args, next) => {
 //     }
 // }
 
+const startupApi = (args) => { return cmdline.getArgValue(args, "--start") === "api" }
 const useApi = (args, next) => {
     //const startupApi = (args) => { return /--run-api/.test(args) }
-    const startupApi = (args) => { return cmdline.getArgValue(args, "--start") === "api" }
     if (startupApi(args)) {
         let svcOption = {
             tracer: tracer,
@@ -85,14 +87,24 @@ const useApi = (args, next) => {
             markDataPath: appSettings.marksDbPath
         }
         OnemarkService(svcOption).run()
-    } else {
+
+    }
+
+    if (next) {
         next()
     }
 }
 
 // eslint-disable-next-line no-unused-vars
 const useApp = (args, next) => {
-    new OnemarkApp()
+    let options = {}
+    if (startupApi(args)) {
+        options = { hidden: true }
+    }
+    new OnemarkApp(options)
+    if (next) {
+        next();
+    }
 }
 
 // build startup 

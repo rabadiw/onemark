@@ -48,7 +48,6 @@ const createMainWindow = (options) => {
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
         win = null
-        process.exit(1)
     })
 
     // track window state
@@ -59,17 +58,14 @@ const createMainWindow = (options) => {
 
 class OnemarkApp {
 
+    // Keep a global reference of the window object, if you don't, the window will
+    // be closed automatically when the JavaScript object is garbage collected.
     mainWindowState: any = undefined;
     mainWindow: any = undefined;
+    startOptions: any;
 
-    constructor() {
-
-        // Keep a global reference of the window object, if you don't, the window will
-        // be closed automatically when the JavaScript object is garbage collected.
-
-        this.mainWindow = undefined
-        this.mainWindowState = undefined
-
+    constructor(options: any) {
+        this.startOptions = options;
         // This method will be called when Electron has finished
         // initialization and is ready to create browser windows.
         // Some APIs can only be used after this event occurs.
@@ -86,7 +82,7 @@ class OnemarkApp {
     }
 
     ensureMainWindow() {
-        if (this.mainWindowState === undefined) {
+        if (this.mainWindowState === undefined || this.mainWindowState === null) {
             this.mainWindowState =
                 windowState({
                     defaultWidth: 800,
@@ -94,7 +90,7 @@ class OnemarkApp {
                 })
         }
 
-        if (this.mainWindow === undefined) {
+        if (this.mainWindow === undefined || this.mainWindow === null) {
             this.mainWindow =
                 createMainWindow({
                     stateManager: this.mainWindowState,
@@ -103,6 +99,15 @@ class OnemarkApp {
                 })
 
             this.setupMessages(this.mainWindow)
+        }
+
+        try {
+            if (this.startOptions.hidden && this.mainWindow) {
+                this.startOptions.hidden = false;
+                this.mainWindow.close();
+            }
+        } catch (e) {
+            logInfo(e);
         }
     }
 
@@ -191,6 +196,8 @@ API URL: http://localhost:${require("./api/config/settings").appSettings.port}
     }
 
     closedHandler() {
+        this.mainWindow = undefined;
+        this.mainWindowState = undefined;
         // On OS X it is common for applications and their menu bar
         // to stay active until the user quits explicitly with Cmd + Q
         if (process.platform !== "darwin") {
