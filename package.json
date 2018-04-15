@@ -32,6 +32,10 @@
           "to": "config.sh"
         },
         {
+          "from": "build/unconfig.sh",
+          "to": "unconfig.sh"
+        },
+        {
           "from": "build/com.waelrabadi.onemark.plist",
           "to": "com.waelrabadi.onemark.plist"
         }

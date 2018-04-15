@@ -17,5 +17,7 @@
     <true/>
     <key>LaunchOnlyOnce</key>        
     <false/>
+    <key>LSUIElement</key>
+    <true/>
 </dict>
 </plist>

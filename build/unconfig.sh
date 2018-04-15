@@ -22,3 +22,6 @@ HOST_NAME=com.waelrabadi.onemark
 rm "$TARGET_DIR/$HOST_NAME.json"
 
 echo "Native messaging host $HOST_NAME has been uninstalled."
+
+launchctl unload -w ~/Library/LaunchAgents/com.waelrabadi.onemark.plist
+rm ~/Library/LaunchAgents/com.waelrabadi.onemark.plist
