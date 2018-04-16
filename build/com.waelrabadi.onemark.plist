@@ -6,8 +6,7 @@
     <string>com.waelrabadi.onemark</string>
     <key>ProgramArguments</key>
     <array>
-        <string>/Applications/Onemark.app/Contents/MacOS/Onemark</string>
-        <string>--start=api</string>
+        <string>start.sh</string>
     </array>
     <key>WorkingDirectory</key>
     <string>/Applications/Onemark.app/Contents</string>
