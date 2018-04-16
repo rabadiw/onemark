@@ -19,9 +19,12 @@ else
 fi
 
 HOST_NAME=com.waelrabadi.onemark
-rm "$TARGET_DIR/$HOST_NAME.json"
-
+if [ -e "$TARGET_DIR/$HOST_NAME.json" ]; then
+  rm "$TARGET_DIR/$HOST_NAME.json"
+fi
 echo "Native messaging host $HOST_NAME has been uninstalled."
 
-launchctl unload -w ~/Library/LaunchAgents/com.waelrabadi.onemark.plist
-rm ~/Library/LaunchAgents/com.waelrabadi.onemark.plist
+launchctl unload -w "$HOME/Library/LaunchAgents/com.waelrabadi.onemark.plist"
+if [ -e "$HOME/Library/LaunchAgents/com.waelrabadi.onemark.plist" ]; then
+  rm "$HOME/Library/LaunchAgents/com.waelrabadi.onemark.plist"
+fi

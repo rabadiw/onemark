@@ -47,5 +47,5 @@ rm "$DIR/Resources/app.asar.unpacked/.env-e"
 
 echo "Native messaging host $HOST_NAME has been installed."
 
-cp "$DIR/com.waelrabadi.onemark.plist" ~/Library/LaunchAgents/com.waelrabadi.onemark.plist
-launchctl load -w ~/Library/LaunchAgents/com.waelrabadi.onemark.plist
+cp "$DIR/com.waelrabadi.onemark.plist" "$HOME/Library/LaunchAgents/com.waelrabadi.onemark.plist"
+launchctl load -w "$HOME/Library/LaunchAgents/com.waelrabadi.onemark.plist"

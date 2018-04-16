@@ -6,15 +6,26 @@
     <string>com.waelrabadi.onemark</string>
     <key>ProgramArguments</key>
     <array>
-        <string>start.sh</string>
+        <string>/Applications/Onemark.app/Contents/MacOS/Onemark</string>
+        <string>--start=api</string>
     </array>
     <key>WorkingDirectory</key>
     <string>/Applications/Onemark.app/Contents</string>
-    <key>RunAtLoad</key>
-    <true/>
     <key>KeepAlive</key>
-    <true/>
+    <false/>
     <key>LaunchOnlyOnce</key>        
-    <true/>
+    <false/>
+    <key>Sockets</key>
+    <dict>
+        <key>Listeners</key>
+        <dict>
+            <key>SockServiceName</key>
+            <string>32801</string>
+            <key>SockType</key>
+            <string>stream</string>
+            <key>SockFamily</key>
+            <string>IPv4</string>
+        </dict>
+    </dict>
 </dict>
 </plist>
