@@ -42,6 +42,10 @@ const useEnv = (args, next) => {
                     console.log(`stderr: ${stderr}`)
                     // node couldn't execute the command
                     return
+                } else {
+                    // plist will launch a new agent
+                    // exit this one
+                    process.exit()
                 }
             })
         }
