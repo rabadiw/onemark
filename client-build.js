@@ -3,8 +3,8 @@ const { spawn, spawnSync } = require('child_process')
 const opts = { stdio: 'inherit', cwd: 'src-client', shell: true };
 
 // build
-spawn('yarn', ['install'], opts);
-let buildProces = spawn('yarn', ['build'], opts);
+spawn('npm', ['install'], opts);
+let buildProces = spawn('npm', ['build'], opts);
 
 buildProces.on("exit", (code, signal) => {
   if (code !== 0) {

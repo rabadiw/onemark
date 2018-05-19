@@ -31,7 +31,7 @@ const settings = {
     electronUrl: "http://electron.atom.io"
 }
 
-// turn on only in 'yarn run dev' mode
+// turn on only in 'npm run dev' mode
 // if (isElectronDevMode()) {
 //     settings.rootIndexUrl = "http://localhost:3000"
 // }

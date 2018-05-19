@@ -16,5 +16,5 @@ buildProces.on("exit", (code, signal) => {
     spawnSync('cp', ['-r', './src-api/public/*', './app/'], { stdio: 'inherit', cwd: '.', shell: true })
   }
 
-  spawn('yarn', ['install'], { stdio: 'inherit', cwd: './app', shell: true });
+  spawn('npm', ['install'], { stdio: 'inherit', cwd: './app', shell: true });
 })
