@@ -20,7 +20,7 @@ const OnemarkService = ({ tracer, port, bodyLimit, markDataPath }: IOnemarkServi
     routes: [
       { template: "/api/marks", router: MarksRouter(marksRouterOption) },
       { template: "/api/env", router: ((req, res) => { res.json(envRes) }) },
-      { template: "/", router: ((req, res) => { res.send("Hello world!") }) }
+      { template: "/", router: ((req, res) => { res.send("Onemark API!") }) }
     ]
   }
 
