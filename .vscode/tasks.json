@@ -32,6 +32,11 @@
       "problemMatcher": [
         "$tsc"
       ]
+    },
+    {
+      "type": "npm",
+      "script": "api",
+      "problemMatcher": []
     }
   ]
 }

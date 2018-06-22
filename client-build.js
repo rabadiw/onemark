@@ -4,7 +4,7 @@ const opts = { stdio: 'inherit', cwd: 'src-client', shell: true };
 
 // build
 spawn('npm', ['install'], opts);
-let buildProces = spawn('npm', ['build'], opts);
+let buildProces = spawn('npm', ['run', 'build'], opts);
 
 buildProces.on("exit", (code, signal) => {
   if (code !== 0) {
