@@ -4,12 +4,12 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "taskName": "API Build",
+      "label": "API Build",
       "command": "tsc",
       "type": "shell",
       "args": [
         "-p",
-        "./src-api"
+        "./src/app"
       ],
       "problemMatcher": "$tsc",
       "presentation": {
@@ -20,7 +20,7 @@
       }
     },
     {
-      "taskName": "Build",
+      "label": "Build",
       "dependsOn": [
         "API Build"
       ],

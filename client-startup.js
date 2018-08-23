@@ -1,2 +1,2 @@
-const opts = { stdio: 'inherit', cwd: 'src-client', shell: true }
-require('child_process').spawn('npm', ['start'], opts)
+const opts = { stdio: 'inherit', cwd: 'src/ui', shell: true }
+require('child_process').spawn('yarn', ['start'], opts)

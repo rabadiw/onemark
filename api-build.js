@@ -1,7 +1,10 @@
 const { spawn, spawnSync } = require('child_process')
 
+let srcpath = './src/api'
+let tarpath = './app'
+
 // API build
-let buildProces = spawn('tsc', ['-p', './src-api'], { stdio: 'inherit', cwd: '.', shell: true });
+let buildProces = spawn('tsc', ['-p', srcpath], { stdio: 'inherit', cwd: '.', shell: true });
 
 buildProces.on("exit", (code, signal) => {
   if (code !== 0) {
@@ -11,10 +14,10 @@ buildProces.on("exit", (code, signal) => {
   // copy build to app/
   // first clear app/
   if (process.platform === "win32") {
-    spawnSync('powershell', ['cp -recurse ./src-api/public/* ./app/'], { stdio: 'inherit', cwd: '.', shell: true })
+    spawnSync('powershell', [`cp -recurse ${srcpath}/public/* ${tarpath}`], { stdio: 'inherit', cwd: '.', shell: true })
   } else {
-    spawnSync('cp', ['-r', './src-api/public/*', './app/'], { stdio: 'inherit', cwd: '.', shell: true })
+    spawnSync('cp', ['-r', `${srcpath}/public/*`, `${tarpath}`], { stdio: 'inherit', cwd: '.', shell: true })
   }
 
-  spawn('npm', ['install'], { stdio: 'inherit', cwd: './app', shell: true });
+  spawn('npm', ['install'], { stdio: 'inherit', cwd: `${tarpath}`, shell: true });
 })

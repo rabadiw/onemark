@@ -2,22 +2,22 @@
   "name": "onemark",
   "description": "Onemark is a productivity tool to manage all your links outside of the browser",
   "dependencies": {
-    "@polymer/polymer": "3.0.2",
-    "@polymer/app-layout": "3.0.0-pre.19",
-    "@polymer/iron-flex-layout": "3.0.0-pre.19",
-    "@polymer/iron-iconset-svg": "3.0.0-pre.19",
-    "@polymer/iron-media-query": "3.0.0-pre.19",
-    "@polymer/iron-pages": "3.0.0-pre.19",
-    "@polymer/paper-toolbar": "3.0.0-pre.19",
-    "@polymer/paper-header-panel": "3.0.0-pre.19",
-    "@polymer/paper-icon-button": "3.0.0-pre.19",
-    "@polymer/paper-input": "3.0.0-pre.19",
-    "@polymer/iron-icon": "3.0.0-pre.19"
+    "@polymer/polymer": "3.0.5",
+    "@polymer/app-layout": "3.0.0-pre.21",
+    "@polymer/iron-flex-layout": "3.0.0-pre.21",
+    "@polymer/iron-iconset-svg": "3.0.0-pre.21",
+    "@polymer/iron-media-query": "3.0.0-pre.21",
+    "@polymer/iron-pages": "3.0.0-pre.21",
+    "@polymer/paper-toolbar": "3.0.0-pre.21",
+    "@polymer/paper-header-panel": "3.0.0-pre.21",
+    "@polymer/paper-icon-button": "3.0.0-pre.21",
+    "@polymer/paper-input": "3.0.0-pre.21",
+    "@polymer/iron-icon": "3.0.0-pre.21"
   },
   "devDependencies": {
-    "@webcomponents/webcomponentsjs": "2.0.2",
+    "@webcomponents/webcomponentsjs": "2.0.4",
     "wct-browser-legacy": "1.0.1",
-    "polymer-cli": "1.7.3"
+    "polymer-cli": "1.8.0"
   },
   "scripts": {
     "start": "polymer serve",
