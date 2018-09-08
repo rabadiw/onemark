@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmitHelpers": true,
+    "noImplicitAny": false,
+    "newLine": "LF",
+    "outDir": "./build",
+    "skipDefaultLibCheck": true,
+    "sourceMap": false,    
+    "strictNullChecks": false,
+    "removeComments": true,
+    "inlineSources": false,
+    "target": "es2015",
+    "skipLibCheck": true
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

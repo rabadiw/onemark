@@ -1,4 +1,6 @@
+import Button from '@material-ui/core/Button';
 import * as React from 'react';
+
 import './Main.css';
 
 class Main extends React.Component {
@@ -6,7 +8,9 @@ class Main extends React.Component {
     return (
       <div className="Main">
         <p className="Main-content">
-          Main content
+          <Button variant="contained" color="primary">
+            Hello World
+          </Button>
         </p>
       </div>
     );
