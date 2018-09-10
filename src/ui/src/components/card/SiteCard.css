@@ -1,0 +1,12 @@
+.sitecard {
+  max-width: 400px;
+  margin: 16px 16px 16px 16px;
+}
+
+.sitecard-content {
+  background: lightslategray;
+}
+
+.sitecard-actions {
+  background: lightslategray;
+}
