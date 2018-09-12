@@ -1,5 +1,5 @@
-import blue from '@material-ui/core/colors/blue';
-import blueGrey from '@material-ui/core/colors/blueGrey';
+// import blue from '@material-ui/core/colors/blue';
+// import blueGrey from '@material-ui/core/colors/blueGrey';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
@@ -10,8 +10,9 @@ import OnemarkService from './services/OnemarkService';
 
 const theme = createMuiTheme({
   palette: {
-    primary: blueGrey,
-    secondary: blue,
+    // primary: blueGrey,
+    // secondary: blue,
+    type: "light"
   },
 });
 

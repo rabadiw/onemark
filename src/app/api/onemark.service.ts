@@ -13,7 +13,7 @@ const OnemarkService = ({ tracer, port, bodyLimit, markDataPath }: IOnemarkServi
   let onemarkServerOption: IExpressOptions = { tracer: tracer, port: port, bodyLimit: bodyLimit }
   let marksRouterOption: IMarksRouterOption = { tracer: tracer, markDataPath: markDataPath }
   let envRes = { onemark_endpoint: process.env.ONEMARK_API_URL, design_mode: process.env.DESIGN_MODE }
-  let rootRes = { service_name: "Onemark API", version: process.env.VERSION }
+  let rootRes = { name: "Onemark API", version: process.env.VERSION }
   let api = new OnemarkServer(onemarkServerOption)
 
   let options = {
