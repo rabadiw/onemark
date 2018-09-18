@@ -1,5 +1,9 @@
+// Copyright (c) Wael Rabadi. All rights reserved.
+// See LICENSE for details.
+
 // import blue from '@material-ui/core/colors/blue';
 // import blueGrey from '@material-ui/core/colors/blueGrey';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
@@ -12,22 +16,12 @@ const theme = createMuiTheme({
   palette: {
     // primary: blueGrey,
     // secondary: blue,
-    type: "light"
+    type: "dark"
   },
 });
 
-const AppShell = (props: { dataService: IDataService }) => (
-  <MuiThemeProvider theme={theme}>
-    <App dataService={props.dataService} />
-  </MuiThemeProvider>
-);
-
 // not needed for electron
 // registerServiceWorker();
-
-interface IDataService {
-  with(ctx: any): IDataService
-}
 
 interface IEnvResponse {
   onemark_endpoint: string
@@ -58,15 +52,16 @@ class Starup {
   private startApp(env: IEnvResponse) {
     // const isDesignMode = env.design_mode.valueOf()
     const dataService = (new OnemarkService())
-      .with(
-        { apiUrl: env.onemark_endpoint.valueOf() }
-      )
+      .with({ apiUrl: env.onemark_endpoint.valueOf() })
 
     ReactDOM.render(
-      <AppShell dataService={dataService} />,
+      <MuiThemeProvider theme={theme}>
+        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        <CssBaseline />
+        <App dataService={dataService} />
+      </MuiThemeProvider>,
       document.getElementById(this.ctx.appHTMLElement) as HTMLElement
     )
-
   }
 
   private load() {
