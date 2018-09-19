@@ -36,20 +36,32 @@ interface IStartContext {
 
 class Starup {
   private ctx: IStartContext;
+
+  constructor() {
+    // ...
+  }
+
   public with(ctx: IStartContext) {
     this.ctx = ctx;
     return this;
   }
 
   public run() {
-    this.load();
+    this.getEnv(this.ctx.envEndpoint).then((env) => {
+      this.startApp(env, this.ctx.appHTMLElement);
+    }).catch((err) => {
+      // not the best solution, but will do for now.
+      this.startApp(
+        { onemark_endpoint: this.ctx.apiEndpoint, design_mode: false },
+        this.ctx.appHTMLElement);
+    })
   }
 
   private parseJSON(response: Response) {
     return response.json()
   }
 
-  private startApp(env: IEnvResponse) {
+  private startApp(env: IEnvResponse, appHtmlElement: string) {
     // const isDesignMode = env.design_mode.valueOf()
     const dataService = (new OnemarkService())
       .with({ apiUrl: env.onemark_endpoint.valueOf() })
@@ -60,18 +72,13 @@ class Starup {
         <CssBaseline />
         <App dataService={dataService} />
       </MuiThemeProvider>,
-      document.getElementById(this.ctx.appHTMLElement) as HTMLElement
+      document.getElementById(appHtmlElement)
     )
   }
 
-  private load() {
-    fetch(this.ctx.envEndpoint, { headers: { accept: 'application/json' } })
+  private getEnv(envUrl: string) {
+    return fetch(envUrl, { headers: { accept: 'application/json' } })
       .then(this.parseJSON)
-      .then(this.startApp)
-      .catch((err) => {
-        // not the best solution, but will do for now.
-        this.startApp({ onemark_endpoint: this.ctx.apiEndpoint, design_mode: false })
-      })
   }
 }
 

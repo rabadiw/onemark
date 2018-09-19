@@ -14,11 +14,13 @@ interface IProps {
 
 class App extends React.Component<IProps, object> {
   public state = {
-    items: this.props.dataService.getItems(),
+    items: [] // this.props.dataService.getItems(),
   }
   constructor(props: IProps) {
     super(props);
     this.registerEvents();
+
+    AppSearchEvent.next("");
   }
   public render() {
     return (
@@ -28,7 +30,9 @@ class App extends React.Component<IProps, object> {
   private registerEvents() {
     AppSearchEvent.subscribe({
       next: (v) => {
-        this.setState({ items: this.props.dataService.getItems(v) });
+        this.props.dataService.getItems(v).then((data: []) => {
+          this.setState({ items: data })
+        })
       }
     });
 
@@ -43,6 +47,7 @@ class App extends React.Component<IProps, object> {
       next: (v: { id: string, url: string, title: string }) => {
         // TODO:
         alert(`delete: ${v}`);
+
       }
     });
 

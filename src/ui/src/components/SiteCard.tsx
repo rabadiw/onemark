@@ -25,11 +25,16 @@ const styles = (theme: any) => ({
   },
   card: {
     margin: "16px",
-    maxWidth: "400px",
+    maxWidth: "350px",
+    minWidth: "250px",
   },
   cardContent: {
     background: theme.palette.primary.light,
     color: theme.palette.primary.contrastText,
+  },
+  cardTitle: {
+    "text-align": "left",
+    "text-decoration": "underline",
   }
 })
 
@@ -80,7 +85,7 @@ class SiteCard extends React.PureComponent<IMarkItemProps, object> {
             <Button
               onClick={this.openHandler}
               title={url}
-              style={{ textDecoration: "underline" }}
+              className={classes.cardTitle}
             >{title}</Button>
           }
           subheader={subheader}
