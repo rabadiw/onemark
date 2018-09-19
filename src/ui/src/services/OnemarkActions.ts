@@ -1,7 +1,8 @@
 import * as Rx from 'rxjs';
 
-export const SearchEvent = new Rx.Subject();
-export const MarkCopyEvent = new Rx.Subject();
-export const MarkDeleteEvent = new Rx.Subject();
-export const MarkEditEvent = new Rx.Subject();
-export const MarkOpenEvent = new Rx.Subject();
+export const AppSearchEvent = new Rx.Subject();
+export const AppCopyEvent = new Rx.Subject();
+export const AppDeleteEvent = new Rx.Subject();
+export const AppEditEvent = new Rx.Subject();
+export const AppOpenEvent = new Rx.Subject();
+export const AppUpdateEvent = new Rx.Subject();

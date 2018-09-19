@@ -9,13 +9,13 @@ import CardHeader from '@material-ui/core/CardHeader';
 import { withStyles } from '@material-ui/core/styles';
 import BookmarkIcon from '@material-ui/icons/BookmarkBorder';
 import DeleteIcon from '@material-ui/icons/DeleteForever';
-import EditIcon from '@material-ui/icons/Edit';
+// import EditIcon from '@material-ui/icons/Edit';
 import LinkIcon from '@material-ui/icons/Link';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 // import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 // import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import { MarkOpenEvent } from '../services/OnemarkActions';
+import { AppCopyEvent, AppDeleteEvent, AppOpenEvent } from '../services/OnemarkActions';
 import IconButtonMenu from './IconButtonMenu';
 // import Typography from '@material-ui/core/Typography';
 
@@ -40,11 +40,6 @@ interface IMarkItemProps {
   title: string
   subheader?: string
   tags?: string[]
-  // actions: {
-  //   openCommand?: { present: (e: Event, target: { url: string, title: string }) => void },
-  //   deleteCommand?: { present: (e: Event, props: { id: string }) => void },
-  //   copyCommand?: { present: (e: Event, target: { url: string, title: string }) => void }
-  // }
 }
 
 class SiteCard extends React.PureComponent<IMarkItemProps, object> {
@@ -52,11 +47,8 @@ class SiteCard extends React.PureComponent<IMarkItemProps, object> {
   public state = {
     anchorEl: null,
   };
-  private open: any;
   public constructor(props: IMarkItemProps) {
     super(props);
-
-    this.open = this.openHandler.bind(this);
   }
   public render() {
 
@@ -72,20 +64,25 @@ class SiteCard extends React.PureComponent<IMarkItemProps, object> {
             </Avatar>
           }
           action={
-
             <IconButtonMenu
               icon={(<MoreVertIcon />)}
               key="sitecardMenu"
               label="Site card more menu"
               menuOptions={
                 [
-                  { key: "copyLink", label: "Copy link", icon: (<LinkIcon />), action: () => { alert('copy') } },
-                  { key: "delete", label: "Delete", icon: (<DeleteIcon />), action: () => { alert('delete') } },
-                  { key: "edit", label: "Edit", icon: (<EditIcon />), action: () => { alert('edit') } },
+                  { key: "copyLink", label: "Copy link", icon: (<LinkIcon />), action: this.copyLinkHandler },
+                  { key: "delete", label: "Delete", icon: (<DeleteIcon />), action: this.deleteHandler },
+                  // { key: "edit", label: "Edit", icon: (<EditIcon />), action: () => { alert('edit') } },
                 ]}
             />
           }
-          title={(<Button onClick={this.open} title={url} style={{ textDecoration: "underline" }}>{title}</Button>)}
+          title={
+            <Button
+              onClick={this.openHandler}
+              title={url}
+              style={{ textDecoration: "underline" }}
+            >{title}</Button>
+          }
           subheader={subheader}
         />
         <CardContent className={classes.cardContent}>
@@ -95,14 +92,17 @@ class SiteCard extends React.PureComponent<IMarkItemProps, object> {
     );
   }
 
+  private copyLinkHandler = (e: any) => {
+    const { id, url, title } = this.props;
+    AppCopyEvent.next({ id, url, title });
+  }
+  private deleteHandler = (e: any) => {
+    const { id, url, title } = this.props;
+    AppDeleteEvent.next({ id, url, title });
+  }
   private openHandler = (e: any) => {
-    // const { openCommand } = this.props.actions
-    // if (openCommand !== undefined) {
-    //   openCommand.present(e.nativeEvent, this.props)
-    // }
-    MarkOpenEvent.next(this.props.url);
-    e.defaultPrevented = true;
-    return false;
+    const { id, url, title } = this.props;
+    AppOpenEvent.next({ id, url, title });
   }
 }
 

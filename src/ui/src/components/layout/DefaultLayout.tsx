@@ -12,7 +12,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import UpdateIcon from '@material-ui/icons/Update';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import { SearchEvent } from '../../services/OnemarkActions';
+import { AppSearchEvent, AppUpdateEvent } from '../../services/OnemarkActions';
 import IconButtonMenu from '../IconButtonMenu';
 
 const styles = (theme: any) => ({
@@ -99,8 +99,8 @@ class DefaultLayout extends React.PureComponent<IProp, object> {
                 }}
                 disableUnderline={true}
                 placeholder="Search…"
-                onKeyPress={this.searchChanged}
-                onChange={this.searchChanged}
+                onKeyPress={this.searchChangedHandler}
+                onChange={this.searchChangedHandler}
               />
             </div>
             <IconButtonMenu
@@ -111,7 +111,7 @@ class DefaultLayout extends React.PureComponent<IProp, object> {
               menuOptions={
                 [
                   // { key: "settings", label: "Settings", icon: (<SettingsIcon />), action: () => { alert('Settings') } },
-                  { key: "update", label: "Check for updates...", icon: (<UpdateIcon />), action: () => { alert('Update') } },
+                  { key: "update", label: "Check for updates...", icon: (<UpdateIcon />), action: this.updateHandler },
                 ]}
             />
           </Toolbar>
@@ -125,9 +125,12 @@ class DefaultLayout extends React.PureComponent<IProp, object> {
     );
   }
 
-  private searchChanged(event: any) {
+  private updateHandler(event: any) {
+    AppUpdateEvent.next(undefined);
+  }
+  private searchChangedHandler(event: any) {
     if (event.nativeEvent.keyCode === 13 && event.type !== 'change') {
-      SearchEvent.next(event.target.value);
+      AppSearchEvent.next(event.target.value);
     }
   }
 }

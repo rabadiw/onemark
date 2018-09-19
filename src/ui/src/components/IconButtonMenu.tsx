@@ -18,7 +18,7 @@ interface IMenuOption {
   key: string,
   label: string,
   icon: React.ReactElement<any>,
-  action: () => void
+  action: (event: Event) => void
 }
 
 interface IIconButtonMenu {
@@ -103,7 +103,7 @@ class IconButtonMenu extends React.PureComponent<IIconButtonMenu, object> {
 
     const selectedOption = this.props.menuOptions.find(v => v.key === event.currentTarget.id)
     if (selectedOption) {
-      selectedOption.action();
+      selectedOption.action(event);
     }
 
   };

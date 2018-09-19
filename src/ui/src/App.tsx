@@ -4,7 +4,7 @@
 import * as React from 'react';
 import './App.css';
 import Dashboard from './pages/Dashboard';
-import { MarkOpenEvent, SearchEvent } from './services/OnemarkActions';
+import { AppCopyEvent, AppDeleteEvent, AppOpenEvent, AppSearchEvent, AppUpdateEvent } from './services/OnemarkActions';
 
 // import logo from './logo.svg';
 
@@ -18,23 +18,46 @@ class App extends React.Component<IProps, object> {
   }
   constructor(props: IProps) {
     super(props);
-
-    SearchEvent.subscribe({
-      next: (v) => {
-        this.setState({ items: this.props.dataService.getItems(v) });
-      }
-    });
-
-    MarkOpenEvent.subscribe({
-      next: (v: string) => {
-        window.open(v, "_blank");
-      }
-    })
+    this.registerEvents();
   }
   public render() {
     return (
       <Dashboard items={this.state.items} />
     );
+  }
+  private registerEvents() {
+    AppSearchEvent.subscribe({
+      next: (v) => {
+        this.setState({ items: this.props.dataService.getItems(v) });
+      }
+    });
+
+    AppCopyEvent.subscribe({
+      next: (v: { id: string, url: string, title: string }) => {
+        // TODO:
+        alert(`copy: ${v}`);
+      }
+    });
+
+    AppDeleteEvent.subscribe({
+      next: (v: { id: string, url: string, title: string }) => {
+        // TODO:
+        alert(`delete: ${v}`);
+      }
+    });
+
+    AppOpenEvent.subscribe({
+      next: (v: { id: string, url: string, title: string }) => {
+        window.open(v.url, v.title);
+      }
+    });
+
+    AppUpdateEvent.subscribe({
+      next: (v: any | undefined) => {
+        // TODO:
+        alert(`update`);
+      }
+    })
   }
 }
 
