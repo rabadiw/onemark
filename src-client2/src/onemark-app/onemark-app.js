@@ -1,4 +1,4 @@
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
+import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
 import { setPassiveTouchGestures, setRootPath } from '@polymer/polymer/lib/utils/settings.js';
 import '@polymer/app-layout/app-drawer/app-drawer.js';
 import '@polymer/app-layout/app-drawer-layout/app-drawer-layout.js';
@@ -9,9 +9,10 @@ import '@polymer/app-layout/app-toolbar/app-toolbar.js';
 import '@polymer/iron-pages/iron-pages.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 import '@polymer/paper-input/paper-input';
-import '@polymer/paper-input/paper-icon';
+// import '@polymer/paper-input/paper-icon';
 import './onemark-icons.js';
 import './marks-view-default.js';
+// import './onemark.service'
 
 // Gesture events like tap and track generated from touch will not be
 // preventable, allowing for better scrolling performance.
