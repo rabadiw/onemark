@@ -14,7 +14,7 @@ interface IProp {
 const MarkGridView = (props: IProp) => {
 
   const listItems = props.items.map((v, i) => {
-    return (<SiteCard id={v.id} url={v.url} title={v.title} key={v.id} tags={v.tags} subheader={v.domain} />)
+    return (<SiteCard key={i} id={v.id} url={v.url} title={v.title} tags={v.tags} subheader={v.domain} />)
   })
 
   return (

@@ -2,7 +2,6 @@
 // See LICENSE for details.
 
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/ButtonBase';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -25,16 +24,22 @@ const styles = (theme: any) => ({
   },
   card: {
     margin: "16px",
-    maxWidth: "350px",
-    minWidth: "250px",
+    width: "300px",
   },
   cardContent: {
     background: theme.palette.primary.light,
     color: theme.palette.primary.contrastText,
   },
   cardTitle: {
+    cursor: "pointer",
+    margin: 0,
+    maxHeight: 48,
+    overflow: "hidden",
     "text-align": "left",
     "text-decoration": "underline",
+    "text-overflow": "ellipsis",
+    "text-transform": "capitalize",
+    width: "99%",
   }
 })
 
@@ -59,7 +64,7 @@ class SiteCard extends React.PureComponent<IMarkItemProps, object> {
 
     const { classes } = this.props;
     const { url, title, subheader, tags } = this.props
-
+    
     return (
       <Card className={classes.card}>
         <CardHeader
@@ -82,11 +87,11 @@ class SiteCard extends React.PureComponent<IMarkItemProps, object> {
             />
           }
           title={
-            <Button
+            <p
               onClick={this.openHandler}
-              title={url}
+              title={`${title}\n${url}`}
               className={classes.cardTitle}
-            >{title}</Button>
+            >{title}</p>
           }
           subheader={subheader}
         />

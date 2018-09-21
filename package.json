@@ -121,6 +121,5 @@
     "dist": "build",
     "prerelease": "npm run build",
     "release": "build --publish always"
-  },
-  "dependencies": {}
+  }
 }
