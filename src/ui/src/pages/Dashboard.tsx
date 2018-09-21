@@ -5,7 +5,6 @@ import GridList from '@material-ui/core/GridList';
 import * as React from 'react';
 import DefaultLayout from '../components/layout/DefaultLayout';
 import SiteCard from '../components/SiteCard';
-import './Dashboard.css';
 
 interface IProp {
   items: any[],
