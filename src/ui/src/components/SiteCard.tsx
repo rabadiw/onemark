@@ -23,12 +23,18 @@ const styles = (theme: any) => ({
 
   },
   card: {
-    margin: "16px",
-    width: "300px",
+    margin: "16px 0 0 16px",
+    width: "350px",
   },
   cardContent: {
     background: theme.palette.primary.light,
     color: theme.palette.primary.contrastText,
+    "font-size": "small",
+    "height": 48,
+  },
+  cardHeader: {
+    display: "flex",
+    height: 100,
   },
   cardTitle: {
     cursor: "pointer",
@@ -64,10 +70,10 @@ class SiteCard extends React.PureComponent<IMarkItemProps, object> {
 
     const { classes } = this.props;
     const { url, title, subheader, tags } = this.props
-    
+
     return (
       <Card className={classes.card}>
-        <CardHeader
+        <CardHeader className={classes.cardHeader}
           avatar={
             <Avatar aria-label="Bookmark" className="avatar">
               <BookmarkIcon />
@@ -96,7 +102,7 @@ class SiteCard extends React.PureComponent<IMarkItemProps, object> {
           subheader={subheader}
         />
         <CardContent className={classes.cardContent}>
-          {(tags || []).map(v => (<span key={v}>{v}, </span>))}
+          {(tags || []).map(v => (<span key={v}>{v}</span>))}
         </CardContent>
       </Card>
     );

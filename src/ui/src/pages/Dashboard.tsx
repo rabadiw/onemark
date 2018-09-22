@@ -21,7 +21,6 @@ const MarkGridView = (props: IProp) => {
       {listItems}
     </GridList>
   )
-
 }
 
 // main component

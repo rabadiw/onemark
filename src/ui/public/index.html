@@ -44,9 +44,12 @@
 <script>
   try {
     // You can also require other files to run in this process
-    require('./renderer.js')
+    require('./renderer.js');
   } catch (e) {
     // simple logic to just ignore
+    var s = document.createElement('script');
+    s.setAttribute('src', './norenderer.js');
+    document.body.appendChild(s);
   }
 </script>
 

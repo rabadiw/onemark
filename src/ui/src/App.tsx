@@ -4,12 +4,13 @@
 import * as React from 'react';
 import './App.css';
 import Dashboard from './pages/Dashboard';
-import { AppCopyEvent, AppDeleteEvent, AppOpenEvent, AppSearchEvent, AppUpdateEvent } from './services/OnemarkActions';
+import { AppCopyEvent, AppDeleteEvent, AppOpenEvent, AppSearchEvent, AppUpdateEvent, dispatchEvent } from './services/OnemarkActions';
+import OnemarkService from './services/OnemarkService';
 
 // import logo from './logo.svg';
 
 interface IProps {
-  dataService: any
+  dataService: OnemarkService | undefined,
 }
 
 class App extends React.Component<IProps, object> {
@@ -29,38 +30,41 @@ class App extends React.Component<IProps, object> {
   }
   private registerEvents() {
     AppSearchEvent.subscribe({
-      next: (v) => {
-        this.props.dataService.getItems(v).then((data: []) => {
+      next: (v: string) => {
+        if (this.props.dataService === undefined) { return; }
+        this.props.dataService.getMarks(v).then((data: []) => {
           this.setState({ items: data })
         })
       }
     });
 
-    AppCopyEvent.subscribe({
+    AppDeleteEvent.subscribe({
       next: (v: { id: string, url: string, title: string }) => {
-        // TODO:
-        alert(`copy: ${v}`);
+        if (this.props.dataService === undefined) { return; }
+
+        const newMarks = this.state.items.filter((t: any) => t.id !== v.id);
+        this.props.dataService.deleteMarks([v]).then(() => {
+
+          this.setState({ items: newMarks })
+        });
       }
     });
 
-    AppDeleteEvent.subscribe({
+    AppCopyEvent.subscribe({
       next: (v: { id: string, url: string, title: string }) => {
-        // TODO:
-        alert(`delete: ${v}`);
-
+        dispatchEvent("copy_link", v)
       }
     });
 
     AppOpenEvent.subscribe({
       next: (v: { id: string, url: string, title: string }) => {
-        window.open(v.url, v.title);
+        dispatchEvent("open_link", v);
       }
     });
 
     AppUpdateEvent.subscribe({
       next: (v: any | undefined) => {
-        // TODO:
-        alert(`update`);
+        dispatchEvent("update", {});
       }
     })
   }
