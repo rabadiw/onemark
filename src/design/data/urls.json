@@ -16,7 +16,13 @@
       "favIconUrl": "http://cdn.sstatic.net/Sites/stackoverflow/img/favicon.ico?v=4f32ecc8f43d",
       "id": "daae19b50e35a1363c8e31d032d60ebc842794e36ab05811bd8109c63e0adb2b",
       "domain": "stackoverflow.com",
-      "created": "2016-11-29T22:15:04.620Z"
+      "created": "2016-11-29T22:15:04.620Z",
+      "tags": [
+        "dotnet", "windows-service", "host",
+        "dotnet", "windows-service", "host",
+        "dotnet", "windows-service", "host",
+        "dotnet", "windows-service", "apple"
+      ]
     },
     {
       "url": "http://dotnetthoughts.net/how-to-host-your-aspnet-core-in-a-windows-service/",
@@ -24,7 +30,10 @@
       "favIconUrl": "http://dotnetthoughts.net/favicon.ico",
       "id": "aaf85c5aabd8e95473bf2ad194e0d0fdc17d1ab58567368c7a53bb9067f4aae4",
       "domain": "dotnetthoughts.net",
-      "created": "2016-11-29T22:15:04.620Z"
+      "created": "2016-11-29T22:15:04.620Z",
+      "tags": [
+        "dotnet", "windows-service", "host"
+      ]
     },
     {
       "url": "https://msdn.microsoft.com/en-us/magazine/mt703436.aspx",
@@ -45,7 +54,7 @@
       "domain": "msdn.microsoft.com",
       "created": "2016-11-29T22:15:04.620Z",
       "tags": [
-        "powershell"
+        "powershell", "msdn"
       ]
     },
     {

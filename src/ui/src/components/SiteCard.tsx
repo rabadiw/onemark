@@ -31,6 +31,9 @@ const styles = (theme: any) => ({
     color: theme.palette.primary.contrastText,
     "font-size": "small",
     "height": 48,
+    "overflow": "hidden",
+    "text-overflow": "ellipsis",
+    "white-space": "nowrap",
   },
   cardHeader: {
     display: "flex",
@@ -45,7 +48,16 @@ const styles = (theme: any) => ({
     "text-decoration": "underline",
     "text-overflow": "ellipsis",
     "text-transform": "capitalize",
-    width: "99%",
+    "white-space": "normal",
+  },
+  tag: {
+    "&:after": {
+      "content": "','",
+    },
+    "&:last-child:after": {
+      "content": "none"
+    },
+    padding: "0 6px 0 0",
   }
 })
 
@@ -69,7 +81,12 @@ class SiteCard extends React.PureComponent<IMarkItemProps, object> {
   public render() {
 
     const { classes } = this.props;
-    const { url, title, subheader, tags } = this.props
+    const { url, title, subheader, tags } = this.props;
+    const renderTags = (tagItems: string[]) => {
+      return (
+        tagItems.map((v, i) => (<span className={classes.tag} key={i}>{v}</span>))
+      )
+    };
 
     return (
       <Card className={classes.card}>
@@ -92,17 +109,16 @@ class SiteCard extends React.PureComponent<IMarkItemProps, object> {
                 ]}
             />
           }
-          title={
-            <p
-              onClick={this.openHandler}
-              title={`${title}\n${url}`}
-              className={classes.cardTitle}
-            >{title}</p>
-          }
+          title=
+          {<p
+            onClick={this.openHandler}
+            title={`${title}\n${url}`}
+            className={classes.cardTitle}
+          >{title}</p>}
           subheader={subheader}
         />
-        <CardContent className={classes.cardContent}>
-          {(tags || []).map(v => (<span key={v}>{v}</span>))}
+        <CardContent className={classes.cardContent} title={(tags||[]).join(", ")}>
+          {renderTags((tags || []))}
         </CardContent>
       </Card>
     );
