@@ -24,10 +24,10 @@ const MarkGridView = (props: IProp) => {
 }
 
 // main component
-class Main extends React.PureComponent<IProp, object> {
+class Main extends React.PureComponent<{ items: any[], updateApp: boolean }, object> {
   public render() {
     return (
-      <DefaultLayout>
+      <DefaultLayout badgeCount={this.props.updateApp ? 1 : undefined}>
         <MarkGridView items={this.props.items} />
       </DefaultLayout>
     );

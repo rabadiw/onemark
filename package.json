@@ -113,7 +113,7 @@
     "client:api": "nodemon ./app/api/startup.js --env=./src/app/.env",
     "client": "node client-startup.js",
     "dev": "npm-run-all --parallel client:api client",
-    "preapp": "npm run build",
+    "apreapp": "npm run build",
     "app": "electron ./app --env=./src/app/.env",
     "start": "npm-run-all --parallel api app",
     "test": "jest",

@@ -4,7 +4,7 @@
 import * as React from 'react';
 import './App.css';
 import Dashboard from './pages/Dashboard';
-import { AppCopyEvent, AppDeleteEvent, AppOpenEvent, AppSearchEvent, AppUpdateEvent, dispatchEvent } from './services/OnemarkActions';
+import { AppCopyEvent, AppDeleteEvent, AppEventTypes, AppOpenEvent, AppSearchEvent, AppUpdateEvent, AppUpdateRestartEvent, dispatchEvent } from './services/OnemarkActions';
 import OnemarkService from './services/OnemarkService';
 
 // import logo from './logo.svg';
@@ -15,7 +15,8 @@ interface IProps {
 
 class App extends React.Component<IProps, object> {
   public state = {
-    items: [] // this.props.dataService.getItems(),
+    items: [], // this.props.dataService.getItems(),
+    updateApp: false,
   }
   constructor(props: IProps) {
     super(props);
@@ -25,7 +26,7 @@ class App extends React.Component<IProps, object> {
   }
   public render() {
     return (
-      <Dashboard items={this.state.items} />
+      <Dashboard items={this.state.items} updateApp={this.state.updateApp} />
     );
   }
   private registerEvents() {
@@ -33,7 +34,7 @@ class App extends React.Component<IProps, object> {
       next: (v: string) => {
         if (this.props.dataService === undefined) { return; }
         this.props.dataService.getMarks(v).then((data: []) => {
-          this.setState({ items: data })
+          this.setState({ items: data });
         })
       }
     });
@@ -44,29 +45,38 @@ class App extends React.Component<IProps, object> {
 
         const newMarks = this.state.items.filter((t: any) => t.id !== v.id);
         this.props.dataService.deleteMarks([v]).then(() => {
-
-          this.setState({ items: newMarks })
+          this.setState({ items: newMarks });
         });
       }
     });
 
     AppCopyEvent.subscribe({
       next: (v: { id: string, url: string, title: string }) => {
-        dispatchEvent("copy_link", v)
+        dispatchEvent(AppEventTypes.copyLink, v);
       }
     });
 
     AppOpenEvent.subscribe({
       next: (v: { id: string, url: string, title: string }) => {
-        dispatchEvent("open_link", v);
+        dispatchEvent(AppEventTypes.openLink, v);
       }
     });
 
     AppUpdateEvent.subscribe({
       next: (v: any | undefined) => {
-        dispatchEvent("update", {});
+        if (v && true === v.hasUpdate) {
+          this.setState({ items: this.state.items, updateApp: true });
+        } else {
+          dispatchEvent(AppEventTypes.checkForUpdate, v);
+        }
       }
-    })
+    });
+
+    AppUpdateRestartEvent.subscribe({
+      next: (v: any | undefined) => {
+        dispatchEvent(AppEventTypes.updateAndRestart, v);
+      }
+    });
   }
 }
 

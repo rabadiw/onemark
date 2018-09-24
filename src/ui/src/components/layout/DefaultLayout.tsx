@@ -2,17 +2,20 @@
 // See LICENSE for details.
 
 import AppBar from '@material-ui/core/AppBar';
+// import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
+import Snackbar from '@material-ui/core/Snackbar';
 import { withStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+// import CloseIcon from '@material-ui/icons/Close';
 import SearchIcon from '@material-ui/icons/Search';
 import SettingsIcon from '@material-ui/icons/Settings';
 import UpdateIcon from '@material-ui/icons/Update';
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import { AppSearchEvent, AppUpdateEvent } from '../../services/OnemarkActions';
+import { AppNotificationEvent, AppSearchEvent, AppUpdateEvent, AppUpdateRestartEvent } from '../../services/OnemarkActions';
 import IconButtonMenu from '../IconButtonMenu';
 
 const styles = (theme: any) => ({
@@ -64,6 +67,9 @@ const styles = (theme: any) => ({
     // position: "relative",
     width: theme.spacing.unit * 5,
   },
+  snackbar: {
+    flex: "1 1 auto",
+  },
   title: {
     display: 'none',
     [theme.breakpoints.up('sm')]: {
@@ -74,12 +80,37 @@ const styles = (theme: any) => ({
 
 interface IProp {
   classes: any,
+  badgeCount: number | undefined,
 }
 
 class DefaultLayout extends React.PureComponent<IProp, object> {
-  public static propTypes: { classes: PropTypes.Validator<object>; };
+  public static propTypes: { classes: PropTypes.Validator<object>; badgeCount: PropTypes.Validator<number | undefined>; };
+  public state = {
+    snack: { show: false, message: undefined, action: undefined },
+  };
+  public constructor(props: IProp) {
+    super(props);
+
+    AppNotificationEvent.subscribe({
+      next: (v: { message: string, action: any }) => {
+        if (!v) { return; }
+        this.setState({ snack: { show: true, message: v.message, action: v.action } });
+      }
+    });
+  }
   public render() {
-    const { classes } = this.props;
+    const { classes, badgeCount } = this.props;
+
+    const pageMoreOptions = [
+      // { key: "settings", label: "Settings", icon: (<SettingsIcon />), action: () => { alert('Settings') } },
+      // { key: "update", label: "Check for updates...", icon: (<UpdateIcon />), action: this.updateHandler },
+    ]
+    if (!badgeCount) {
+      pageMoreOptions.push({ key: "update", label: "Check for updates...", icon: (<UpdateIcon />), action: this.updateHandler })
+    } else {
+      pageMoreOptions.push({ key: "update", label: "Update and restart", icon: (<UpdateIcon />), action: this.updateHandler })
+    }
+
     return (
       <div className={classes.root}>
         <AppBar position="static" color="default">
@@ -104,7 +135,7 @@ class DefaultLayout extends React.PureComponent<IProp, object> {
               />
             </div>
             <IconButtonMenu
-              badgeConent={1}
+              badgeConent={this.props.badgeCount}
               icon={(<SettingsIcon />)}
               key="settingsMenu"
               label="settings menu"
@@ -121,12 +152,50 @@ class DefaultLayout extends React.PureComponent<IProp, object> {
             {this.props.children}
           </div>
         </div>
+        <Snackbar
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+          open={this.state.snack.show}
+          autoHideDuration={4000}
+          onClose={this.handleClose}
+          ContentProps={{
+            'aria-describedby': 'snackbar-fab-message-id',
+            className: classes.snackbarContent,
+          }}
+          message={<span id="snackbar-fab-message-id">{this.state.snack.message}</span>}
+          action={(
+            <div>
+              {this.state.snack.action}
+              {/* <Button color="inherit" size="small" onClick={this.handleClose}>
+                <CloseIcon />
+              </Button> */}
+            </div>
+          )}
+          className={classes.snackbar}
+        />
       </div>
     );
+
   }
 
+  private handleClose = () => {
+    this.setState({ snack: { show: false } });
+  };
+
   private updateHandler(event: any) {
-    AppUpdateEvent.next(undefined);
+    if (!this.props || !this.props.badgeCount) {
+      AppUpdateEvent.next(undefined);
+      AppNotificationEvent.next({
+        // action: (
+        //   <Button color="inherit" size="small" onClick={this.handleClose}>
+        //     Undo
+        //   </Button>
+        // ),
+        action: undefined,
+        message: "Checking for update!",
+      });
+    } else {
+      AppUpdateRestartEvent.next();
+    }
   }
   private searchChangedHandler(event: any) {
     if (event.nativeEvent.keyCode === 13 && event.type !== 'change') {
