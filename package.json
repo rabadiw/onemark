@@ -95,12 +95,13 @@
     ]
   },
   "devDependencies": {
-    "electron": "2.0.9",
+    "electron": "3.0.2",
     "electron-builder": "20.28.4",
     "electron-builder-squirrel-windows": "20.28.3",
     "electron-packager": "12.1.2",
     "npm-run-all": "4.1.3",
-    "nodemon": "1.18.4"
+    "nodemon": "1.18.4",
+    "typescript": "3.1.1"
   },
   "devEngines": {
     "node": ">=7.x",
@@ -108,13 +109,13 @@
   },
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
-    "build": "node build.js --app --client",
+    "build": "node make.js --app --client",
     "api": "electron ./app --start=api --env=./src/app/.env",
     "client:api": "nodemon ./app/api/startup.js --env=./src/app/.env",
     "client": "node client-startup.js",
     "dev": "npm-run-all --parallel client:api client",
     "apreapp": "npm run build",
-    "app": "electron ./app --env=./src/app/.env",
+    "app": "electron --inspect=5858 ./app --env=./src/app/.env",
     "start": "npm-run-all --parallel api app",
     "test": "jest",
     "pack": "build --dir",

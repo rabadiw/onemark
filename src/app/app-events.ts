@@ -1,11 +1,19 @@
-const { AppMessaging } = require("./modules/app-messaging")
-const { Dialog } = require("electron")
+const { AppMessaging } = require("./modules/app-messaging");
+const { dialog } = require('electron');
+const { tracer } = require("./modules/tracer");
 
 const exceptionHandler = (e) => {
-    Dialog.showErrorBox('Caught unhandled exception', e || 'Unknown error message')
+    let msg = 'Unknown error';
+    try {
+        msg = tracer.stringify(e);
+    } catch{ }
+    tracer.error(`Unhandled exception::${msg}`);
+    if (dialog) {
+        dialog.showErrorBox('Unhandled exception', msg);
+    }
 }
 
-const appMessaging = new AppMessaging(exceptionHandler)
+const appMessaging = (new AppMessaging()).useExceptionHandler(exceptionHandler);
 
 const appEventTypes = {
     checkForUpdate: "check-for-update",

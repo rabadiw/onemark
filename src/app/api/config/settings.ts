@@ -97,6 +97,10 @@ const appSettings = {
   envPath: getEnvPath
 }
 
+interface IAppSettings {
+  isProduction, port, bodyLimit, tracer, marksDbPath, configPath, envPath
+}
+
 class AppConfig {
   static settings: any;
   static loadEnvironment() {
@@ -114,7 +118,7 @@ class AppConfig {
       envPath: getEnvPath()
     }
   }
-  static init() {
+  static init(): IAppSettings {
     if (undefined === this.settings) {
       this.settings = this.loadEnvironment().loadSettings();
     }
@@ -122,4 +126,4 @@ class AppConfig {
   }
 }
 
-export { AppConfig }
+export { AppConfig, IAppSettings }

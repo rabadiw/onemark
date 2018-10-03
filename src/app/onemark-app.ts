@@ -3,18 +3,15 @@
 
 "use strict"
 import { appSettings } from "./config/settings"
+import { tracer } from "./modules/tracer";
 const { app, Menu, BrowserWindow, dialog, ipcMain, shell, session } = require("electron")
 const { appUpdater } = require("./app-updater")
 const { appEventTypes } = require("./app-events")
 const windowState = require('electron-window-state')
-const log = require("electron-log");
 
 const logInfo = (msg) => {
-    let logMsg = msg
-    if (typeof (msg) === "object") {
-        logMsg = JSON.stringify(msg)
-    }
-    log.info(`app::${logMsg}`)
+    let logMsg = tracer.stringify(msg);
+    tracer.info(`app::${logMsg}`);
 }
 
 const createMenu = () => {

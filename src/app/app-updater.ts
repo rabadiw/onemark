@@ -9,18 +9,20 @@
 // https://github.com/electron-userland/electron-builder/wiki/Auto-Update#events
 //-------------------------------------------------------------------
 
-const log = require("electron-log");
+// const log = require("electron-log");
 const { autoUpdater } = require("electron-updater");
 const { sendNotification, sendUpdateDownloaded } = require("./app-events");
-const { appSettings } = require("./config/settings")
+const { appSettings } = require("./config/settings");
+const { tracer, LogLevels } = require("./modules/tracer");
 
-const status = (msg) => {
+const status = (msg: string) => {
   sendNotification(msg);
-  log.info(`app-updater::${msg}`);
+  tracer.info(`app-updater::${msg}`);
 }
 
-autoUpdater.logger = log
-autoUpdater.logger.transports.file.level = "info"
+autoUpdater.logger = tracer
+autoUpdater.logger.logLevel = LogLevels.info
+// autoUpdater.logger.transports.file.level = "info"
 
 autoUpdater.on("checking-for-update", (evt, info) => {
   status("Checking for update...");

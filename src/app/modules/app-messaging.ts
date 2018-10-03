@@ -1,21 +1,20 @@
 // Copyright (c) Wael Rabadi. All rights reserved.
 // See LICENSE for details.
 
-const log = require("electron-log");
+// const log = require("electron-log");
 const { BrowserWindow, ipcMain } = require("electron");
+// const { tracer } = require("./tracer");
+import { tracer } from './tracer';
 
 const logInfo = (msg) => {
-  let logMsg = msg
-  if (typeof (msg) === "object") {
-    logMsg = JSON.stringify(msg)
-  }
-  log.info(`app-messaging::${logMsg}`)
+  let logMsg = tracer.stringify(msg);
+  tracer.info(`app-messaging::${logMsg}`);
 }
 
 class AppMessaging {
   run: (action: any) => void;
-  exceptionHandler: any;
-  constructor(exceptionHandler) {
+  exceptionHandler: (e: any) => void;
+  useExceptionHandler(exceptionHandler) {
     this.exceptionHandler = exceptionHandler
     this.run = (action) => {
       try {
@@ -24,14 +23,10 @@ class AppMessaging {
         this.exceptionHandler(e)
       }
     }
+    return this;
   }
 
-  // {
-  //   channel: string,
-  //   args: [],
-  //   notifyClient: boolean
-  // }
-  sendMessage(options: any = {}) {
+  sendMessage(options: { channel: string, args: [], notifyClient: boolean }) {
     let { channel, args, notifyClient } = options
     this.run(() => { ipcMain.emit(channel, ...args) })
 
@@ -69,7 +64,7 @@ class AppMessaging {
       }
 
       window.webContents.send(channel, ...args)
-      logInfo(`Sending "${JSON.stringify(args)}" on channel "${channel}" to window "${window.getTitle()}"`)
+      logInfo(`Sending "${args}" on channel "${channel}" to window "${window.getTitle()}"`)
     })
   }
 }

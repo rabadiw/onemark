@@ -2,7 +2,7 @@
 // See LICENSE for details.
 
 "use strict";
-import { AppConfig } from "./api/config/settings";
+import { AppConfig, IAppSettings } from "./api/config/settings";
 // const { AppConfig } = require("./api/config/settings")
 const { tracer } = require("./modules/tracer")
 const { cmdline } = require("./modules/cmdline")
@@ -15,7 +15,7 @@ const path = require("path")
 // handle uncaught exceptions
 process.on('uncaughtException', (e) => OnemarkApp.uncaughtExceptionHandler(e))
 
-let appSettings: any = {}
+let appSettings: IAppSettings
 
 const useEnv = (args, next) => {
     const configureSystem = () => {
@@ -56,11 +56,11 @@ const useEnv = (args, next) => {
 
     //require('dotenv').config({ path: appSettings.envPath() })
     tracer.info(`Running in ${process.env.RUNTIME_MODE} mode`)
-
-    tracer.info(`ONEMARK_SETUP: ${process.env.ONEMARK_SETUP}`)
-    tracer.info(`appsettings: ${JSON.stringify(appSettings)}`)
-    tracer.info(`envpath: ${appSettings.envPath}`)
-    tracer.info(`configPath: ${appSettings.configPath}`)
+    // tracer.info(`ONEMARK_SETUP: ${process.env.ONEMARK_SETUP}`)
+    // Object.keys(appSettings).forEach((key) => tracer.info(`${key}: ${appSettings[key]}`))
+    // tracer.info(`appsettings: ${JSON.stringify(appSettings.marksDbPath)}`)
+    // tracer.info(`envpath: ${appSettings.envPath}`)
+    // tracer.info(`configPath: ${appSettings.configPath}`)
 
     // setup system
     configureSystem()
@@ -91,7 +91,6 @@ const useApi = (args, next) => {
             markDataPath: appSettings.marksDbPath
         }
         OnemarkService(svcOption).run()
-
     }
 
     if (next) {

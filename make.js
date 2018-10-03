@@ -58,14 +58,15 @@ class ClientBuilder {
   with(opt) {
     this.ctx = {
       log: opt.logger,
-      canBuildClient: (opt.flags.client === true)
+      canRun: (opt.flags.client === true)
     };
     return this;
   }
   do() {
-    this.ctx.log.info("ClientBuilder do...");
     // guard
-    if (false === this.ctx.canBuildClient) { return; }
+    if (false === this.ctx.canRun) { return; }
+
+    this.ctx.log.info("ClientBuilder do...");
 
     const { spawn, spawnSync } = require('child_process')
 
@@ -114,16 +115,16 @@ class AppBuilder {
   with(opt) {
     this.ctx = {
       log: opt.logger,
-      canBuildApp: (opt.flags.app === true)
+      canRun: (opt.flags.app === true)
     };
 
     return this;
   }
   do() {
-    this.ctx.log.info("AppBuilder do...");
-
     // guard
-    if (false === this.ctx.canBuildApp) { return; }
+    if (false === this.ctx.canRun) { return; }
+
+    this.ctx.log.info("AppBuilder do...");
 
     const { spawn, spawnSync } = require('child_process')
 
@@ -172,10 +173,50 @@ class AppBuilder {
   }
 }
 
+// clean build
+class BuildCleaner {
+  constructor() { }
+  with(opt) {
+    this.ctx = {
+      log: opt.logger,
+      canRun: ((opt.flags.app && opt.flags.client) === true)
+    };
+
+    return this;
+  }
+  do() {
+    // guard
+    if (false === this.ctx.canRun) { return; }
+
+    const { spawnSync } = require('child_process')
+
+    this.ctx.log.info("BuildCleaner do...");
+    let twd = './app'
+
+    // copy build to app/
+    let platformCommands = {
+      win32: [
+        { cmd: 'powershell', args: ['rm -recurse', `${twd}`] },
+      ],
+      linux: [
+        { cmd: 'rm', args: ['-rf', `${twd}`] },
+      ]
+    }
+
+    let cmds = (process.platform === "win32") ? platformCommands.win32 : platformCommands.linux;
+
+    cmds.forEach((cmd) => {
+      this.ctx.log.cmd([cmd.cmd, ...cmd.args].join(' '))
+      spawnSync(cmd.cmd, cmd.args, { stdio: 'inherit', cwd: '.', shell: true })
+    })
+  }
+}
+
 function run(opt) {
   opt.logger.info(`runtime options: ${JSON.stringify(opt)}\n`);
 
   [
+    { o: BuildCleaner, d: opt },
     { o: ClientBuilder, d: opt },
     { o: AppBuilder, d: opt }
   ]
