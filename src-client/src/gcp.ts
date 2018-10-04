@@ -12,12 +12,12 @@ import * as firebase from 'firebase'
 class CloudBackend {
   static initalize() {
     var config = {
-      apiKey: 'AIzaSyA0OwVZP6R-UYbKIjweH2ldAjKUYsSsbrM',
-      authDomain: 'onemark-6ba70.firebaseapp.com',
-      databaseURL: 'https://onemark-6ba70.firebaseio.com',
-      projectId: 'onemark-6ba70',
+      apiKey: '',
+      authDomain: '',
+      databaseURL: '',
+      projectId: '',
       storageBucket: '',
-      messagingSenderId: '136905303205'
+      messagingSenderId: ''
     }
 
     firebase.initializeApp(config)
