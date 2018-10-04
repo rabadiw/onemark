@@ -3,57 +3,52 @@
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 const electron = require("electron");
-const OnemarkActions = require("./OnemarkActions");
+
+const AppEventNames = {
+    checkForUpdate: "check-for-update",
+    copyLink: "copy_link",
+    openLink: "open_link",
+    updateAndRestart: "update-and-restart",
+    updateDownloaded: "update-downloaded",
+    windowNotification: "window-notification",
+}
+
 // open link event
-window.document.addEventListener(OnemarkActions.AppEventTypes.openLink, function (args) {
-    let { url, title } = args.detail;
+window.document.addEventListener(AppEventNames.openLink, function (evt) {
+    let { url, title } = evt.detail;
     if (url) {
         electron.shell.openExternal(url, title);
     }
 });
 // copy link event
-window.document.addEventListener(OnemarkActions.AppEventTypes.copyLink, function (args) {
-    let { url } = args.detail;
+window.document.addEventListener(AppEventNames.copyLink, function (evt) {
+    let { url } = evt.detail;
     electron.clipboard.writeText(url);
 });
 // check for update event
-window.document.addEventListener(OnemarkActions.AppEventTypes.checkForUpdate, function (args) {
-    electron.ipcRenderer.send(OnemarkActions.AppEventTypes.checkForUpdate, null);
+window.document.addEventListener(AppEventNames.checkForUpdate, function (evt) {
+    electron.ipcRenderer.send(AppEventNames.checkForUpdate, null);
 });
 // update & restart event
-window.document.addEventListener(OnemarkActions.AppEventTypes.updateAndRestart, function (args) {
-    electron.ipcRenderer.send(OnemarkActions.AppEventTypes.updateAndRestart, null);
+window.document.addEventListener(AppEventNames.updateAndRestart, function (evt) {
+    electron.ipcRenderer.send(AppEventNames.updateAndRestart, evt.detail);
 });
 // 
 // Main to Process communications
 // 
-const createNotice = (msg) => {
-    let notice = document.createElement('div');
-    notice.setAttribute('class', 'notice');
-    notice.innerHTML = msg;
-    return notice;
-};
-electron.ipcRenderer.on(OnemarkActions.AppEventTypes.windowNotification, (event, args) => {
-    OnemarkActions.AppNotificationEvent.next({ message: JSON.stringify(args) });
+electron.ipcRenderer.on(AppEventNames.windowNotification, (event, args) => {
+    dispatchEvent(AppEventNames.windowNotification, args);
 });
 // Display a notification message when a new version is ready for install
 // Customize the code to match your HTML structure
-electron.ipcRenderer.on(OnemarkActions.AppEventTypes.updateDownloaded, (event, args) => {
-    OnemarkActions.AppUpdateEvent.next({ hasUpdate: true });
-    // var notice = createNotice(
-    //   `<p>
-    //     <span>Update ready! Restart to update?</span>
-    //     <a id="restart" class="apply" href="#"><i class="fa fa-check"></i></a>
-    //     <a id="close" class="close" href="#"><i class="fa fa-close"></i></a>      
-    //   </p>`
-    // )
-    // notice.querySelector('#restart').addEventListener('click', (e) => {
-    //   e.preventDefault()
-    //   event.sender.send(appEventTypes.updateAndRestart)
-    // })
-    // notice.querySelector('#close').addEventListener('click', (e) => {
-    //   e.preventDefault()
-    //   document.body.removeChild(notice)
-    // })
-    // document.body.appendChild(notice)
+electron.ipcRenderer.on(AppEventNames.updateDownloaded, (event, args) => {
+    dispatchEvent(AppEventNames.updateDownloaded, { hasUpdate: true });
 });
+
+
+// functions
+function dispatchEvent(name, data) {
+    // create and dispatch the event
+    const event = new CustomEvent(name, { detail: data });
+    window.document.dispatchEvent(event);
+}

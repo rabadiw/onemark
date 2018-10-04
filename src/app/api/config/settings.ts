@@ -73,7 +73,6 @@ const getConfigPath = () => {
   if (isProduction()) {
     configpath = "../../../config.sh"
   }
-  console.info(`${configpath}: ${appPathResolver.resolve(configpath)} `)
   return appPathResolver.resolve(configpath)
 }
 

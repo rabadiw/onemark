@@ -15,7 +15,7 @@ const exceptionHandler = (e) => {
 
 const appMessaging = (new AppMessaging()).useExceptionHandler(exceptionHandler);
 
-const appEventTypes = {
+const appEventNames = {
     checkForUpdate: "check-for-update",
     openAboutWindow: "open-about-window",
     openLearnMore: "open-learn-more",
@@ -33,30 +33,30 @@ const _msg = (channel, notifiyClient, ...args) => {
     })
 }
 
-const sendOpenLearnMore = (...args) => { _msg(appEventTypes.openLearnMore, false, ...args) }
-const sendCheckForUpdate = (...args) => { _msg(appEventTypes.checkForUpdate, false, ...args) }
-const sendOpenAboutWindow = (...args) => { _msg(appEventTypes.openAboutWindow, false, ...args) }
-const sendOpenElectronSite = (...args) => { _msg(appEventTypes.openElectronSite, false, ...args) }
-const sendUpdateAndRestart = (...args) => { _msg(appEventTypes.updateAndRestart, false, ...args) }
-const sendUpdateDownloaded = (...args) => { _msg(appEventTypes.updateDownloaded, true, ...args) }
+const sendOpenLearnMore = (...args) => { _msg(appEventNames.openLearnMore, false, ...args) }
+const sendCheckForUpdate = (...args) => { _msg(appEventNames.checkForUpdate, false, ...args) }
+const sendOpenAboutWindow = (...args) => { _msg(appEventNames.openAboutWindow, false, ...args) }
+const sendOpenElectronSite = (...args) => { _msg(appEventNames.openElectronSite, false, ...args) }
+const sendUpdateAndRestart = (...args) => { _msg(appEventNames.updateAndRestart, false, ...args) }
+const sendUpdateDownloaded = (...args) => { _msg(appEventNames.updateDownloaded, true, ...args) }
 
 const sendNotification = (...args) => {
-    appMessaging.sendWindowMessage({
+    appMessaging.sendBrowserMessage({
         window: null,
         args: args,
-        channel: appEventTypes.windowNotification,
+        channel: appEventNames.windowNotification,
     })
 }
 const sendWindowNotification = (win, ...args) => {
-    appMessaging.sendWindowMessage({
+    appMessaging.sendBrowserMessage({
         window: win,
         args: args,
-        channel: appEventTypes.windowNotification,
+        channel: appEventNames.windowNotification,
     })
 }
 
 export {
-    appEventTypes,
+    appEventNames,
     sendCheckForUpdate,
     sendOpenAboutWindow,
     sendOpenElectronSite,

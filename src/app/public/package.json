@@ -7,7 +7,7 @@
   "name": "onemark",
   "private": true,
   "productName": "Onemark",
-  "version": "1.0.18-alpha",
+  "version": "1.0.21-alpha",
   "dependencies": {
     "body-parser": "1.18.3",
     "classnames": "2.2.6",

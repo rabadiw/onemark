@@ -40,19 +40,23 @@ autoUpdater.on("download-progress", (evt, progressObj) => {
   status("Download progress...");
 })
 autoUpdater.on("update-downloaded", (evt, info) => {
-  status("Update downloaded")
-  sendUpdateDownloaded(autoUpdater)
+  status("Update downloaded");
+  // sendUpdateDownloaded(autoUpdater);
+  sendUpdateDownloaded(undefined);
 })
 
 const appUpdater = {
   checkForUpdate() {
-    status("Check for update")
+    status("Check for update");
     if (!appSettings.isProduction) { return; }
     // Wait a second for the window to exist before checking for updates.
     setTimeout(function () {
-      autoUpdater.checkForUpdates()
+      autoUpdater.checkForUpdates();
     }, 1000);
+  },
+  quitAndInstall() {
+    autoUpdater.quitAndInstall();
   }
-};
+}
 
 export { appUpdater }

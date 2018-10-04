@@ -4,7 +4,7 @@
 import * as React from 'react';
 import './App.css';
 import Dashboard from './pages/Dashboard';
-import { AppCopyEvent, AppDeleteEvent, AppEventTypes, AppOpenEvent, AppSearchEvent, AppUpdateEvent, AppUpdateRestartEvent, dispatchEvent } from './services/OnemarkActions';
+import { AppCopyEvent, AppDeleteEvent, AppEventNames, AppNotificationEvent, AppOpenEvent, AppSearchEvent, AppUpdateEvent, AppUpdateRestartEvent, dispatchEvent } from './services/OnemarkActions';
 import OnemarkService from './services/OnemarkService';
 
 // import logo from './logo.svg';
@@ -52,13 +52,13 @@ class App extends React.Component<IProps, object> {
 
     AppCopyEvent.subscribe({
       next: (v: { id: string, url: string, title: string }) => {
-        dispatchEvent(AppEventTypes.copyLink, v);
+        dispatchEvent(AppEventNames.copyLink, v);
       }
     });
 
     AppOpenEvent.subscribe({
       next: (v: { id: string, url: string, title: string }) => {
-        dispatchEvent(AppEventTypes.openLink, v);
+        dispatchEvent(AppEventNames.openLink, v);
       }
     });
 
@@ -67,16 +67,24 @@ class App extends React.Component<IProps, object> {
         if (v && true === v.hasUpdate) {
           this.setState({ items: this.state.items, updateApp: true });
         } else {
-          dispatchEvent(AppEventTypes.checkForUpdate, v);
+          dispatchEvent(AppEventNames.checkForUpdate, v);
         }
       }
     });
 
     AppUpdateRestartEvent.subscribe({
       next: (v: any | undefined) => {
-        dispatchEvent(AppEventTypes.updateAndRestart, v);
+        dispatchEvent(AppEventNames.updateAndRestart, v);
       }
     });
+
+    // App Events
+    window.document.addEventListener(AppEventNames.windowNotification, (evt: any) => {
+      AppNotificationEvent.next({ action: undefined, message: evt.detail });
+    });
+    window.document.addEventListener(AppEventNames.updateDownloaded, (evt: any) => {
+      AppUpdateEvent.next(evt.detail);
+    })
   }
 }
 

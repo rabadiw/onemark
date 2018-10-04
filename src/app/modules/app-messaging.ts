@@ -33,7 +33,7 @@ class AppMessaging {
     // send message to client if notifyClient is true
     if (true === notifyClient) {
       this.run(() => {
-        this.sendWindowMessage({
+        this.sendBrowserMessage({
           window: null,
           args: args,
           channel: channel
@@ -42,7 +42,7 @@ class AppMessaging {
     }
   }
 
-  getMainWindow() {
+  getBrowserMainWindow() {
     let windows = BrowserWindow.getAllWindows()
     if (windows.length == 0) {
       return
@@ -50,7 +50,7 @@ class AppMessaging {
     return windows[0].webContents
   }
 
-  sendWindowMessage(options: any = {}) {
+  sendBrowserMessage(options: any = {}) {
     logInfo(options)
     this.run(() => {
       let { window, channel, args } = options;
@@ -58,9 +58,9 @@ class AppMessaging {
         return
       }
 
-      if (window === undefined || typeof window !== BrowserWindow) {
+      if (window === undefined || window === null) {
         logInfo("Getting window object")
-        window = this.getMainWindow()
+        window = this.getBrowserMainWindow()
       }
 
       window.webContents.send(channel, ...args)

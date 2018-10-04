@@ -108,7 +108,7 @@ class DefaultLayout extends React.PureComponent<IProp, object> {
     if (!badgeCount) {
       pageMoreOptions.push({ key: "update", label: "Check for updates...", icon: (<UpdateIcon />), action: this.updateHandler })
     } else {
-      pageMoreOptions.push({ key: "update", label: "Update and restart", icon: (<UpdateIcon />), action: this.updateHandler })
+      pageMoreOptions.push({ key: "update", label: "Update and restart", icon: (<UpdateIcon />), action: this.updateRestartHandler })
     }
 
     return (
@@ -139,11 +139,7 @@ class DefaultLayout extends React.PureComponent<IProp, object> {
               icon={(<SettingsIcon />)}
               key="settingsMenu"
               label="settings menu"
-              menuOptions={
-                [
-                  // { key: "settings", label: "Settings", icon: (<SettingsIcon />), action: () => { alert('Settings') } },
-                  { key: "update", label: "Check for updates...", icon: (<UpdateIcon />), action: this.updateHandler },
-                ]}
+              menuOptions={pageMoreOptions}
             />
           </Toolbar>
         </AppBar>
@@ -181,25 +177,24 @@ class DefaultLayout extends React.PureComponent<IProp, object> {
     this.setState({ snack: { show: false } });
   };
 
-  private updateHandler(event: any) {
-    if (!this.props || !this.props.badgeCount) {
-      AppUpdateEvent.next(undefined);
-      AppNotificationEvent.next({
-        // action: (
-        //   <Button color="inherit" size="small" onClick={this.handleClose}>
-        //     Undo
-        //   </Button>
-        // ),
-        action: undefined,
-        message: "Checking for update!",
-      });
-    } else {
-      AppUpdateRestartEvent.next();
-    }
+  private updateHandler(evt: any) {
+    AppUpdateEvent.next(undefined);
+    AppNotificationEvent.next({
+      // action: (
+      //   <Button color="inherit" size="small" onClick={this.handleClose}>
+      //     Undo
+      //   </Button>
+      // ),
+      action: undefined,
+      message: "Checking for update!",
+    });
   }
-  private searchChangedHandler(event: any) {
-    if (event.nativeEvent.keyCode === 13 && event.type !== 'change') {
-      AppSearchEvent.next(event.target.value);
+  private updateRestartHandler(evt: any) {
+    AppUpdateRestartEvent.next();
+  }
+  private searchChangedHandler(evt: any) {
+    if (evt.nativeEvent.keyCode === 13 && evt.type !== 'change') {
+      AppSearchEvent.next(evt.target.value);
     }
   }
 }

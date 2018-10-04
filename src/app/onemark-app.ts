@@ -4,9 +4,9 @@
 "use strict"
 import { appSettings } from "./config/settings"
 import { tracer } from "./modules/tracer";
-const { app, Menu, BrowserWindow, dialog, ipcMain, shell, session } = require("electron")
-const { appUpdater } = require("./app-updater")
-const { appEventTypes } = require("./app-events")
+import { app, Menu, BrowserWindow, dialog, ipcMain, shell, session } from "electron";
+import { appUpdater } from "./app-updater";
+import { appEventNames } from "./app-events";
 const windowState = require('electron-window-state')
 
 const logInfo = (msg) => {
@@ -80,6 +80,8 @@ class OnemarkApp {
     }
 
     ensureMainWindow() {
+        if (this.startOptions.hidden) { return; }
+        
         if (this.mainWindowState === undefined || this.mainWindowState === null) {
             this.mainWindowState =
                 windowState({
@@ -121,7 +123,7 @@ class OnemarkApp {
         })
 
         // intercept client API calls and redirect to API url
-        session.defaultSession.webRequest.onBeforeRequest(['*://*./*'], (details, callback) => {
+        session.defaultSession.webRequest.onBeforeRequest({ urls: ['*://*./*'] }, (details, callback) => {
             if (details.url.indexOf(":3001/api/env", 1) > 0 &&
                 '3001' !== process.env.ONEMARK_API_PORT) {
                 let newUrl = `${process.env.ONEMARK_API_URL}api/env`;
@@ -134,28 +136,20 @@ class OnemarkApp {
             }
         })
 
-        ipcMain.on(appEventTypes.checkForUpdate, (event, ...args) => {
+        ipcMain.on(appEventNames.checkForUpdate, (event, ...args) => {
             appUpdater.checkForUpdate()
         })
 
-        ipcMain.on(appEventTypes.updateDownloaded, (event, ...args) => {
-            if (!args) { return }
-
-            //let { autoUpdater } = args
-            let autoUpdater = args[0];
-            if (autoUpdater) {
-                ipcMain.on(appEventTypes.updateAndRestart, () => {
-                    autoUpdater.quitAndInstall()
-                })
-            }
+        ipcMain.on(appEventNames.updateAndRestart, (event, ...args) => {
+            appUpdater.quitAndInstall();
         })
 
-        ipcMain.on(appEventTypes.windowNotification, (event, ...args) => {
+        ipcMain.on(appEventNames.windowNotification, (event, ...args) => {
             logInfo(args)
             dialog.showErrorBox("Notification", "Test message" + args)
         })
 
-        ipcMain.on(appEventTypes.openAboutWindow, (event, ...args) => {
+        ipcMain.on(appEventNames.openAboutWindow, (event, ...args) => {
             logInfo(args)
             let content = `${app.getName()} 
 
@@ -174,16 +168,16 @@ API URL: http://localhost:${require("./api/config/settings").appSettings.port}
         })
 
         // eslint-disable-next-line no-unused-vars
-        ipcMain.on(appEventTypes.openLearnMore, (event, ...args) => {
+        ipcMain.on(appEventNames.openLearnMore, (event, ...args) => {
             shell.openExternal(appSettings.appUrl);
         })
 
         // eslint-disable-next-line no-unused-vars
-        ipcMain.on(appEventTypes.openElectronSite, (event, ...args) => {
+        ipcMain.on(appEventNames.openElectronSite, (event, ...args) => {
             shell.openExternal(appSettings.electronUrl);
         })
 
-        // ipcMain.on(appEventTypes.appNotification, (event, args) => {
+        // ipcMain.on(appEventNames.appNotification, (event, args) => {
         //   dialog.showErrorBox("Notification", `${event} ${args}`)
         // })
     }
