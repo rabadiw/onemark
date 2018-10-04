@@ -19,6 +19,7 @@ interface IMarkModel {
   url: string
   browser: string
   favIcon: string
+  tags: [string]
 }
 
 interface IMarksRepository {

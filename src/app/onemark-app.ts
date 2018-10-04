@@ -81,7 +81,7 @@ class OnemarkApp {
 
     ensureMainWindow() {
         if (this.startOptions.hidden) { return; }
-        
+
         if (this.mainWindowState === undefined || this.mainWindowState === null) {
             this.mainWindowState =
                 windowState({
@@ -151,6 +151,7 @@ class OnemarkApp {
 
         ipcMain.on(appEventNames.openAboutWindow, (event, ...args) => {
             logInfo(args)
+            const appSettings = require("./api/config/settings").AppConfig.loadSettings();
             let content = `${app.getName()} 
 
 Version: ${app.getVersion()}
@@ -158,7 +159,8 @@ Chrome: ${process.versions["chrome"]}
 Node: ${process.versions.node}
 Shell: ${process.versions["electron"]}
 Process ID: ${process.pid}
-API URL: http://localhost:${require("./api/config/settings").appSettings.port}
+API URL: http://localhost:${appSettings.port}
+Data path: ${appSettings.marksDbPath}
 `
             dialog.showMessageBox({
                 type: "info",

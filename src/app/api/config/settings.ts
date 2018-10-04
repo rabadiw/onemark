@@ -61,9 +61,9 @@ const getOnemarkPath = () => {
 
     let userData = ""
     if (app) {
-      app.getPath("userData")
+      userData = app.getPath("userData");
     }
-    return path.normalize(path.join(userData, dbpath))
+    return path.resolve(path.normalize(path.join(userData, dbpath)));
   }
   return appPathResolver.resolve(dbpath)
 }
