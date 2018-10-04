@@ -42,13 +42,13 @@ class SearchBar2 extends React.PureComponent<SearchBarProps, {}> {
     this.textChanged$ = new Rx.Subject()
   }
   componentWillMount() {
-    this.subscription = this.textChanged$
-      .map((v) => v.text)
-      .debounce(() => Rx.Observable.interval(300))
-      .distinctUntilChanged()
-      .subscribe(r => {
-        this.props.textChanged(r)
-      })
+    // this.subscription = this.textChanged$
+    //   .map((v) => v.text)
+    //   .debounce(() => Rx.Observable.interval(300))
+    //   .distinctUntilChanged()
+    //   .subscribe(r => {
+    //     this.props.textChanged(r)
+    //   })
   }
   componentWillUnmount() {
     this.subscription.unsubscribe()

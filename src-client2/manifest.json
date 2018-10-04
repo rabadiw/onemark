@@ -1,0 +1,7 @@
+{
+  "name": "onemark",
+  "short_name": "onemark",
+  "description": "Onemark is a productivity tool to manage all your links outside of the browser",
+  "start_url": "/",
+  "display": "standalone"
+}

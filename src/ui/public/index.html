@@ -1,9 +1,9 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, shrink-to-fit=no">
   <meta name="theme-color" content="#000000">
   <!--
       manifest.json provides metadata used when your web app is added to the
@@ -21,7 +21,7 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-  <!--<link rel="stylesheet" href="node_modules/material-components-web/dist/material-components-web.css">-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
   <title>Onemark</title>
 </head>
 
@@ -44,9 +44,12 @@
 <script>
   try {
     // You can also require other files to run in this process
-    require('./renderer.js')
+    require('./renderer.js');
   } catch (e) {
     // simple logic to just ignore
+    var s = document.createElement('script');
+    s.setAttribute('src', './norenderer.js');
+    document.body.appendChild(s);
   }
 </script>
 

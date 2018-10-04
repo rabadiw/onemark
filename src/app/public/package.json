@@ -1,0 +1,27 @@
+{
+  "author": "Wael Rabadi <wael@mwrabadi.com>",
+  "description": "Onemark all your internet bookmarks to track and manage outside of the browser",
+  "homepage": "https://github.com/rabadiw/onemark",
+  "license": "Apache-2.0",
+  "main": "./main.js",
+  "name": "onemark",
+  "private": true,
+  "productName": "Onemark",
+  "version": "1.0.21-alpha",
+  "dependencies": {
+    "body-parser": "1.18.3",
+    "classnames": "2.2.6",
+    "dotenv": "6.0.0",
+    "electron-log": "2.2.17",
+    "electron-updater": "3.1.2",
+    "electron-window-state": "5.0.1",
+    "express": "4.16.3",
+    "font-awesome": "4.7.0",
+    "fs-extra": "7.0.0",
+    "immutable": "3.8.2",
+    "react": "16.5.2",
+    "react-dom": "16.5.2",
+    "react-tap-event-plugin": "3.0.3",
+    "rxjs": "6.3.3"
+  }
+}
