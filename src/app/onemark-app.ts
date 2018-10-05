@@ -80,7 +80,10 @@ class OnemarkApp {
     }
 
     ensureMainWindow() {
-        if (this.startOptions.hidden) { return; }
+
+        const isDarwin = () => { return ((/^darwin/.test(process.platform))) };
+
+        if (this.startOptions.hidden && !isDarwin()) { return; }
 
         if (this.mainWindowState === undefined || this.mainWindowState === null) {
             this.mainWindowState =
