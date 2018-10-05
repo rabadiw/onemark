@@ -3,10 +3,9 @@
 
 import { ITracer, tracer } from "../../modules/tracer";
 import { cmdline } from "../../modules/cmdline";
-
-const electron = require('electron');
-const path = require("path");
-const fs = require("fs");
+import * as electron from 'electron';
+import * as fs from "fs";
+import * as path from "path";
 
 type RuntimeMode = "Production" | "Development"
 
@@ -55,7 +54,7 @@ let appPathResolver = pathResolver()
 
 const getOnemarkPath = () => {
   let dbpath = process.env.ONEMARK_PATH //|| "../../data/urls.json"
-  if (isProduction()) {
+  if (isProduction() && !path.isAbsolute(dbpath)) {
     //let contextPath = process.env.APPDATA || (process.platform == "darwin" ? process.env.HOME + "Library/Preferences" : "/var/local")
     //return path.resolve(`${contextPath}/onemark/${dbpath}`)
 

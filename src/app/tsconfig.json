@@ -1,9 +1,11 @@
 {
   "compilerOptions": {
+    "alwaysStrict": true,
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "module": "commonjs",
+    "importHelpers": true,
+    "module": "none",
     "moduleResolution": "node",
     "noEmitHelpers": true,
     "noImplicitAny": false,
@@ -14,8 +16,9 @@
     "strictNullChecks": false,
     "removeComments": true,
     "inlineSources": false,
-    "target": "es2016",
-    "skipLibCheck": true
+    "target": "es2015",
+    "skipLibCheck": true,
+    "preserveConstEnums": true
   },
   "exclude": [
     "node_modules"
