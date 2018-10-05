@@ -85,7 +85,8 @@ if (process.platform === "darwin") {
         label: name,
         submenu: [
             {
-                role: "about"
+                label: "About Onemark",
+                click: () => { sendOpenAboutWindow() }
             },
             {
                 type: "separator"
