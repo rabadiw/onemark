@@ -22,8 +22,7 @@
     "mac": {
       "category": "public.app-category.productivity",
       "target": "default",
-      "extraFiles": [
-        {
+      "extraFiles": [{
           "from": "build/nmh/onemark_darwin",
           "to": "nmh/onemark_darwin"
         },
@@ -42,18 +41,21 @@
       ]
     },
     "dmg": {
-      "contents": [
-        {
-          "x": 110,
-          "y": 150
+      "contents": [{
+          "x": 128,
+          "y": 210
         },
         {
-          "x": 240,
-          "y": 150,
+          "x": 404,
+          "y": 210,
           "type": "link",
           "path": "/Applications"
         }
-      ]
+      ],
+      "window": {
+        "width": 540,
+        "height": 380
+      }
     },
     "linux": {
       "category": "Office",
@@ -64,12 +66,10 @@
     },
     "win": {
       "target": "nsis",
-      "extraFiles": [
-        {
-          "from": "build/nmh/onemark_win64.exe",
-          "to": "nmh/onemark_win64.exe"
-        }
-      ]
+      "extraFiles": [{
+        "from": "build/nmh/onemark_win64.exe",
+        "to": "nmh/onemark_win64.exe"
+      }]
     },
     "nsis": {
       "oneClick": true,
@@ -80,8 +80,7 @@
     "publish": {
       "provider": "github"
     },
-    "extraFiles": [
-      {
+    "extraFiles": [{
         "from": "build/com.waelrabadi.onemark.json",
         "to": "com.waelrabadi.onemark.json"
       },
