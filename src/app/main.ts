@@ -51,9 +51,10 @@ const useApi = (args, next) => {
 }
 
 // eslint-disable-next-line no-unused-vars
+const isDarwin = () => { return ((/^darwin/.test(process.platform))) };
 const useApp = (args, next) => {
     let options = {}
-    if (process.platform !== "darwin" && startupApi(args)) {
+    if (!isDarwin() && startupApi(args)) {
         options = { hidden: true }
     }
     new OnemarkApp(options)
