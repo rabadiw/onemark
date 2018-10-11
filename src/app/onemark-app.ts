@@ -151,7 +151,11 @@ class OnemarkApp {
 
         ipcMain.on(appEventNames.openAboutWindow, (event, ...args) => {
             logInfo(args)
-            const appSettings = require("./api/config/settings").AppConfig.loadSettings();
+            const appSettings = {
+                version: process.env.VERSION,
+                port: process.env.ONEMARK_API_PORT,
+                marksDbPath: process.env.ONEMARK_DB_PATH
+            };
             let content = `${app.getName()} 
 
 Version: ${app.getVersion()}

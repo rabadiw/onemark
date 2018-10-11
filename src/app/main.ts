@@ -2,68 +2,22 @@
 // See LICENSE for details.
 
 "use strict";
-import { AppConfig, IAppSettings } from "./api/config/settings";
-// const { AppConfig } = require("./api/config/settings")
 const { tracer } = require("./modules/tracer")
 const { cmdline } = require("./modules/cmdline")
+const { envLoader } = require("./modules/envLoader")
 const { OnemarkApp } = require("./onemark-app")
-const { OnemarkService } = require("./api/onemark.service")
 //const { squirrelStartup } = require("./squirrelStartup")
 const { startup } = require("./modules/startup")
-const path = require("path")
+const { OnemarkStartup } = require("./api/onemark.startup")
 
 // handle uncaught exceptions
 process.on('uncaughtException', (e) => OnemarkApp.uncaughtExceptionHandler(e))
 
-let appSettings: IAppSettings
-
 const useEnv = (args, next) => {
-    const configureSystem = () => {
-
-        const isDarwinOrLinux = () => {
-            return ((/^darwin|^linux/.test(process.platform)))
-        }
-        // OSX only
-        // linux based distro only
-        if (!isDarwinOrLinux()) { return }
-
-        if (process.env.ONEMARK_SETUP === "1") {
-            setup()
-        }
-    }
-    const setup = () => {
-        const { exec } = require('child_process')
-        const fs = require("fs")
-
-        let setupFile = appSettings.configPath
-        if (fs.existsSync(setupFile)) {
-            exec(setupFile, (err, stdout, stderr) => {
-                if (err) {
-                    console.log(`stderr: ${stderr}`)
-                    // node couldn't execute the command
-                    return
-                } else {
-                    // plist will launch a new agent
-                    // exit this one
-                    process.exit()
-                }
-            })
-        }
-    }
-
     // .env should always be at root with main.js
-    appSettings = AppConfig.init()
-
-    //require('dotenv').config({ path: appSettings.envPath() })
+    // load .env
+    envLoader.init(args);
     tracer.info(`Running in ${process.env.RUNTIME_MODE} mode`)
-    // tracer.info(`ONEMARK_SETUP: ${process.env.ONEMARK_SETUP}`)
-    // Object.keys(appSettings).forEach((key) => tracer.info(`${key}: ${appSettings[key]}`))
-    // tracer.info(`appsettings: ${JSON.stringify(appSettings.marksDbPath)}`)
-    // tracer.info(`envpath: ${appSettings.envPath}`)
-    // tracer.info(`configPath: ${appSettings.configPath}`)
-
-    // setup system
-    configureSystem()
 
     if (next) {
         next()
@@ -82,15 +36,11 @@ const useEnv = (args, next) => {
 
 const startupApi = (args) => { return cmdline.getArgValue(args, "--start") === "api" }
 const useApi = (args, next) => {
-    //const startupApi = (args) => { return /--run-api/.test(args) }
     if (startupApi(args)) {
-        let svcOption = {
-            tracer: tracer,
-            port: appSettings.port,
-            bodyLimit: appSettings.bodyLimit,
-            markDataPath: appSettings.marksDbPath
-        }
-        OnemarkService(svcOption).run()
+        OnemarkStartup
+            .init()
+            .setTracer(tracer)
+            .run();
     }
 
     if (next) {
@@ -105,6 +55,7 @@ const useApp = (args, next) => {
         options = { hidden: true }
     }
     new OnemarkApp(options)
+
     if (next) {
         next();
     }

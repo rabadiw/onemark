@@ -22,7 +22,8 @@
     "mac": {
       "category": "public.app-category.productivity",
       "target": "default",
-      "extraFiles": [{
+      "extraFiles": [
+        {
           "from": "build/nmh/onemark_darwin",
           "to": "nmh/onemark_darwin"
         },
@@ -41,7 +42,8 @@
       ]
     },
     "dmg": {
-      "contents": [{
+      "contents": [
+        {
           "x": 128,
           "y": 210
         },
@@ -66,10 +68,12 @@
     },
     "win": {
       "target": "nsis",
-      "extraFiles": [{
-        "from": "build/nmh/onemark_win64.exe",
-        "to": "nmh/onemark_win64.exe"
-      }]
+      "extraFiles": [
+        {
+          "from": "build/nmh/onemark_win64.exe",
+          "to": "nmh/onemark_win64.exe"
+        }
+      ]
     },
     "nsis": {
       "oneClick": true,
@@ -80,17 +84,19 @@
     "publish": {
       "provider": "github"
     },
-    "extraFiles": [{
+    "extraFiles": [
+      {
         "from": "build/com.waelrabadi.onemark.json",
         "to": "com.waelrabadi.onemark.json"
       },
       {
         "from": "build/nmh/.env",
         "to": "nmh/.env"
+      },
+      {
+        "from": "build/.env",
+        "to": ".env"
       }
-    ],
-    "asarUnpack": [
-      ".env"
     ]
   },
   "devDependencies": {
@@ -120,5 +126,6 @@
     "pack": "build --dir",
     "dist": "build",
     "release": "build --publish always"
-  }
+  },
+  "dependencies": {}
 }

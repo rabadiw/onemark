@@ -41,9 +41,9 @@ ONEMARK_PATH="$HOME/.Onemark/data/urls.json"
 ESCAPED_ONEMARK_PATH=${ONEMARK_PATH////\\/}
 ESCAPED_ONEMARK_PATH=${ESCAPED_ONEMARK_PATH//\./\\.}
 
-sed -i -e "s/ONEMARK_SETUP=1/ONEMARK_SETUP=0/" "$DIR/Resources/app.asar.unpacked/.env"
-sed -i -e "s/ONEMARK_PATH=.*/ONEMARK_PATH=${ESCAPED_ONEMARK_PATH}/" "$DIR/Resources/app.asar.unpacked/.env"
-rm "$DIR/Resources/app.asar.unpacked/.env-e"
+sed -i -e "s/ONEMARK_SETUP=1/ONEMARK_SETUP=0/" "$DIR/.env"
+sed -i -e "s/ONEMARK_DB_PATH=.*/ONEMARK_DB_PATH=${ESCAPED_ONEMARK_PATH}/" "$DIR/.env"
+rm "$DIR/.env-e"
 
 echo "Native messaging host $HOST_NAME has been installed."
 

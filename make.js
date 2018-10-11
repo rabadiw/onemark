@@ -93,8 +93,8 @@ class ClientBuilder {
         ],
         linux: [
           { cmd: 'mkdir', args: ['-p', `${twd}/www/`] },
-          { cmd: 'rm', args: ['-rf', `${twd}/www/*`] },
-          { cmd: 'cp', args: ['-r', `${cwd}/build/*`, `${twd}/www/`] },
+          { cmd: 'rm', args: ['-rf', `${twd}/www/.`] },
+          { cmd: 'cp', args: ['-r', `${cwd}/build/.`, `${twd}/www/`] },
         ]
       }
 
@@ -154,8 +154,8 @@ class AppBuilder {
         linux: [
           { cmd: 'mkdir', args: ['-p', `${twd}`] },
           { cmd: 'rm', args: ['-rf', `${twd}/!(www)`] },
-          { cmd: 'cp', args: ['-r', `${cwd}/public/*`, `${twd}/`] },
-          { cmd: 'cp', args: ['-r', `${cwd}/build/*`, `${twd}/`] },
+          { cmd: 'cp', args: ['-rv', `${cwd}/public/.`, `${twd}/`] },
+          { cmd: 'cp', args: ['-r', `${cwd}/build/.`, `${twd}/`] },
         ]
       }
 

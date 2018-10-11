@@ -18,5 +18,9 @@
   "scripts": {
     "build": "tsc -p .",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "ts-node": "^7.0.1",
+    "dotenv": "6.0.0"
   }
 }

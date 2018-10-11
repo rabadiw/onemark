@@ -1,6 +1,4 @@
 const myMock = jest.fn();
-const { AppConfig } = require("../app/api/config/settings")
-
 
 test('middleware test', () => {
 
@@ -63,15 +61,5 @@ test('middleware test', () => {
     .start(process.argv);
 
   expect(myMock).toBeCalled();
-
-});
-
-test('appSettings values', () => {
-
-  console.info("test")
-
-  console.info(`AppConfig.Settings: ${JSON.stringify(AppConfig.init())}`);
-
-  expect(1).toEqual(1);
 
 });

@@ -1,3 +1,4 @@
+"use strict";
 // open link event
 window.document.addEventListener("open_link", function (args) {
     let { url, title } = args.detail;
