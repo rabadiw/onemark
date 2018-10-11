@@ -4,7 +4,7 @@
 "use strict";
 const { tracer } = require("./modules/tracer")
 const { cmdline } = require("./modules/cmdline")
-const { envLoader } = require("./modules/envLoader")
+const { envLoader, envSetup } = require("./modules/envLoader")
 const { OnemarkApp } = require("./onemark-app")
 //const { squirrelStartup } = require("./squirrelStartup")
 const { startup } = require("./modules/startup")
@@ -18,6 +18,8 @@ const useEnv = (args, next) => {
     // load .env
     envLoader.init(args);
     tracer.info(`Running in ${process.env.RUNTIME_MODE} mode`)
+
+    envSetup.ensureSetup();
 
     if (next) {
         next()
@@ -51,7 +53,7 @@ const useApi = (args, next) => {
 // eslint-disable-next-line no-unused-vars
 const useApp = (args, next) => {
     let options = {}
-    if (startupApi(args)) {
+    if (process.platform !== "darwin" && startupApi(args)) {
         options = { hidden: true }
     }
     new OnemarkApp(options)

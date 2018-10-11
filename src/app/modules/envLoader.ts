@@ -100,4 +100,58 @@ class envLoader {
     }
 }
 
-export { envLoader };
+class envSetup {
+    static isDarwinOrLinux = () => {
+        return ((/^darwin|^linux/.test(process.platform)))
+    }
+    static ensureSetup() {
+        const setup = () => {
+            const { exec } = require('child_process')
+            const fs = require("fs")
+
+            let configfile = process.env.ONEMARK_CONFIG_PATH;
+            tracer.info(`Config.sh path ${configfile}`)
+
+            if (fs.existsSync(configfile)) {
+                exec(configfile, (err, stdout, stderr) => {
+                    if (err) {
+                        // node couldn't execute the command
+                        tracer.info(`stderr: ${stderr}`)
+                        return
+                    }
+                    // plist will launch a new agent
+                    // exit this one
+                    process.exit()
+                })
+            }
+        }
+
+        // OSX only
+        // linux based distro only
+        if (!this.isDarwinOrLinux()) { return }
+
+        if (process.env.ONEMARK_SETUP === "1") {
+            setup()
+        }
+    }
+
+    static unconfigure() {
+        const { exec } = require('child_process')
+        const fs = require("fs")
+
+        let unconfigfile = process.env.ONEMARK_UNCONFIG_PATH;
+        tracer.info(`Config.sh path ${unconfigfile}`)
+
+        if (fs.existsSync(unconfigfile)) {
+            exec(unconfigfile, (err, stdout, stderr) => {
+                if (err) {
+                    // node couldn't execute the command
+                    tracer.info(`stderr: ${stderr}`)
+                    return
+                }
+            })
+        }
+    }
+}
+
+export { envLoader, envSetup };

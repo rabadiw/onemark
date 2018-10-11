@@ -14,7 +14,7 @@ const { autoUpdater } = require("electron-updater");
 const { sendNotification, sendUpdateDownloaded } = require("./app-events");
 const { appSettings } = require("./config/settings");
 const { tracer, LogLevels } = require("./modules/tracer");
-import { OnemarkStartup } from "./api/onemark.startup";
+import { envSetup } from "./modules/envLoader";
 
 const status = (msg: string) => {
   sendNotification(msg);
@@ -44,8 +44,8 @@ autoUpdater.on("update-downloaded", (evt, info) => {
   status("Update downloaded");
   // sendUpdateDownloaded(autoUpdater);
   sendUpdateDownloaded(undefined);
-
-  OnemarkStartup.init().unconfigure();
+  // unconfig to enable for update
+  envSetup.unconfigure();
 })
 
 const appUpdater = {

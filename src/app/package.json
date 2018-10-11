@@ -9,11 +9,11 @@
   "license": "ISC",
   "devDependencies": {
     "@types/body-parser": "1.17.0",
-    "@types/node": "10.11.3",
+    "@types/node": "10.11.7",
     "body-parser": "1.18.3",
-    "express": "4.16.3",
+    "express": "4.16.4",
     "rxjs": "6.3.3",
-    "typescript": "3.1.1"
+    "typescript": "3.1.2"
   },
   "scripts": {
     "build": "tsc -p .",
